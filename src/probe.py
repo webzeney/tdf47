@@ -83,14 +83,37 @@ INCOMPLETE_CHAIN_ERR = "unable to get local issuer certificate"
 
 
 def is_inconclusive(url: str, status, err) -> bool:
-    """生死を判定できない応答か（証明書チェーン不完全はすべてのホスト、それ以外は INCONCLUSIVE_HOSTS のみ）。"""
+    """生死を判定できない応答か（証明書チェーン不完全・200以外の成功応答はすべてのホスト、
+    それ以外は INCONCLUSIVE_HOSTS のみ）。"""
     if err and status is None and INCOMPLETE_CHAIN_ERR in err:
+        return True
+    # 200以外の成功応答（202 など）。ボット対策の確認画面などで返ることがあり、ページの有無は分からない
+    # （2026-10-27 確認：茨城県後期高齢者医療広域連合・益子町・河内町で毎回 202）。
+    if status is not None and 200 < status < 300:
         return True
     if not host_matches(url):
         return False
     if status in INCONCLUSIVE_HTTP:
         return True
     return bool(err) and status is None and any(k in err for k in INCONCLUSIVE_ERR)
+
+
+# 一時的な不調の可能性がある失敗（時間切れ・接続の切断・サーバー側の一時エラー）。
+# 1回だけではリンク切れにせず、前回の確認でも失敗していたとき（2回続けて失敗）にリンク切れにする。
+# （2026-10-27：一度の時間切れでリンク切れになり、ブラウザでは見られる例規集があったため）
+TRANSIENT_HTTP = {502, 503, 504}
+TRANSIENT_ERR = ("timed out", "RemoteDisconnected", "Connection reset")
+
+
+def is_transient(status, err) -> bool:
+    """一時的な不調の可能性がある失敗か。"""
+    if status in TRANSIENT_HTTP:
+        return True
+    return bool(err) and status is None and any(k in err for k in TRANSIENT_ERR)
+
+
+def is_alive(status, err) -> bool:
+    return status == 200 and err is None
 
 
 def _legacy_ssl_context():
@@ -237,22 +260,42 @@ def _fetch(url: str, context=None, max_bytes: int = 200_000):
 
 def last_probe(conn, link_id):
     row = conn.execute(
-        "SELECT http_status,final_url,page_title FROM probe "
+        "SELECT http_status,final_url,page_title,error FROM probe "
         "WHERE link_id=? AND (error IS NULL OR error NOT IN (?,?,?)) ORDER BY checked_at DESC LIMIT 1",
         (link_id, ROBOTS_ERR) + OFFICIAL_MARKERS).fetchone()
     return dict(row) if row else None
 
 
+def recent_probes(conn, link_id, n=2):
+    """「確認の試み」の直近 n 回（新しい順）。robots.txt 不許可・公式サイト掲載の照合は除く。"""
+    return [dict(r) for r in conn.execute(
+        "SELECT http_status,error FROM probe WHERE link_id=? AND (error IS NULL OR error NOT IN (?,?,?)) "
+        "ORDER BY checked_at DESC, id DESC LIMIT ?",
+        (link_id, ROBOTS_ERR) + OFFICIAL_MARKERS + (n,)).fetchall()]
+
+
+def failed_before(prev, url) -> bool:
+    """前回の確認でも失敗していたか（prev は前回の確認結果。無ければ None）。
+    一時的な失敗が2回続いたらリンク切れにするために使う。前回が「判定できない」応答なら失敗に数えない。"""
+    if prev is None or is_alive(prev["http_status"], prev["error"]):
+        return False
+    return not is_inconclusive(url, prev["http_status"], prev["error"])
+
+
 def reclassify(conn) -> int:
-    """dead のうち、直近の確認結果が「判定できない」だったものを unchecked に戻す（通信なし・冪等）。"""
-    rows = conn.execute(
-        "SELECT l.id, l.url, p.http_status, p.error FROM link l "
-        "JOIN probe p ON p.id = (SELECT id FROM probe WHERE link_id=l.id "
-        "AND (error IS NULL OR error NOT IN (?,?)) ORDER BY checked_at DESC, id DESC LIMIT 1) "
-        "WHERE l.status='dead'", OFFICIAL_MARKERS).fetchall()
+    """dead のうち、直近の確認結果が「判定できない」か「一時的な失敗が1回だけ」だったものを
+    unchecked に戻す（通信なし・冪等）。"""
+    rows = conn.execute("SELECT id, url FROM link WHERE status='dead'").fetchall()
     n = 0
     for r in rows:
-        if is_inconclusive(r["url"], r["http_status"], r["error"]):
+        ps = recent_probes(conn, r["id"])
+        if not ps:
+            continue
+        last, prev = ps[0], (ps[1] if len(ps) > 1 else None)
+        back = is_inconclusive(r["url"], last["http_status"], last["error"]) or (
+            is_transient(last["http_status"], last["error"])
+            and not failed_before(prev, r["url"]))
+        if back:
             conn.execute("UPDATE link SET status='unchecked' WHERE id=?", (r["id"],))
             n += 1
     conn.commit()
@@ -266,13 +309,14 @@ def prune_history(conn) -> int:
     """probe の履歴を1リンクにつき直近 KEEP_HISTORY 回分に間引く。
     DBは毎日 git にコミットされるため、履歴を無制限に残すとDB・リポジトリが膨らみ続ける。
     使っているのは「直近の結果」（前回との比較・誤判定の見直し・巡回の順番）だけ。
-    公式サイト掲載の照合（OFFICIAL_MARKERS）は通常の確認とは別枠で、それぞれ直近3回分を残す。
+    公式サイト掲載の照合（OFFICIAL_MARKERS）と robots.txt 不許可の記録は通常の確認とは別枠で、
+    それぞれ直近3回分を残す（不許可の記録が通常の確認の履歴を押し出さないように。2回続けての失敗の判定に使う）。
     変化のあった確認は reports/monthly-review-*.csv にも残る。"""
     cur = conn.execute(
         "DELETE FROM probe WHERE id IN (SELECT id FROM (SELECT id, ROW_NUMBER() OVER "
-        "(PARTITION BY link_id, (error IS NOT NULL AND error IN (?,?)) "
+        "(PARTITION BY link_id, CASE WHEN error IN (?,?) THEN 1 WHEN error = ? THEN 2 ELSE 0 END "
         "ORDER BY checked_at DESC, id DESC) AS rn FROM probe) WHERE rn > ?)",
-        OFFICIAL_MARKERS + (KEEP_HISTORY,))
+        OFFICIAL_MARKERS + (ROBOTS_ERR, KEEP_HISTORY))
     n = cur.rowcount
     conn.commit()
     if n:
@@ -338,11 +382,12 @@ def main():
             "VALUES (?,?,?,?,?,?,?)",
             (l["id"], NOW, status, final_url, title, changed, err))
         # 生死を link.status に確定。生存なら last_checked を更新（中核機能）。
-        alive = status == 200 and err is None
+        alive = is_alive(status, err)
         if alive:
             new_status = "ok"
-        elif is_inconclusive(url, status, err):
-            # 判定できない：リンク切れにはしない。最終確認日は更新しない。
+        elif is_inconclusive(url, status, err) or (
+                is_transient(status, err) and not failed_before(prev, url)):
+            # 判定できない／一時的な失敗が1回目：リンク切れにはしない。最終確認日は更新しない。
             new_status = "ok" if l["status"] == "ok" else "unchecked"
         else:
             new_status = "dead"
