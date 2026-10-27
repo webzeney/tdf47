@@ -65,3 +65,8 @@ entity_code,kind_code,url,evidence,checked_on,note
 405035,kouhou,https://www.town.tachiarai.fukuoka.jp/list00327.html,https://www.town.tachiarai.fukuoka.jp/,2026-10-25,公式トップの「広報たちあらい」リンク先
 406104,kouhou,https://www.town.fukuchi.lg.jp/soshiki/soumu/dxsuisin/koho/kouhou/index.html,https://www.town.fukuchi.lg.jp/,2026-10-25,ページ見出し「広報ふくちバックナンバー」
 102105,official,https://www.city.tomioka.lg.jp/,https://www.city.tomioka.lg.jp/www/index.html,2026-10-25,取り込み時にリンク切れ扱いだったが実在（/www/index.html へ転送）
+074080,kouhou,https://www.town.inawashiro.fukushima.jp/site/koho/,https://www.town.inawashiro.fukushima.jp/index2.html,2026-10-27,公式トップ（index2.html）の広報バックナンバーのリンク先。見出し「広報猪苗代」
+075221,kouhou,https://www.town.ono.fukushima.jp/soshiki/2/ono-kouhou.html,https://www.town.ono.fukushima.jp/home.html,2026-10-27,公式トップ（home.html）の広報リンク先。見出し「広報おのいろ」（広報おのまちから改称）
+345458,kouhou,https://www.jinsekigun.jp/town/formation/seisaku/06/jinsekikougen/,https://www.jinsekigun.jp/town/,2026-10-27,行政サイトの「過去の広報紙」リンク先。見出し「広報神石高原」
+404489,kouhou,https://vill.toho-info.com/40000/41300/index.html,https://vill.toho-info.com/0000/index.html,2026-10-27,公式トップ（0000/index.html）の広報リンク先。見出し「広報『東峰』」
+298514,reiki,https://nara-kouiki.jp/reiki_int/reiki_menu.html,https://nara-kouiki.jp/rule.html,2026-10-27,一度の時間切れでリンク切れ判定。ブラウザで表示を確認（Reiki-Base）
