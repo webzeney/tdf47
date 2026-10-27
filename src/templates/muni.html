@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+{% block css %}muni{% endblock %}
+{% from "_cards.html" import kicon, lcard, soon_rows %}
+
+{% macro snsicon(key) -%}
+{% if key == 'x' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.53 3h3.02l-6.6 7.54L21.75 21h-5.9l-4.63-6.05L5.9 21H2.88l7.06-8.07L2.5 3h6.05l4.18 5.53L17.53 3Zm-1.06 16.2h1.67L7.6 4.72H5.8l10.67 14.48Z"/></svg>
+{%- elif key == 'line' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.9 3 2.75 6.34 2.75 10.46c0 3.69 3.29 6.78 7.73 7.37.3.06.71.2.81.46.09.24.06.6.03.85l-.13.79c-.04.23-.19.9.79.49.98-.41 5.29-3.12 7.22-5.34 1.33-1.46 1.97-2.95 1.97-4.62C21.17 6.34 17.06 3 12 3Z"/></svg>
+{%- elif key == 'yt' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77C22 15.2 22 12 22 12s0-3.2-.4-4.8ZM10 15.2V8.8l5.2 3.2-5.2 3.2Z"/></svg>
+{%- elif key == 'fb' %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>
+{%- else %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.44c2.46 0 2.75.01 3.72.05.9.04 1.39.19 1.71.32.43.17.74.37 1.06.69.32.32.52.63.69 1.06.13.32.28.81.32 1.71.04.97.05 1.26.05 3.72s-.01 2.75-.05 3.72c-.04.9-.19 1.39-.32 1.71-.17.43-.37.74-.69 1.06-.32.32-.63.52-1.06.69-.32.13-.81.28-1.71.32-.97.04-1.26.05-3.72.05s-2.75-.01-3.72-.05c-.9-.04-1.39-.19-1.71-.32a2.86 2.86 0 0 1-1.06-.69 2.86 2.86 0 0 1-.69-1.06c-.13-.32-.28-.81-.32-1.71C4.45 14.75 4.44 14.46 4.44 12s.01-2.75.05-3.72c.04-.9.19-1.39.32-1.71.17-.43.37-.74.69-1.06.32-.32.63-.52 1.06-.69.32-.13.81-.28 1.71-.32.97-.04 1.26-.05 3.72-.05M12 6.28a5.72 5.72 0 1 0 0 11.44 5.72 5.72 0 0 0 0-11.44Zm0 9.44a3.72 3.72 0 1 1 0-7.44 3.72 3.72 0 0 1 0 7.44Zm5.96-9.65a1.34 1.34 0 1 1-2.68 0 1.34 1.34 0 0 1 2.68 0Z"/></svg>{% endif %}
+{%- endmacro %}
+
+{% macro cmptable(e, pref, base_pop, base_area, rows, kind) -%}
+<table class="cmp" data-cmp="{{ kind }}">
+  <thead>
+    <tr>
+      <th>自治体</th>
+      <th>都道府県</th>
+      <th>区分</th>
+      <th class="num sortable" data-k="pop">人口</th>
+      <th class="num sortable" data-k="area">面積</th>
+      <th class="link">リンク</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="base">
+      <td><b>{{ e.name }}</b> <span class="tag">起点</span></td>
+      <td>{{ pref.name }}</td>
+      <td>{{ e.type_label or '—' }}</td>
+      <td class="num" data-v="{{ e.population or 0 }}">{{ base_pop or '—' }}</td>
+      <td class="num" data-v="{{ e.area_km2 or 0 }}">{{ base_area or '—' }}</td>
+      <td class="link"><a href="{{ e.path }}">ページ<span class="go">›</span></a></td>
+    </tr>
+    {% for n in rows %}
+    <tr>
+      <td>{{ n.name }}</td>
+      <td>{{ n.pref_name }}</td>
+      <td>{{ n.type_label or '—' }}</td>
+      <td class="num" data-v="{{ n['pop'] or 0 }}">{{ n.pop_disp or '—' }}</td>
+      <td class="num" data-v="{{ n['area'] or 0 }}">{{ n.area_disp or '—' }}</td>
+      <td class="link"><a href="{{ n.path }}">ページ<span class="go">›</span></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{%- endmacro %}
+
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>{{ e.name }}
+  </nav>
+
+  <div class="phead">
+    <div class="phead-top">
+      <div class="ttl">
+        <div class="h1row">
+          <div class="nameblock">
+            {% if e.kana %}<p class="kana">{{ e.kana }}</p>{% endif %}
+            <h1>{{ e.name }}</h1>
+          </div>
+          <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query={{ (pref.name + e.name)|urlencode }}" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 21s-7-4.6-7-10a7 7 0 1114 0c0 5.4-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            地図で見る
+          </a>
+        </div>
+        <div class="badges">
+          <span class="badge">{{ e.type_label }}</span>
+          <span class="badge">{{ pref.name }}</span>
+          <span class="badge code">{{ code5 }}</span>
+          {% if e.rep_zip %}<span class="badge zip" title="代表郵便番号">〒{{ e.rep_zip[:3] }}-{{ e.rep_zip[3:] }}</span>{% endif %}
+        </div>
+      </div>
+
+      {% if official and official.state in ('ready','seeded') or office %}
+      <div class="officebox">
+        {% if official and official.state in ('ready','seeded') %}
+        <a class="official" href="{{ official.url }}" target="_blank" rel="noopener" data-outbound="official">
+          <span class="ot">{{ e.name }} 公式サイト<small>{{ official.disp }}</small></span>
+          <span class="go">↗</span>
+        </a>
+        {% endif %}
+        {% if office %}
+        <div class="contact">
+          <div><span>役所</span>{% if office.zip %}〒{{ office.zip }}<br>{% endif %}{{ office.addr }}</div>
+          {% if office.tel %}<div><span>電話</span>{{ office.tel }}</div>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if facts %}
+    <div class="phead-data">
+      {% for label, value, unit in facts %}
+      <div class="dstat"><span>{{ label }}</span><b>{{ value }}</b><i>{{ unit }}</i></div>
+      {% endfor %}
+      <p class="asof">人口・世帯数は住民基本台帳／面積は全国都道府県市区町村別面積調による。</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="inner sec">
+  <div class="sec-title"><h2>行政・法務の情報</h2></div>
+  <div class="panel">
+    <div class="links">
+      {% for item in admin %}{{ lcard(item) }}{% endfor %}
+    </div>
+    {{ soon_rows(v2) }}
+  </div>
+</div>
+
+{% if fiscal %}
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>財政指標</h2></div>
+  <div class="panel">
+    {% if fiscal.rows %}
+    <div class="cmp-head">
+      <p class="cmp-lead">{{ fiscal.year }}の決算にもとづく主要な財政指標です。</p>
+      <button class="copybtn" type="button" data-target="fiscal">表をコピー</button>
+    </div>
+    <div class="phead-data" style="border-top:0;padding-top:0" data-copy="fiscal" data-copy-head="{{ e.name }}（{{ fiscal.year }}）">
+      {% for it in fiscal.rows %}
+      <div class="dstat"><span>{{ it.label }}</span><b>{{ it.value }}</b><i>{{ it.unit }}</i></div>
+      {% endfor %}
+    </div>
+    <p class="asof">{{ fiscal.year }}・総務省「主要財政指標一覧」より。<a href="https://www.soumu.go.jp/iken/shihyo_ichiran.html" target="_blank" rel="noopener">出典（総務省）</a></p>
+    {% endif %}
+    {% if fiscal.ruiji or fiscal.card or fiscal.sim %}
+    <div class="links" style="margin-top:16px">
+      {% if fiscal.ruiji %}
+      <a class="lrow" href="{{ fiscal.ruiji.path }}">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="6" width="7" height="14" rx="1.2"/><rect x="13.5" y="10" width="7" height="10" rx="1.2"/></svg></span>
+        <span class="b">
+          <span class="nm">{{ fiscal.ruiji.label }}</span>
+          <span class="meta"><span>類似団体区分（{{ fiscal.ruiji.year }}・総務省 市町村決算カードより）</span>{% if fiscal.ruiji.desc %}<span>{{ fiscal.ruiji.desc }}</span>{% endif %}<span>同じ区分の自治体を一覧する</span></span>
+        </span>
+        <span class="go">›</span>
+      </a>
+      {% endif %}
+      {% if fiscal.card %}
+      <a class="lrow" href="{{ fiscal.card.url }}" target="_blank" rel="noopener" data-outbound="kessan_card">
+        <span class="ic">{{ kicon('kessan') }}</span>
+        <span class="b">
+          <span class="nm">決算カード <span class="chip ext">PDF</span></span>
+          <span class="meta"><span>{{ fiscal.card.pref }}の市町村決算カード（{{ fiscal.card.year }}）{% if fiscal.card.page %}の{{ fiscal.card.page }}ページ目{% endif %}</span><span>歳入・歳出の内訳や財政指標を1枚にまとめた総務省の資料</span></span>
+        </span>
+        <span class="go">↗</span>
+      </a>
+      {% endif %}
+      {% if fiscal.sim %}
+      <a class="lrow" href="{{ fiscal.sim.url }}" target="_blank" rel="noopener" data-outbound="similarity_card">
+        <span class="ic">{{ kicon('similarity') }}</span>
+        <span class="b">
+          <span class="nm">類似団体比較カード <span class="chip ext">PDF</span></span>
+          <span class="meta"><span>{{ fiscal.sim.pref }}の類似団体比較カード（{{ fiscal.sim.year }}）</span><span>財政指標を同じ類似団体区分の平均と比べた総務省の資料（都道府県ごとのPDF）</span></span>
+        </span>
+        <span class="go">↗</span>
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if wards %}
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>行政区</h2></div>
+  <div class="panel">
+    {% for w in wards %}
+    <div class="wardblk" id="ku-{{ w.slug }}">
+      <h3>{{ w.short_name }}</h3>
+      <div class="links">
+        {{ lcard({'kind':'reiki','label':'例規集','link':w.reiki}) }}
+        {{ lcard({'kind':'kouhou','label':'広報誌','link':w.kouhou}) }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if neighbors or similar %}
+<div class="inner sec" style="padding-top:6px" id="compare">
+  <div class="sec-title"><h2>となり・同規模と比べる</h2></div>
+  <div class="panel" data-cmproot>
+    <div class="cmptabs" role="tablist">
+      {% if neighbors %}<button class="cmptab on" type="button" data-cmp="adj">隣接（{{ neighbors|length }}）</button>{% endif %}
+      {% if similar %}<button class="cmptab{% if not neighbors %} on{% endif %}" type="button" data-cmp="sim">{% if similar_meta.mode == 'ruiji' %}同規模（類似団体区分）{% else %}同規模（人口が近い）{% endif %}</button>{% endif %}
+    </div>
+
+    {% if neighbors %}
+    <div class="cmppanel" data-cmp="adj">
+      <div class="cmp-head">
+        <p class="cmp-lead">{{ e.name }}と陸続きで隣接する{{ neighbors|length }}自治体。見出しクリックで人口・面積を並べ替えできます。</p>
+        <button class="copybtn" type="button" data-target="adj">表をコピー</button>
+      </div>
+      <div class="cmp-wrap">{{ cmptable(e, pref, base_pop, base_area, neighbors, 'adj') }}</div>
+      <a class="pill" href="{{ e.path }}neighbors/" style="margin-top:14px">隣接自治体の詳しい比較ページ<span class="go">›</span></a>
+    </div>
+    {% endif %}
+
+    {% if similar %}
+    <div class="cmppanel" data-cmp="sim">
+      <div class="cmp-head">
+        {% if similar_meta.mode == 'ruiji' %}
+        <p class="cmp-lead">{{ e.name }}と同じ類似団体区分（<a href="{{ similar_meta.path }}">{{ similar_meta.label }}</a>・全{{ similar_meta.total }}団体）のうち、人口が近い{{ similar|length }}自治体。議員定数・報酬や財政の比較相手探しに。</p>
+        {% else %}
+        <p class="cmp-lead">全国で人口が{{ e.name }}に近い{{ similar|length }}自治体（人口±15%以内）。議員定数・報酬や財政の比較相手探しに。</p>
+        {% endif %}
+        <button class="copybtn" type="button" data-target="sim">表をコピー</button>
+      </div>
+      <div class="cmp-wrap">{{ cmptable(e, pref, base_pop, base_area, similar, 'sim') }}</div>
+    </div>
+    {% endif %}
+    <p class="cx-more"><a href="/compare/#{{ e.code }}">{{ e.name }}を含めて、ほかの自治体とも自由に比べる（最大5団体）<span class="go">›</span></a></p>
+  </div>
+</div>
+{% endif %}
+
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>公式SNS・アプリ</h2></div>
+  <div class="panel">
+    <div class="sns">
+      {% for s in sns %}
+      {% if s.url %}
+      <a class="sitem" href="{{ s.url }}" target="_blank" rel="noopener" data-outbound="sns_{{ s.key }}">
+        <span class="ic {{ s.key }}">{{ snsicon(s.key) }}</span><b>{{ s.label }}</b>
+      </a>
+      {% else %}
+      <span class="sitem no"><span class="ic {{ s.key }}">{{ snsicon(s.key) }}</span><b>{{ s.label }}</b></span>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% set manhole = cards|selectattr('kind','equalto','manhole')|list if cards else [] %}
+{% set dam = cards|selectattr('kind','equalto','dam')|list if cards else [] %}
+{% if manhole or dam %}
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>ご当地カード</h2></div>
+  <div class="panel">
+    {% if manhole %}<p class="soonhead" style="margin-top:0">マンホールカード（{{ manhole|length }}種）</p>{% endif %}
+    {% for c in manhole %}
+    <div class="mh">
+      <div class="mhimg">（カード画像）<br>※ GKPへ利用照会中</div>
+      <div class="mhbody">
+        <div class="mh-name">
+          {% if c.stock %}<span class="stock">{% if c.stock=='ended' %}配布終了{% elif c.stock=='low' %}残りわずか{% else %}配布中{% endif %}</span>{% endif %}
+          <h3>{{ c.card_no }}</h3>
+        </div>
+        <dl class="dl">
+          {% if c.series %}<dt>弾数</dt><dd>{{ c.series }}</dd>{% endif %}
+          {% if c.issued_on %}<dt>発行日</dt><dd>{{ c.issued_on }}</dd>{% endif %}
+          {% if c.place_name %}<dt>配布場所</dt><dd>{{ c.place_name }}</dd>{% endif %}
+          {% if c.place_addr %}<dt>住所</dt><dd>{{ c.place_addr }}</dd>{% endif %}
+          {% if c.place_hours %}<dt>配布時間</dt><dd>{{ c.place_hours }}</dd>{% endif %}
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+    {% if dam %}
+    <p class="soonhead">ダムカード（{{ dam|length }}種）</p>
+    <div class="links">
+      {% for c in dam %}
+      <div class="lrow off" style="cursor:default">
+        <span class="b"><span class="nm">{{ c.card_no }}</span><span class="meta"><span>{{ c.place_name }}</span>{% if c.place_hours %}<span>{{ c.place_hours }}</span>{% endif %}</span></span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div class="inner" style="padding-top:28px;padding-bottom:10px">
+  <div class="src">
+    <h3>このページのデータについて</h3>
+    <ul>
+      <li>団体コード・自治体名 — 総務省 全国地方公共団体コード</li>
+      <li>公式サイト・広報誌・SNS — 都道府県市区町村（uub.jp）</li>
+      <li>例規集 — 地方自治研究機構「全国自治体例規集」</li>
+      <li>人口・面積 — 住民基本台帳／全国都道府県市区町村別面積調</li>
+      <li>財政指標 — 総務省「主要財政指標一覧」</li>
+      {% if fiscal and (fiscal.ruiji or fiscal.card) %}<li>類似団体区分・決算カード — 総務省「市町村決算カード」「類似団体比較カード」</li>{% endif %}
+      <li>郡名 — 日本郵便 郵便番号データ</li>
+    </ul>
+    <p>リンク先の内容はTDF47が作成したものではありません。情報が古い・リンクが切れているなどお気づきの点は <a href="/contact/">こちらからご報告</a> ください。</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // タブ切替（複数タブのときだけ。JS無効時は全パネル表示＝#6）
+  document.querySelectorAll('[data-cmproot]').forEach(function(root){
+    var tabs=[].slice.call(root.querySelectorAll('.cmptab'));
+    var panels=[].slice.call(root.querySelectorAll('.cmppanel'));
+    if(tabs.length<2) return;
+    function show(k){
+      tabs.forEach(function(t){t.classList.toggle('on',t.dataset.cmp===k);});
+      panels.forEach(function(p){p.hidden=(p.dataset.cmp!==k);});
+    }
+    tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.cmp);});});
+    show(tabs[0].dataset.cmp);
+  });
+  // 列の並べ替え
+  document.querySelectorAll('.cmp').forEach(function(tbl){
+    var tb=tbl.querySelector('tbody');
+    tbl.querySelectorAll('th.sortable').forEach(function(th){
+      var asc=false;
+      th.addEventListener('click',function(){
+        asc=!asc;var i=[].indexOf.call(th.parentNode.children,th);
+        var rows=[].slice.call(tb.querySelectorAll('tr'));
+        rows.sort(function(a,b){return (asc?1:-1)*((+a.children[i].dataset.v)-(+b.children[i].dataset.v));});
+        rows.forEach(function(r){tb.appendChild(r);});
+        tbl.querySelectorAll('th.sortable').forEach(function(x){x.classList.remove('asc','desc');});
+        th.classList.add(asc?'asc':'desc');
+      });
+    });
+  });
+  // 表をコピー（Excel貼り付け用TSV。リンク列は除外）
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var lines=[];
+      var blk=document.querySelector('[data-copy="'+btn.dataset.target+'"]');
+      if(blk){
+        // 財政指標（dstat）→「指標名[TAB]値[TAB]単位」の行
+        lines.push(['指標',blk.dataset.copyHead||'','単位'].join('\t'));
+        blk.querySelectorAll('.dstat').forEach(function(d){
+          lines.push([d.querySelector('span').textContent.trim(),d.querySelector('b').textContent.trim(),d.querySelector('i').textContent.trim()].join('\t'));
+        });
+      }else{
+        var tbl=document.querySelector('.cmp[data-cmp="'+btn.dataset.target+'"]');
+        if(!tbl){var pn=btn.closest('.cmppanel');tbl=pn&&pn.querySelector('.cmp');}
+        if(!tbl)return;
+        tbl.querySelectorAll('tr').forEach(function(tr){
+          var cells=[].slice.call(tr.children).filter(function(td){return !td.classList.contains('link');})
+            .map(function(td){return td.textContent.replace(/\s+/g,' ').trim();});
+          lines.push(cells.join('\t'));
+        });
+      }
+      var txt=lines.join('\n'),done=function(ok){btn.textContent=ok?'コピーしました':'コピー失敗';setTimeout(function(){btn.textContent='表をコピー';},1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(false);});
+      }else{
+        var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+        var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+        document.body.removeChild(ta);done(ok);
+      }
+    });
+  });
+})();
+</script>
+{% endblock %}

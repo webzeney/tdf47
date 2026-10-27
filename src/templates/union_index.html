@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block css %}union{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>広域連合
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ pref.name }}の広域連合</h1></div></div></div></div>
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    <div class="links">
+      {% for u in unions %}
+      <a class="lrow" href="{{ u.path }}">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M3 19c0-3 2-4.6 4-4.6S11 16 11 19M13 19c0-3 2-4.6 4-4.6S21 16 21 19"/></svg></span>
+        <span class="b"><span class="nm">{{ u.name }}</span><span class="meta"><span>広域連合のページへ</span></span></span>
+        <span class="go">›</span>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="note" style="margin-top:12px">v1.0 では後期高齢者医療広域連合を収録しています。一部事務組合は準備中です。</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block css %}union{% endblock %}
+{% from "_cards.html" import kicon, lcard %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span><a href="/type/union/">広域連合</a><span>›</span><a href="/{{ pref.slug }}/union/">{{ pref.name }}</a><span>›</span>{{ e.name }}
+  </nav>
+
+  <div class="phead">
+    <div class="phead-top">
+      <div class="ttl">
+        <div class="h1row">
+          <div class="nameblock">
+            <h1>{{ e.name }}</h1>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="badge">広域連合</span>
+          <span class="badge">{{ pref.name }}</span>
+          <span class="badge code">{{ code5 }}</span>
+          <span class="badge">後期高齢者医療</span>
+        </div>
+      </div>
+      {% if official and official.state in ('ready','seeded') %}
+      <div class="officebox">
+        <a class="official" href="{{ official.url }}" target="_blank" rel="noopener" data-outbound="official">
+          <span class="ot">公式サイト<small>{{ official.disp }}</small></span>
+          <span class="go">↗</span>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="phead-data">
+      <div class="dtext"><span>所管区域</span>{{ pref.name }}の全市町村</div>
+      <p class="asof">広域連合には人口・面積・隣接自治体のデータがありません。</p>
+    </div>
+  </div>
+</div>
+
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="sec-title"><h2>この団体の情報</h2></div>
+  <div class="panel">
+    <div class="links">
+      {% for item in admin %}{{ lcard(item) }}{% endfor %}
+    </div>
+  </div>
+</div>
+
+{% if members %}
+<div class="inner sec" style="padding-top:6px;padding-bottom:40px">
+  <div class="sec-title"><h2>構成団体</h2></div>
+  <div class="panel">
+    <div class="mgrid">
+      {% for m in members %}<a class="mtile" href="{{ m.path }}"><span class="n">{{ m.name }}</span></a>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

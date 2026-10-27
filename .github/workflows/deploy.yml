@@ -1,0 +1,86 @@
+name: ビルドしてFTP公開
+
+# テンプレート・静的ファイル・DBの変更時に、静的サイトを生成してサーバーへFTP配信する。
+# PC非依存（GitHubのクラウドで動く）。手動実行(workflow_dispatch)も可。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'static/**'
+      - 'db/tdf47.sqlite'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+# FTP配信は3つのワークフロー（このファイル・probe.yml・soumu.yml）で同じグループに入れて1本ずつ実行する。
+# 実行中の配信は止めない（途中で止めるとサーバーが中途半端な状態になるため）。
+# 待機中の配信は新しいものに置き換わるが、各配信は開始時点の main の最新を取得するので取りこぼしはない。
+concurrency:
+  group: tdf47-ftp
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得（main の最新）
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存をインストール（生成に必要なのは Jinja2 のみ。DBはコミット済み）
+        run: pip install jinja2
+
+      - name: 静的サイトを生成
+        env:
+          TZ: Asia/Tokyo
+          TDF47_SITE_URL: ${{ vars.SITE_URL }}
+          TDF47_GA4_ID: ${{ vars.GA4_ID }}
+          TDF47_CONTACT_URL: ${{ vars.CONTACT_URL }}
+        run: python3 src/build.py
+
+      - name: 配信先パスを正規化（末尾スラッシュ必須）
+        run: |
+          # 配信先はサーバー内の公開フォルダ tdf47.com に固定。
+          # GitHub変数 FTP_DIR には依存しない（誤設定による取り違えを防ぐため）。
+          echo "SERVER_DIR=/tdf47.com/" >> "$GITHUB_ENV"
+
+      - name: dist/ をFTPでサーバーへ配信
+        id: ftp
+        continue-on-error: true   # サーバー側の一時的なタイムアウトに備え、失敗したら下で1回だけやり直す
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store
+
+      - name: FTP配信をやり直す（1回目が失敗したときだけ）
+        if: ${{ steps.ftp.outcome == 'failure' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store

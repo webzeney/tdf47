@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block css %}pref{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ type_label }}</h1></div></div>
+      <div class="badges"><span class="badge">{{ total }}団体</span></div></div></div>
+    {% if type_desc %}<p class="asof" style="margin-top:10px">{{ type_desc }}</p>{% endif %}
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    {% if groups %}
+    <div class="jumpbar" aria-label="都道府県へ移動">
+      {% for g in groups %}<a class="jchip" href="#pref-{{ g.slug }}">{{ g.name }}<em>{{ g['items']|length }}</em></a>{% endfor %}
+    </div>
+    <div class="mgrid">
+      {% for g in groups %}
+      <div class="mhead" id="pref-{{ g.slug }}"><a href="{{ '/' ~ g.slug ~ '/' }}">{{ g.name }}</a><span style="color:var(--brown2)">{{ g['items']|length }}団体</span></div>
+      {% for e in g['items'] %}
+      <a class="mtile" href="{{ e.path }}">
+        <span class="k">{{ e.kana }}</span><span class="n">{{ e.name }}</span>
+      </a>
+      {% endfor %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="note">この区分のデータは準備中です。</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

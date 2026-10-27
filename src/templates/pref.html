@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block css %}pref{% endblock %}
+{% from "_cards.html" import kicon, lcard, soon_rows %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}{{ pref.name }}
+  </nav>
+
+  <div class="phead">
+    <div class="phead-top">
+      <div class="ttl">
+        <div class="h1row">
+          <div class="nameblock">
+            {% if pref.kana %}<p class="kana">{{ pref.kana }}</p>{% endif %}
+            <h1>{{ pref.name }}</h1>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="badge">{{ pref.type_label or '都道府県' }}</span>
+          {% if block %}<span class="badge">{{ block.label }}</span>{% endif %}
+          <span class="badge code">{{ code5 }}</span>
+          {% if n_seirei %}<span class="badge">政令指定都市 {{ n_seirei }}市</span>{% endif %}
+        </div>
+      </div>
+      {% if official and official.state in ('ready','seeded') or office %}
+      <div class="officebox">
+        {% if official and official.state in ('ready','seeded') %}
+        <a class="official" href="{{ official.url }}" target="_blank" rel="noopener" data-outbound="official">
+          <span class="ot">{{ pref.name }} 公式サイト<small>{{ official.disp }}</small></span>
+          <span class="go">↗</span>
+        </a>
+        {% endif %}
+        {% if office %}
+        <div class="contact">
+          <div><span>庁舎</span>{% if office.zip %}〒{{ office.zip }}<br>{% endif %}{{ office.addr }}</div>
+          {% if office.tel %}<div><span>電話</span>{{ office.tel }}</div>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="phead-data">
+      <div class="dstat"><span>市区町村</span><b>{{ n_muni }}</b><i>団体</i></div>
+      {% if pref.population %}<div class="dstat"><span>人口</span><b>{{ pref.population|format_num }}</b><i>人</i></div>{% endif %}
+      {% if pref.area_km2 %}<div class="dstat"><span>面積</span><b>{{ "{:,}".format(pref.area_km2) }}</b><i>km²</i></div>{% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="inner sec">
+  <div class="sec-title"><h2>{{ pref.name }}の市区町村</h2></div>
+  <div class="panel">
+    <div class="sorter">
+      <b>並べ替え</b>
+      <button class="sortbtn on" type="button" data-sort="code">団体コード順</button>
+      <button class="sortbtn" type="button" data-sort="kana">五十音順</button>
+      <button class="sortbtn" type="button" data-sort="pop">人口が多い順</button>
+    </div>
+    <div class="mgrid" id="mgrid">
+      {% for g in groups %}
+      <div class="mhead">{{ g.head }}<span style="color:var(--brown2)">{{ g.sub }}</span></div>
+      {% for t in g.tiles %}
+      <a class="mtile{% if g.ward %} ward{% endif %}" href="{{ t.path }}" data-kana="{{ t.kana }}" data-pop="{{ t['pop'] or 0 }}">
+        <span class="k">{{ t.k }}</span><span class="n">{{ t.name }}</span>{% if t.zip %}<span class="z">{{ t.zip }}</span>{% endif %}{% if t.pop_disp %}<span class="p">{{ t.pop_disp }}</span>{% endif %}
+      </a>
+      {% endfor %}
+      {% endfor %}
+    </div>
+    <p class="subnote">行政区は、区単位で例規集・広報誌が分かれている項目のみ収録しています。五十音順に並べ替えると市区町村がひとつづきの並びになります。</p>
+  </div>
+</div>
+
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>{{ pref.name }}（県庁）の情報</h2></div>
+  <div class="panel">
+    <div class="links">
+      {% for item in admin %}{{ lcard(item) }}{% endfor %}
+    </div>
+    {{ soon_rows([('pubcomment','パブリックコメント'),('toukei','統計')]) }}
+  </div>
+</div>
+
+{% if fiscal %}
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>財政指標</h2></div>
+  <div class="panel">
+    <div class="phead-data" style="border-top:0;padding-top:0">
+      {% for it in fiscal.rows %}
+      <div class="dstat"><span>{{ it.label }}</span><b>{{ it.value }}</b><i>{{ it.unit }}</i></div>
+      {% endfor %}
+    </div>
+    <p class="asof">{{ fiscal.year }}・総務省「主要財政指標一覧」より。<a href="https://www.soumu.go.jp/iken/shihyo_ichiran.html" target="_blank" rel="noopener">出典（総務省）</a></p>
+  </div>
+</div>
+{% endif %}
+
+{% if unions %}
+<div class="inner sec" style="padding-top:6px;padding-bottom:40px">
+  <div class="sec-title"><h2>県内の広域連合</h2></div>
+  <div class="panel">
+    <div class="links">
+      {% for u in unions %}
+      <a class="lrow" href="{{ u.path }}">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M3 19c0-3 2-4.6 4-4.6S11 16 11 19M13 19c0-3 2-4.6 4-4.6S21 16 21 19"/></svg></span>
+        <span class="b"><span class="nm">{{ u.name }}</span><span class="meta"><span>広域連合のページへ</span></span></span>
+        <span class="go">›</span>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="note" style="margin-top:10px">一部事務組合（消防・衛生・水道など）は準備中です。</p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}<script src="/assets/js/prefsort.js" defer></script>{% endblock %}

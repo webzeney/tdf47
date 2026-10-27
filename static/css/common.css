@@ -1,0 +1,261 @@
+/* 全ページ共通の上書き（ページ別CSSの後に読み込む）。
+   モックの各ページCSSに無い/不足している共通要素をここで補正する。 */
+
+/* ── 検索候補ドロップダウン（モックに無い追加UI）── */
+.searchrow{position:relative}
+.suggest{list-style:none;margin:6px 0 0;padding:4px;position:absolute;left:0;right:0;z-index:60;
+  background:var(--white,#fff);border:1px solid var(--line,#e3ddcf);border-radius:12px;
+  box-shadow:0 12px 32px rgba(60,40,10,.16);max-height:56vh;overflow:auto}
+.suggest li a{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:8px;color:var(--ink,#141413);text-decoration:none}
+.suggest li a:hover{background:var(--cream2,#f3eee1)}
+.suggest li a span{color:var(--brown2,#8a8575);font-size:13px}
+
+/* ── フッター上部（おことわり1枠・全幅）── */
+footer .foot{padding-block:30px 18px;display:block}
+footer .foot.foot-1col{max-width:none}
+footer .foot h4{font-size:14px;margin:0 0 7px;font-weight:700}
+footer .foot p{font-size:13px;line-height:1.95;margin:0;color:var(--brown2,#7a7259);max-width:none}
+footer .foot p strong{color:var(--brown,#382710)}
+footer .footbar{font-size:13px}
+@media (max-width:700px){
+  footer .foot{padding-block:22px 14px}
+}
+
+/* ── SPで本文の外枠をもっと広く（左右の余白を詰めて約95%幅・センター）── */
+@media (max-width:600px){
+  .inner{padding-inline:2.5vw !important}
+}
+
+/* 地図「地図から探す」のレイアウトは top.css（7ブロックを --x/--y で地図周りに配置）に統合。
+   旧 .mapsplit/.maprail は廃止。 */
+
+/* ── Fix: SPで公式サイトCTAを横幅100%（officeboxのclamp幅を解除）── */
+@media (max-width:600px){
+  .phead-top{flex-direction:column;gap:14px}
+  .phead-top .ttl{flex:0 0 auto}      /* 横用の flex-basis:300px が縦で高さになるのを打ち消す */
+  .officebox{width:100% !important;max-width:100%}
+  .official{width:100%}
+}
+
+/* ── Fix: 同一市でご当地カードが2枚以上あるとき、カード間に余白を開ける ── */
+.panel .mh + .mh{margin-top:22px;padding-top:22px;border-top:1px solid var(--line,#e7ddcb)}
+
+/* ── Fix: SPで行政・法務/行政区などのリンク行の高さを揃えて統一感 ── */
+@media (max-width:600px){
+  .links .lrow{min-height:76px}
+}
+
+/* ── Fix: カードの「配布中」バッジを card_no の左隣に ── */
+.mh-name{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mh-name h3{margin:0}
+.mh-name .stock{order:-1}
+
+/* ── Fix: ダムカード等（画像なし）は画像カラムを作らず全幅テキストに ── */
+.mh.mh-nopic{grid-template-columns:1fr}
+
+/* ── Fix: 統計とデータ元を1枠に統合。データ元はボタン風をやめテキスト表記に ── */
+.datapanel{display:grid;grid-template-columns:minmax(220px,auto) 1fr;gap:24px 44px;align-items:center;padding:22px 26px}
+.datastats{display:flex;flex-direction:column;gap:12px}
+.datastats .statrow{display:flex;align-items:baseline;gap:10px;margin:0}
+.datastats .statrow em{font-style:normal;color:var(--brown2,#7a7259);font-size:13px;min-width:4.5em}
+.datastats .statrow b{font-size:26px;font-weight:800;letter-spacing:.02em}
+.datastats .statrow i{font-style:normal;color:var(--brown2,#7a7259);font-size:13px}
+.datasrc{border-left:1px solid var(--line,#e7ddcb);padding-left:28px}
+.datasrc-ttl{font-size:12.5px;color:var(--brown2,#7a7259);font-weight:700;letter-spacing:.06em;margin:0 0 9px}
+.datasrc-list{list-style:none;margin:0 0 10px;padding:0;font-size:13px;color:var(--brown2,#7a7259);line-height:1.95}
+.datasrc-list li{padding-left:15px;position:relative}
+.datasrc-list li::before{content:"";position:absolute;left:3px;top:.75em;width:4px;height:4px;border-radius:50%;background:var(--brown3,#b3a789)}
+/* 出典の詳細＝共通の .pill に統一。PCは右寄せ、SPは中央。 */
+.datasrc .more{margin:16px 0 0;display:flex;justify-content:flex-end}
+.datasrc .more .pill{margin:0}
+@media (max-width:700px){.datasrc .more{justify-content:center}}
+
+@media (max-width:700px){
+  .datapanel{grid-template-columns:1fr;gap:18px;padding:18px}
+  .datasrc{border-left:0;border-top:1px solid var(--line,#e7ddcb);padding-left:0;padding-top:16px}
+  .datastats{flex-direction:row;flex-wrap:wrap;gap:8px 22px}
+  .datasrc .more{text-align:center}
+}
+
+/* ── 固定ページ本文（About等）：文字サイズ一定・行間広め・強調は下線以外 ── */
+.prose{color:var(--brown,#382710)}
+.prose > p,.prose li{font-size:15px;line-height:2.0}
+.prose > p{margin:0 0 1.15em}
+.prose h2{font-size:18px;font-weight:700;margin:1.9em 0 .7em;padding-bottom:.45em;
+  border-bottom:2px solid var(--yellow-l,#f7e6bc)}
+.prose h2:first-child{margin-top:0}
+.prose ul{margin:0 0 1.3em;padding:0;list-style:none}
+.prose li{position:relative;padding-left:1.45em;margin-bottom:.75em}
+.prose li::before{content:"";position:absolute;left:.2em;top:.82em;width:7px;height:7px;
+  border-radius:50%;background:var(--yellow,#e3a62c)}
+/* 強調：下線ではなく蛍光ペン風ハイライト＋太字 */
+.prose strong{font-weight:700;background:linear-gradient(transparent 60%,var(--yellow-l,#f7e6bc) 60%);
+  padding:0 .12em;border-radius:2px}
+.prose a:not(.pill){color:var(--link,#245e7c);text-decoration:underline;font-weight:600}
+
+/* ── 誘導記号「›」を大きく・太く・見やすく（全ページ共通）── */
+.crumb span{font-size:1.35em;font-weight:700;line-height:1}
+.mp span{font-size:1.2em !important;font-weight:800;color:var(--yellow-d,#a87413) !important}
+.mp:hover span{color:var(--brown,#382710) !important}
+.go{font-weight:800}
+.pill .go,.nrow .go,.lrow .go,.official .go,.linkpair a .go,.srcbtn .go{font-size:14px}
+.footbar a::before{font-weight:800}
+
+/* SEO/アクセシビリティ用の視覚的に隠す見出し */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── 収録情報の全国横断一覧（/item/<key>/）── */
+.itstats{display:flex;flex-wrap:wrap;gap:8px 10px;margin:0 0 16px}
+.itstat{display:inline-flex;align-items:baseline;gap:6px;font-size:12.5px;color:var(--brown2,#7a7259);
+  background:var(--cream2,#f3eee1);border:1px solid var(--line,#e7ddcb);border-radius:999px;padding:5px 13px}
+.itstat b{font-size:15px;font-weight:800;color:var(--brown,#382710);font-variant-numeric:tabular-nums}
+.itstat.ok b{color:var(--yellow-d,#a87413)}
+.itfilter{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.itfilter select,.itfilter input{border:1px solid var(--line,#e7ddcb);border-radius:9px;
+  background:var(--cream,#fdf9f0);padding:10px 14px;font:inherit;font-size:14.5px;color:var(--brown,#382710)}
+.itfilter select{min-width:170px}
+.itfilter input{flex:1 1 220px;min-width:0}
+.itcount{margin:0 0 0 auto;font-size:13px;color:var(--brown2,#7a7259);font-variant-numeric:tabular-nums}
+.itbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line,#e7ddcb);border-radius:10px}
+.itbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.itbl th,.itbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line,#e7ddcb);vertical-align:middle}
+.itbl tbody tr:last-child td{border-bottom:0}
+.itbl thead th{position:sticky;top:0;background:var(--cream2,#f3eee1);font-size:12.5px;font-weight:700;
+  color:var(--brown2,#7a7259);letter-spacing:.04em;white-space:nowrap;border-bottom:2px solid var(--line,#e7ddcb);z-index:1}
+.itbl tbody tr:hover{background:var(--yellow-l,#f7e6bc)}
+.itbl td.nm a{color:var(--brown,#382710);text-decoration:none;font-weight:700}
+.itbl td.nm a:hover{color:var(--link,#245e7c);text-decoration:underline}
+.itbl td.pf{color:var(--brown2,#7a7259);white-space:nowrap}
+.itbl td.lc,.itbl th.lc{text-align:right;white-space:nowrap;color:var(--brown2,#7a7259);
+  font-variant-numeric:tabular-nums;font-size:13px}
+.itbl .exl{display:inline-flex;align-items:center;gap:7px;color:var(--link,#245e7c);
+  text-decoration:none;font-weight:600;white-space:nowrap}
+.itbl .exl:hover{text-decoration:underline}
+.itbl .exl .go{width:19px;height:19px;border-radius:50%;background:var(--yellow,#e3a62c);color:#fff;
+  display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.itbl .exl .ext{font-size:12px;color:var(--brown3,#9c8a6c)}
+.itbl .muted{color:var(--brown3,#9c8a6c);font-size:13px}
+.itbl .tag-unc{font-size:10.5px;color:var(--brown2,#7a7259);background:var(--cream2,#f3eee1);
+  border:1px solid var(--line,#e7ddcb);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.itbl .snsrow{display:flex;flex-wrap:wrap;gap:6px}
+.itbl .snschip{font-size:12px;color:var(--brown,#382710);background:var(--cream2,#f3eee1);
+  border:1px solid var(--line,#e7ddcb);border-radius:999px;padding:3px 11px;text-decoration:none}
+.itbl .snschip:hover{background:var(--yellow-l,#f7e6bc);border-color:var(--yellow,#e3a62c)}
+@media (max-width:600px){.itcount{margin-left:0;width:100%}}
+.itprompt{padding:30px 12px;text-align:center;font-size:14px;color:var(--brown2,#7a7259)}
+
+/* 収録情報一覧：有無チップ＋列ソート */
+.itchips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.itchip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;cursor:pointer;
+  color:var(--brown2,#7a7259);background:var(--cream2,#f3eee1);border:1px solid var(--line,#e7ddcb);
+  border-radius:999px;padding:7px 15px;transition:.14s}
+.itchip em{font-style:normal;font-size:11.5px;font-weight:800;color:var(--brown3,#9c8a6c);font-variant-numeric:tabular-nums}
+.itchip:hover{border-color:var(--yellow,#e3a62c)}
+.itchip.on{background:var(--yellow,#e3a62c);border-color:var(--yellow,#e3a62c);color:#fff}
+.itchip.on em{color:rgba(255,255,255,.85)}
+.ithint{font-size:12px;color:var(--brown3,#9c8a6c);margin:0 0 10px}
+.itbl th.sortable{cursor:pointer;user-select:none}
+.itbl th.sortable:hover{color:var(--brown,#382710)}
+.itbl th.sortable::after{content:"⇅";font-size:11px;color:var(--brown3,#9c8a6c);margin-left:5px}
+.itbl th.sortable.asc::after{content:"↑";color:var(--yellow-d,#a87413)}
+.itbl th.sortable.desc::after{content:"↓";color:var(--yellow-d,#a87413)}
+
+/* 区分ページ：都道府県ジャンプバー */
+.jumpbar{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line,#e7ddcb)}
+.jchip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;text-decoration:none;
+  color:var(--brown2,#7a7259);background:var(--cream2,#f3eee1);border:1px solid var(--line,#e7ddcb);
+  border-radius:999px;padding:5px 12px;transition:.14s}
+.jchip em{font-style:normal;font-size:10.5px;font-weight:800;color:var(--brown3,#9c8a6c)}
+.jchip:hover{background:var(--yellow-l,#f7e6bc);border-color:var(--yellow,#e3a62c);color:var(--brown,#382710)}
+.mgrid .mhead{scroll-margin-top:16px}
+.mgrid .mhead a{color:inherit;text-decoration:none}
+.mgrid .mhead a:hover{text-decoration:underline}
+
+/* 代表郵便番号バッジ */
+.badge.zip{font-family:var(--mono,monospace);letter-spacing:.04em}
+
+/* ══════════ 印刷用（#7）：職員が資料に添付・印刷する前提 ══════════ */
+@media print{
+  html,body{background:#fff!important;color:#000!important}
+  /* 操作系・装飾を隠す */
+  .side,.burger,.wave,.copybtn,.sorter,.sortbtn,.cmptabs,.maplink,.pill,.go,
+  .soon,.soonhead .pill{display:none!important}
+  /* コンテンツを全幅に */
+  .page{display:block!important;width:auto!important;margin:0!important;border:0!important}
+  .inner{max-width:none!important;width:auto!important;margin:0!important;padding:0 8mm!important}
+  /* タブで隠れている比較表も全部出す（JS無効時と同じ扱い） */
+  .cmppanel[hidden]{display:block!important}
+  .cmppanel+.cmppanel{margin-top:14px}
+  /* 枠・影を印刷向けに */
+  .panel,.phead,.src,.cmp-wrap,.official{box-shadow:none!important;border:1px solid #ccc!important;
+    border-radius:6px!important}
+  .official{background:#fff!important;color:#000!important}
+  .official small{color:#333!important}
+  /* 改ページ抑制 */
+  .sec,.cmppanel,.cmp-wrap,.mh,.ncard,.wardblk,.src,tr{break-inside:avoid}
+  /* 比較表 */
+  .cmp{min-width:0!important}
+  .cmp thead th{background:#eee!important;color:#000!important}
+  .cmp tr.base{background:#f0f0f0!important}
+  .cmp th.sortable::after{content:""!important}
+  a{color:#000!important;text-decoration:none!important}
+  @page{margin:12mm}
+}
+
+/* ══════════ /compare/ 自治体をえらんで比べる（#4） ══════════ */
+.cx-pick{position:relative;margin-bottom:6px}
+.cx-lab{display:block;font-size:13.5px;font-weight:700;color:var(--brown2);margin-bottom:9px;letter-spacing:.02em}
+.cx-inwrap{position:relative;max-width:460px}
+.cx-in{width:100%;font:inherit;font-size:16px;padding:13px 16px;border-radius:10px;
+  border:1px solid var(--line);background:var(--white);color:var(--brown);box-sizing:border-box}
+.cx-in:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellow-l)}
+.cx-sug{position:absolute;left:0;right:0;top:calc(100% + 5px);z-index:30;background:var(--white);
+  border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 28px rgba(31,41,51,.12);
+  max-height:320px;overflow-y:auto;padding:5px}
+.cx-sg{display:flex;align-items:baseline;gap:10px;width:100%;text-align:left;font:inherit;
+  padding:10px 12px;border:0;border-radius:7px;background:none;cursor:pointer;color:var(--brown)}
+.cx-sg:hover,.cx-sg:focus{background:var(--yellow-l)}
+.cx-sg b{font-size:15px;font-weight:700}
+.cx-sg span{font-size:12px;color:var(--brown3)}
+.cx-none{padding:12px 14px;font-size:13px;color:var(--brown3)}
+.cx-chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;min-height:10px}
+.cx-chip{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;
+  padding:7px 8px 7px 14px;border-radius:999px;background:var(--yellow-l);color:var(--brown);
+  border:1px solid var(--yellow-d)}
+.cx-cx,.cx-x{font:inherit;border:0;background:rgba(31,41,51,.10);color:var(--brown2);cursor:pointer;
+  width:20px;height:20px;border-radius:50%;line-height:1;display:grid;place-items:center;font-size:14px;flex:none}
+.cx-cx:hover,.cx-x:hover{background:var(--alert);color:#fff}
+.cx-hint{font-size:12px;color:var(--brown3);margin-left:2px}
+.cx-actions{display:flex;gap:10px;margin:20px 0 4px}
+.cx-clear{font:inherit;font-size:12.5px;font-weight:700;letter-spacing:.02em;padding:8px 14px;
+  border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--brown2);cursor:pointer}
+.cx-clear:hover{border-color:var(--alert);color:var(--alert)}
+.cx-empty{font-size:14px;color:var(--brown2);line-height:1.9;margin:22px 0 0}
+.cx-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:18px;
+  border:1px solid var(--line);border-radius:12px}
+.cx-tbl{border-collapse:separate;border-spacing:0;width:100%;font-size:14px}
+.cx-tbl th,.cx-tbl td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);
+  vertical-align:middle;white-space:nowrap}
+.cx-tbl tbody tr:last-child th,.cx-tbl tbody tr:last-child td{border-bottom:0}
+.cx-tbl thead th{background:var(--cream2);font-size:13.5px;font-weight:700;border-bottom:2px solid var(--line)}
+.cx-tbl tbody th{font-size:12.5px;font-weight:700;color:var(--brown2);background:var(--cream)}
+.cx-tbl th:first-child,.cx-tbl td:first-child{position:sticky;left:0;z-index:2}
+.cx-tbl thead th.cx-corner{z-index:3}
+.cx-tbl td{font-variant-numeric:tabular-nums;color:var(--brown)}
+.cx-tn{display:block;font-size:14.5px;font-weight:700;color:var(--brown)}
+.cx-tbl thead th .cx-x{margin-top:6px}
+.cx-linkrow td a{display:inline-flex;align-items:center;gap:4px;color:var(--link);text-decoration:none;font-weight:600}
+.cx-linkrow td a:hover{text-decoration:underline}
+@media (max-width:600px){
+  .cx-tbl th,.cx-tbl td{padding:11px 12px}
+  .cx-tbl thead th,.cx-tbl tbody th{min-width:112px}
+}
+
+/* 自治体ページ → /compare/ 導線 */
+.cx-more{margin:18px 0 0}
+.cx-more a{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;
+  color:var(--link);text-decoration:none}
+.cx-more a:hover{text-decoration:underline}
+.cx-more .go{width:20px;height:20px;border-radius:50%;background:var(--yellow-l);color:var(--yellow);
+  display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}

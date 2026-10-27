@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block css %}card{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ pref.name }}の{{ card_label }}</h1></div></div>
+      <div class="badges"><span class="badge">{{ munis|map(attribute='cards')|map('length')|sum }}枚</span><span class="badge">{{ munis|length }}自治体</span></div></div></div>
+    {% if kind == 'manhole' %}<p class="asof" style="margin-top:10px">カード画像は、GKP（下水道広報プラットホーム）への利用照会が済むまで掲載しません。在庫状況は参考値です。おでかけ前に配布場所へご確認ください。</p>{% endif %}
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  {% for m in munis %}
+  <div class="sec-title" style="margin-top:18px"><h2><a href="{{ m.path }}">{{ m.name }}</a></h2></div>
+  <div class="panel">
+    {% for c in m.cards %}
+    <div class="mh{% if kind != 'manhole' %} mh-nopic{% endif %}">
+      {% if kind == 'manhole' %}<div class="mhimg">（カード画像）<br>※ GKPへ利用照会中</div>{% endif %}
+      <div class="mhbody">
+        <div class="mh-name">
+          {% if c.stock %}<span class="stock">{% if c.stock=='ended' %}配布終了{% elif c.stock=='low' %}残りわずか{% else %}配布中{% endif %}</span>{% endif %}
+          <h3>{{ c.card_no or c.place_name }}</h3>
+        </div>
+        <dl class="dl">
+          {% if c.series %}<dt>弾数</dt><dd>{{ c.series }}</dd>{% endif %}
+          {% if c.issued_on %}<dt>発行日</dt><dd>{{ c.issued_on }}</dd>{% endif %}
+          {% if c.place_name %}<dt>配布場所</dt><dd>{{ c.place_name }}</dd>{% endif %}
+          {% if c.place_addr %}<dt>住所</dt><dd>{{ c.place_addr }}</dd>{% endif %}
+          {% if c.place_hours %}<dt>配布時間</dt><dd>{{ c.place_hours }}</dd>{% endif %}
+        </dl>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

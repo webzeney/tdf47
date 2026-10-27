@@ -1,0 +1,10 @@
+# TDF47 死活監視 cron（VPSに設置）。
+# 設置: sudo cp deploy/cron/tdf47-probe.cron /etc/cron.d/tdf47-probe
+#       （所有 root:root, 権限 644）
+#
+# 毎日 午前3:30 に probe.py を実行。負荷の低い時間帯に。
+# パスは実際の配置に合わせて調整すること（例では /opt/tdf47）。
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+
+30 3 * * *  tdf47  cd /opt/tdf47 && /usr/bin/python3.12 src/probe.py >> /var/log/tdf47-probe.log 2>&1

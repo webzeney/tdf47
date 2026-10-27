@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block css %}union{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span>自治体をえらんで比べる
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock">
+      <h1>自治体をえらんで比べる</h1>
+    </div></div></div></div>
+  </div>
+</div>
+
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    <div class="cx-pick">
+      <label class="cx-lab" for="cxq">自治体を検索して追加（最大5つ）</label>
+      <div class="cx-inwrap">
+        <input id="cxq" class="cx-in" type="search" autocomplete="off" spellcheck="false"
+               placeholder="例）八王子 ／ はちおうじ ／ 寒川">
+        <div id="cxsug" class="cx-sug" hidden></div>
+      </div>
+      <div id="cxchips" class="cx-chips" aria-live="polite"></div>
+    </div>
+
+    <div class="cx-actions" id="cxactions" hidden>
+      <button class="copybtn" id="cxcopy" type="button">表をコピー</button>
+      <button class="cx-clear" id="cxclear" type="button">すべてクリア</button>
+    </div>
+
+    <div class="cx-wrap" id="cxwrap" hidden><div id="cxtable"></div></div>
+
+    <p id="cxempty" class="cx-empty">
+      上の検索から自治体を追加すると、ここに比較表が表示されます。<br>
+      人口・面積・財政指標（令和6年度・総務省）を並べて比べられます。最大5団体まで。
+    </p>
+    <noscript><p class="cx-empty">この機能はブラウザのJavaScriptが必要です。各自治体ページの「となり・同規模と比べる」では、JavaScriptなしでも比較表をご覧いただけます。</p></noscript>
+
+    <p class="asof" style="margin-top:16px">財政指標は総務省「主要財政指標一覧」{{ fiscal_year }}より。{% if ruiji_year %}類似団体区分は総務省「市町村決算カード」{{ ruiji_year }}による。{% endif %}人口・面積は住民基本台帳／全国都道府県市区町村別面積調による。選んだ組み合わせはURLで共有できます。</p>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/assets/js/compare.js?v={{ asset_ver }}" defer></script>{% endblock %}

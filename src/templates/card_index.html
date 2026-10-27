@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block css %}card{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ card_label }}</h1></div></div></div></div>
+    {% if card_desc %}<p class="asof" style="margin-top:10px">{{ card_desc }}</p>{% endif %}
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    {% if by_pref %}
+    <div class="mgrid">
+      {% for p in by_pref %}<a class="mtile" href="{{ p.path }}"><span class="n">{{ p.name }}</span><span class="p">{{ p.count }}種</span></a>{% endfor %}
+    </div>
+    {% else %}
+    <p class="note">収録データを準備中です。{% if kind == 'manhole' %}マンホールカードの画像は、GKP（下水道広報プラットホーム）への利用照会が済むまで掲載しません。{% endif %}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

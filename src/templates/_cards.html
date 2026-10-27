@@ -1,0 +1,47 @@
+{# 行政・法務のリンクカード（例規集・議会・広報）共通マクロ #}
+
+{% macro kicon(kind) -%}
+{% if kind == 'reiki' %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h7a2 2 0 012 2v12a2 2 0 00-2-2H4z"/><path d="M20 5h-7a2 2 0 00-2 2v12a2 2 0 012-2h7z"/></svg>
+{%- elif kind == 'gikai' %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M5 9h14l-2 11H7z"/><path d="M9 9V7a3 3 0 016 0v2"/></svg>
+{%- else %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h6M7 13h10"/></svg>{% endif %}
+{%- endmacro %}
+
+{% macro lcard(item) -%}
+{% set l = item.link %}
+{% if l and l.state in ('ready','seeded') %}
+<a class="lrow" href="{{ l.url }}" target="_blank" rel="noopener" data-outbound="{{ item.kind }}">
+  <span class="ic">{{ kicon(item.kind) }}</span>
+  <span class="b">
+    <span class="nm">{{ l.title or item.label }}{% if item.chip %} <span class="chip ext">{{ item.chip }}</span>{% endif %}</span>
+    <span class="url">{{ l.disp }}</span>
+    <span class="meta"><span>{{ item.label }}</span>{% if l.auto_na and not l.last_checked %}<span title="提供元が自動確認を許可していません">自動確認の対象外</span>{% else %}<span>{% if l.last_checked %}最終確認 {{ l.last_checked }}{% else %}最終確認はこれから{% endif %}</span>{% endif %}</span>
+  </span>
+  <span class="go">↗</span>
+</a>
+{% elif l and l.state == 'none' %}
+<span class="lrow off">
+  <span class="ic">{{ kicon(item.kind) }}</span>
+  <span class="b"><span class="nm">{{ item.label }}</span><span class="meta"><span>{% if item.kind == 'gikai' %}会議録検索システムはありません。会議録は公式サイトの議会ページで公開されている場合があります{% else %}該当する情報は確認できませんでした{% endif %}</span></span></span>
+  <span class="go">–</span>
+</span>
+{% else %}
+<span class="lrow off">
+  <span class="ic">{{ kicon(item.kind) }}</span>
+  <span class="b"><span class="nm">{{ item.label }}</span><span class="meta"><span>リンクを収集中です</span></span></span>
+  <span class="go">–</span>
+</span>
+{% endif %}
+{%- endmacro %}
+
+{% macro soon_rows(items) -%}
+<p class="soonhead">準備中の情報</p>
+<div class="links">
+  {% for code, label in items %}
+  <span class="lrow off">
+    <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+    <span class="b"><span class="nm">{{ label }}</span><span class="meta"><span>v2.0 で収録予定</span></span></span>
+    <span class="go">–</span>
+  </span>
+  {% endfor %}
+</div>
+{%- endmacro %}

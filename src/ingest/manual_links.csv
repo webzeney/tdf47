@@ -1,0 +1,67 @@
+entity_code,kind_code,url,evidence,checked_on,note
+015644,reiki,https://www.town.ozora.hokkaido.jp/section/reiki_int/reiki_int/reiki_menu.html,https://www.town.ozora.hokkaido.jp/index.html,2026-10-25,旧URLが404。公式トップの例規集リンク先
+034835,reiki,https://www1.g-reiki.net/town.iwaizumi/reiki_menu.html,https://www.pref.iwate.jp/kensei/seisaku/shichouson/profile/1012113.html,2026-10-25,g-reiki.netへ移行
+089443,reiki,https://www.kouiki-ibaraki.jp/page/page000032.html,https://www.kouiki-ibaraki.jp/page/page000032.html,2026-10-25,旧URLはスマホ版(/sp/)。広域連合公式の例規集ページ（例規一覧）
+093424,reiki,https://www.town.mashiko.lg.jp/reiki_int/reiki_menu.html,https://www.town.mashiko.lg.jp/reiki_int/reiki_menu.html,2026-10-25,ドメインが town.mashiko.lg.jp に移行
+122131,reiki,https://www.city.togane.chiba.jp/reiki/reiki_int/reiki_menu.html,https://www.city.togane.chiba.jp/,2026-10-25,旧URLが404。公式トップの例規集リンク先
+122203,reiki,https://www1.g-reiki.net/city.nagareyama.chiba/reiki_menu.html,https://www.city.nagareyama.chiba.jp/information/1008253/index.html,2026-10-25,旧URLのドメインが消滅。公式の市例規集ページのリンク先
+131083,reiki,https://www1.g-reiki.net/city.koto/reiki_menu.html,https://www.city.koto.lg.jp/051102/kuse/reiki/reikishu.html,2026-10-25,g-reiki.netへ移行
+160008,reiki,https://kri001.legal-square.com/HAS-Shohin/page/SJSrbLogin.jsf,https://www.pref.toyama.jp/,2026-10-25,県公式トップの「富山県法規集」リンク先
+170003,reiki,https://kri101.legal-square.com/HAS-Shohin/page/SJSrbLogin.jsf,https://www.pref.ishikawa.lg.jp/soumu/houki/houkisyuu.html,2026-10-25,県公式「石川県法規集」ページのリンク先
+192091,reiki,https://www1.g-reiki.net/city.hokuto.yamanashi/reiki_menu.html,https://www.city.hokuto.yamanashi.jp/index.html,2026-10-25,g-reiki.netへ移行
+193658,reiki,https://public1.legalcrud.com/minobu_town/reiki/,https://www.town.minobu.lg.jp/index2.html,2026-10-25,公式トップの例規集バナーの遷移先
+202185,reiki,https://www1.g-reiki.net/chikuma/reiki_menu.html,https://www.city.chikuma.lg.jp/soshiki/somu/denshigyosei_dxsuishin/12497.html,2026-10-25,g-reiki.netへ移行
+202207,reiki,https://www.city.azumino.nagano.jp/reiki/d1w_reiki/reiki.html,https://www.city.azumino.nagano.jp/reiki/d1w_reiki/reiki.html,2026-10-25,旧URLが404。ページ見出し「安曇野市例規集」を確認
+209791,reiki,https://www.koukikourei-nagano.jp/reiki_int/reiki_menu.html,https://www.koukikourei-nagano.jp/,2026-10-25,旧URLのhttps版
+212024,reiki,https://www2.city.ogaki.lg.jp/reiki_int/reiki_menu.html,https://www2.city.ogaki.lg.jp/reiki_int/reiki_menu.html,2026-10-25,旧URLのhttps版
+214213,reiki,https://www.town.kitagata.gifu.jp/section/town.kitagata/reiki_menu.html,https://www.town.kitagata.gifu.jp/index.html,2026-10-25,公式トップの例規集リンク先
+258776,reiki,https://ops2-kh.d1-law.com/kitei/opensearch?jctcd=10F0CF470,https://www.shigakouiki.jp/0000000119.html,2026-10-25,広域連合公式の例規集ページのリンク先
+282090,reiki,https://www3.city.toyooka.lg.jp/reiki/reiki_menu.html,https://www.city.toyooka.lg.jp/shisei/joreikisoku/1008346.html,2026-10-25,旧URL（http）はhttpsへ転送される
+284645,reiki,https://www.town.hyogo-taishi.lg.jp/section/reiki/reiki.html,https://www.town.hyogo-taishi.lg.jp/soshikikarasagasu/soumu/reikikouji/1424068959574.html,2026-10-25,旧URLは転送されこのURLに着く
+293628,reiki,https://www1.g-reiki.net/town.miyake/reiki_menu.html,https://www.town.miyake.lg.jp/soshiki/1/5708.html,2026-10-25,g-reiki.netへ移行
+303445,reiki,https://en3-jg.d1-law.com/koya/d1w_reiki/reiki.html,https://www.town.koya.wakayama.jp/town,2026-10-25,d1-lawへ移行
+339571,reiki,https://www.kouiki-okayama.jp/?p=8888,https://www.kouiki-okayama.jp/?p=8888,2026-10-25,広域連合公式の例規集ページ（例規一覧）。旧URLと同じ
+342149,reiki,https://www1.g-reiki.net/akitakata/reiki_menu.html,https://www.akitakata.jp/ja/shisei/seido/u160/,2026-10-25,g-reiki.netへ移行
+362018,reiki,http://reiki.city.tokushima.tokushima.jp/,http://www.city.tokushima.tokushima.jp/shisei/jorei/reikisyu.html,2026-10-25,公式の徳島市例規集ページのリンク先
+372064,reiki,https://www.city.sanuki.lg.jp/section/reiki_int/reiki_menu.html,https://www.city.sanuki.lg.jp/index.html,2026-10-25,旧URLのドメインが消滅。公式トップの例規集リンク先
+394271,reiki,https://www.vill.mihara.kochi.jp/reiki/reiki_menu.html,https://www.vill.mihara.kochi.jp/reiki/reiki_menu.html,2026-10-25,ページ見出し「三原村 例規集」を確認
+402176,reiki,https://ops-jg.d1-law.com/opensearch/?jctcd=8A9160C246,https://www.city.chikushino.fukuoka.jp/life/6/22/105/,2026-10-25,d1-lawへ移行
+406058,reiki,https://www1.g-reiki.net/town-kawasaki/reiki_menu.html,https://www.town-kawasaki.com/reiki_int/reiki_menu.html,2026-10-25,旧URLはこのURLへ転送される
+422088,reiki,https://ops-jg.d1-law.com/opensearch/?jctcd=8A917E0DE2,https://www.city-matsuura.jp/top/index.html,2026-10-25,旧URLのドメインが消滅。d1-lawへ移行
+473570,reiki,https://www1.g-reiki.net/minamidaito/reiki_menu.html,https://www.vill.minamidaito.okinawa.jp/index2.html,2026-10-25,公式サイトの例規集リンク先
+012106,kouhou,https://www.city.iwamizawa.hokkaido.jp/soshiki/hisho/koho/1/4/index.html,https://www.city.iwamizawa.hokkaido.jp/soshiki/hisho/koho/1/4/koho2026/17942.html,2026-10-25,ページ見出し「広報いわみざわ」（各年のバックナンバー一覧）
+012246,kouhou,https://www.city.chitose.lg.jp/c70/1002860/1002861/index.html,https://www.city.chitose.lg.jp/,2026-10-25,公式トップの「広報ちとせ」リンク先
+013455,kouhou,https://www.town.hokkaido-mori.lg.jp/soshiki/kikakushinko/5/index.html,https://www.town.hokkaido-mori.lg.jp/soshiki/kikakushinko/5/3111.html,2026-10-25,「広報・広聴」ページ（広報もりまちの最新号・年度別一覧）
+014079,kouhou,https://www.town.niki.hokkaido.jp/section/somuka/btsphm00000049u3.html,https://www.town.niki.hokkaido.jp/,2026-10-25,公式トップの「広報にき」紹介ページのリンク先
+022012,kouhou,https://www.city.aomori.aomori.jp/shisei/kouhou/1006796/index.html,https://www.city.aomori.aomori.jp/shisei/kouhou/index.html,2026-10-25,ページ見出し「広報あおもり」
+023230,kouhou,https://www.town.fukaura.lg.jp/category/bunya/kouhoukouchou/kouhou/,https://www.town.fukaura.lg.jp/,2026-10-25,公式トップの「広報ふかうら」バックナンバーのリンク先
+024023,kouhou,https://www.town.shichinohe.lg.jp/gyosei/kouhou/index.html,https://www.town.shichinohe.lg.jp/gyosei/kouhou/2026/10no259.html,2026-10-25,「広報」ページ（広報しちのへの年度別一覧）
+052124,kouhou,https://www.city.daisen.lg.jp/genre/administration/pr/magazine,https://www.city.daisen.lg.jp/genre/administration/pr,2026-10-25,ページ見出し「広報だいせん だいせん日和」
+052141,kouhou,https://www.city.nikaho.akita.jp/gyosei/gyoseijoho/koho_kocho/koho/4324.html,https://www.city.nikaho.akita.jp/,2026-10-25,公式トップの「広報にかほ」リンク先
+053660,kouhou,https://www.town.ikawa.akita.jp/site/koho/,https://www.town.ikawa.akita.jp/,2026-10-25,ページ見出し「広報いかわ」
+054348,kouhou,https://www.town.misato.akita.jp/genre/chousei/kouhou/kouhoushi,https://www.town.misato.akita.jp/,2026-10-25,公式トップの「広報紙一覧を見る」リンク先
+072010,kouhou,https://www.city.fukushima.fukushima.jp/shisei/koho/1/2/index.html,https://www.city.fukushima.fukushima.jp/,2026-10-25,公式トップの広報紙「市政だより」リンク先
+073016,kouhou,https://www.town.koori.fukushima.jp/site/koho/,https://www.town.koori.fukushima.jp/,2026-10-25,公式トップの「広報こおりバックナンバー」リンク先
+074225,kouhou,https://www.vill.yugawa.fukushima.jp/site/gyousei-top/kouhouyugawa.html,https://www.vill.yugawa.fukushima.jp/,2026-10-25,公式トップの「広報ゆがわ」リンク先
+102083,kouhou,https://www.city.shibukawa.lg.jp/shisei/000317/000318/p015113.html,https://www.city.shibukawa.lg.jp/,2026-10-25,公式トップの「広報しぶかわ」リンク先
+102105,kouhou,https://www.city.tomioka.lg.jp/www/contents/1412039316709/index.html,https://www.city.tomioka.lg.jp/www/index.html,2026-10-25,公式トップの「広報とみおか」リンク先
+103454,kouhou,https://www.town.yoshioka.lg.jp/chousei/kouhou/kouhou_yoshioka/,https://www.town.yoshioka.lg.jp/chousei/kouhou/,2026-10-25,旧URLのドメイン（town.yoshioka.gunma.jp）が消滅。town.yoshioka.lg.jp に移行
+103829,kouhou,https://www.town.shimonita.lg.jp/m06/m02/index.html,https://www.town.shimonita.lg.jp/,2026-10-25,公式トップの「広報しもにた」リンク先
+104264,kouhou,https://www.town.kusatsu.gunma.jp/s001/100/030/1485405716712/index.html,https://www.town.kusatsu.gunma.jp/,2026-10-25,公式トップの「広報いでゆ」リンク先
+122068,kouhou,https://www.city.kisarazu.lg.jp/soshiki/kikaku/citypromotion/1/2396.html,https://www.city.kisarazu.lg.jp/,2026-10-25,公式トップの「広報きさらづ」リンク先
+122297,kouhou,https://www.city.sodegaura.lg.jp/site/koho/,https://www.city.sodegaura.lg.jp/,2026-10-25,公式トップの「広報そでがうら」リンク先
+182028,kouhou,https://www.city.tsuruga.lg.jp/life/7/39/200/,https://www.city.tsuruga.lg.jp/,2026-10-25,公式トップの「広報つるがを見る」リンク先
+212041,kouhou,https://www.city.tajimi.lg.jp/shisei/koho/1007488/index.html,https://www.city.tajimi.lg.jp/shisei/koho/index.html,2026-10-25,ページ見出し「広報紙」
+212148,kouhou,https://www.city.kani.lg.jp/26753.htm,https://www.city.kani.lg.jp/21731.htm,2026-10-25,ページ見出し「広報かに（可児市広報紙）」
+214019,kouhou,https://www.town.ibigawa.lg.jp/site/kouhou/,https://www.town.ibigawa.lg.jp/,2026-10-25,公式トップの「広報誌を読む」リンク先
+214213,kouhou,https://www.town.kitagata.gifu.jp/gyoseijoho/koho-kocho/4/index.html,https://www.town.kitagata.gifu.jp/,2026-10-25,公式トップの「広報きたがた」リンク先
+342084,kouhou,https://www.city.fuchu.hiroshima.jp/shisei/koho/koho_fuchu/index.html,https://www.city.fuchu.hiroshima.jp/,2026-10-25,公式トップの「広報誌を見る」リンク先
+343072,kouhou,https://www.town.kumano.lg.jp/6/index.html,https://www.town.kumano.lg.jp/,2026-10-25,公式トップの「広報くまの」リンク先
+382043,kouhou,https://www.city.yawatahama.ehime.jp/category/bunya/koho/kohoshi/,https://www.city.yawatahama.ehime.jp/navi/shisei/,2026-10-25,ページ見出し「広報やわたはま」
+402052,kouhou,https://www.city.iizuka.lg.jp/site/koho/,https://www.city.iizuka.lg.jp/,2026-10-25,公式トップの「広報いいづか」リンク先
+402109,kouhou,https://www.city.yame.fukuoka.jp/shisei/kouhouyame/1457320347232.html,https://www.city.yame.fukuoka.jp/,2026-10-25,公式トップの「広報八女最新号」リンク先
+402206,kouhou,https://www.city.munakata.lg.jp/list00337.html,https://www.city.munakata.lg.jp/,2026-10-25,公式トップの「広報むなかたタウンプレス」リンク先
+402311,kouhou,https://www.city.nakagawa.lg.jp/soshiki/48/saisingou.html,https://www.city.nakagawa.lg.jp/,2026-10-25,公式トップの「広報なかがわ」リンク先（最新号ページ）
+405035,kouhou,https://www.town.tachiarai.fukuoka.jp/list00327.html,https://www.town.tachiarai.fukuoka.jp/,2026-10-25,公式トップの「広報たちあらい」リンク先
+406104,kouhou,https://www.town.fukuchi.lg.jp/soshiki/soumu/dxsuisin/koho/kouhou/index.html,https://www.town.fukuchi.lg.jp/,2026-10-25,ページ見出し「広報ふくちバックナンバー」
+102105,official,https://www.city.tomioka.lg.jp/,https://www.city.tomioka.lg.jp/www/index.html,2026-10-25,取り込み時にリンク切れ扱いだったが実在（/www/index.html へ転送）

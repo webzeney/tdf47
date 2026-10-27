@@ -1,0 +1,1446 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TDF47 隣接自治体まとめ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
+<style>
+:root{
+--cream:#FDF9F0; --cream2:#FAF4E6; --band:#F8EDBC; --white:#FFFFFF;
+--yellow:#EFC63C; --yellow-d:#D3A419; --yellow-l:#FBF0C8;
+--brown:#382710; --brown2:#6E6047; --brown3:#9C8F79;
+--line:#EBE3D1; --link:#1F6FA8; --green:#4A7A5E; --alert:#A8562F;
+--kaku:"Zen Kaku Gothic New",'Hiragino Sans','Yu Gothic',system-ui,sans-serif;
+--mono:"Roboto Mono",ui-monospace,monospace;
+--side:232px; --sub:328px; --sub3:300px;
+--shadow:0 2px 4px rgba(56,39,16,.04),0 10px 26px rgba(56,39,16,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--cream:#191510; --cream2:#211C15; --band:#2E2716; --white:#231E17;
+--yellow:#E5BE44; --yellow-d:#F0D073; --yellow-l:#31290F;
+--brown:#F0E9DA; --brown2:#B8AC95; --brown3:#8A7F6B;
+--line:#362F23; --link:#7FBCE6; --green:#7FAE91; --alert:#E09A72;
+--shadow:0 2px 4px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+--cream:#191510; --cream2:#211C15; --band:#2E2716; --white:#231E17;
+--yellow:#E5BE44; --yellow-d:#F0D073; --yellow-l:#31290F;
+--brown:#F0E9DA; --brown2:#B8AC95; --brown3:#8A7F6B;
+--line:#362F23; --link:#7FBCE6; --green:#7FAE91; --alert:#E09A72;
+--shadow:0 2px 4px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{margin:0;padding:0;background:var(--cream);color:var(--brown);
+font-family:var(--kaku);font-size:17px;line-height:1.75;letter-spacing:.05em;
+-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:.06em;line-height:1.5}
+p{margin:0}
+:focus-visible{outline:3px solid var(--yellow-d);outline-offset:3px;border-radius:6px}
+@keyframes slidein{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.submenu,.panel3{animation:none!important}}
+
+/* ══ サイドバー（トップページと共通） ══ */
+.side{position:fixed;left:0;top:0;bottom:0;width:var(--side);background:var(--white);
+z-index:40;overflow-y:auto;display:flex;flex-direction:column;border-right:1px solid var(--line)}
+.brand{padding:34px 20px 26px;display:flex;flex-direction:column;align-items:center;gap:11px}
+.brand .mark{width:58px;height:58px;position:relative;border-radius:50%;
+background:repeating-conic-gradient(from 0deg,var(--yellow-d) 0deg 15deg,transparent 15deg 30deg),
+ radial-gradient(circle,var(--yellow-l) 0 34%,transparent 35%);border:2.5px solid var(--yellow-d)}
+.brand .mark::after{content:"";position:absolute;inset:37%;border-radius:50%;background:var(--yellow-d)}
+.brand b{font-size:27px;letter-spacing:.09em;line-height:1}
+.brand small{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--brown3)}
+.nav{display:flex;flex-direction:column}
+.navitem{position:relative}
+.navbtn{width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;font:inherit;
+font-size:14.5px;letter-spacing:.05em;color:var(--brown);background:transparent;border:0;
+border-top:1px dotted var(--line);line-height:1.4;transition:.15s;cursor:pointer;text-align:left}
+.navitem:last-of-type .navbtn{border-bottom:1px dotted var(--line)}
+.navbtn:hover,.navbtn.on{background:var(--cream2)}
+.navbtn.on{font-weight:700}
+.navbtn .ci{width:26px;height:26px;flex:none;display:grid;place-items:center;color:var(--yellow-d)}
+.navbtn .ar{margin-left:auto;color:var(--brown3);font-size:12px;transition:transform .18s}
+.navbtn.on .ar{transform:rotate(90deg);color:var(--yellow-d)}
+.submenu{position:fixed;left:var(--side);top:0;bottom:0;width:var(--sub);z-index:39;
+background:var(--white);border-right:1px solid var(--line);
+box-shadow:14px 0 30px rgba(56,39,16,.07);overflow-y:auto;padding:38px 30px 34px;
+display:flex;flex-direction:column;gap:22px;animation:slidein .2s ease both}
+.submenu h3{display:flex;align-items:center;gap:12px;font-size:20px}
+.submenu .close{position:absolute;right:14px;top:14px;width:30px;height:30px;border-radius:50%;
+border:1px solid var(--line);background:var(--cream);color:var(--brown2);font-size:15px;
+cursor:pointer;display:grid;place-items:center;line-height:1}
+.submenu ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}
+.submenu li a{display:flex;align-items:center;gap:11px;padding:9px 6px;font-size:15px;border-radius:8px}
+.submenu li a::before{content:"›";width:20px;height:20px;flex:none;border-radius:50%;
+background:var(--yellow);color:var(--white);display:grid;place-items:center;font-size:12px;line-height:1}
+.submenu li a:hover{background:var(--yellow-l)}
+.submenu li a em,.subbtn em{font-style:normal;margin-left:auto;font-family:var(--mono);
+font-size:10.5px;color:var(--brown3)}
+.submenu .note{font-size:12.5px;color:var(--brown3);line-height:1.9;margin-top:auto;
+border-top:1px dotted var(--line);padding-top:16px}
+.subbtn{width:100%;display:flex;align-items:center;gap:11px;padding:9px 6px;font:inherit;
+font-size:15px;letter-spacing:.05em;background:transparent;border:0;border-radius:8px;
+cursor:pointer;color:var(--brown);text-align:left;transition:.14s}
+.subbtn::before{content:"›";width:20px;height:20px;flex:none;border-radius:50%;
+background:var(--yellow);color:var(--white);display:grid;place-items:center;font-size:12px;
+line-height:1;transition:transform .18s}
+.subbtn:hover,.subbtn.on{background:var(--yellow-l)}
+.subbtn.on{font-weight:700}
+.subbtn.on::before{transform:rotate(90deg)}
+.panel3{position:fixed;left:calc(var(--side) + var(--sub));top:0;bottom:0;width:var(--sub3);z-index:41;
+background:var(--cream);border-right:1px solid var(--line);
+box-shadow:14px 0 30px rgba(56,39,16,.06);overflow-y:auto;padding:38px 26px 34px;
+display:flex;flex-direction:column;gap:15px;animation:slidein .2s ease both}
+.panel3 .back{display:none;align-items:center;gap:8px;align-self:flex-start;background:var(--white);
+border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 14px;font:inherit;
+font-size:13.5px;color:var(--brown2);cursor:pointer;margin-bottom:4px}
+.panel3 .back::before{content:"‹";font-size:16px;line-height:1;color:var(--yellow-d)}
+.panel3 h4{font-size:16.5px;display:flex;align-items:center;gap:10px}
+.panel3 h4::before{content:"";width:9px;height:9px;flex:none;border-radius:50%;border:3px solid var(--yellow-d)}
+.panel3 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px}
+.panel3 li a{display:flex;align-items:center;gap:10px;padding:7px 6px;font-size:14.5px;border-radius:7px}
+.panel3 li a::before{content:"";width:6px;height:6px;flex:none;border-radius:50%;background:var(--yellow)}
+.panel3 li a:hover{background:var(--yellow-l)}
+.panel3 li a em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--brown3)}
+.panel3 .note{font-size:12px;color:var(--brown3);line-height:1.85;margin-top:auto;
+border-top:1px dotted var(--line);padding-top:14px}
+.side-note{margin-top:auto;padding:18px;font-size:11.5px;line-height:1.8;color:var(--brown3);
+border-top:1px dotted var(--line)}
+
+.page{margin-left:var(--side)}
+.inner{max-width:1080px;margin:0 auto;padding-inline:32px}
+
+/* ══ ページヘッダ ══ */
+.crumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13px;color:var(--brown2);
+padding-top:26px}
+.crumb a:hover{text-decoration:underline}
+.crumb span{color:var(--brown3)}
+.phead{background:var(--white);border-radius:18px;box-shadow:var(--shadow);
+margin-top:16px;padding:clamp(22px,3.4vw,34px);display:flex;flex-direction:column;gap:24px}
+.phead-top{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+.phead .ttl{flex:1 1 300px;min-width:0}
+.phead .kana{font-size:13.5px;color:var(--brown3);letter-spacing:.14em}
+.h1row{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap;margin-block:2px 11px}
+.phead h1{font-size:clamp(28px,4.6vw,42px);letter-spacing:.05em;margin:0}
+.maplink{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;
+color:var(--link);text-decoration:underline;text-underline-offset:4px;
+text-decoration-thickness:1px;padding-block:4px}
+.maplink svg{color:var(--alert);flex:none}
+.maplink:hover{text-decoration-thickness:2px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 13px;
+color:var(--brown2);background:var(--cream)}
+.badge.code{font-family:var(--mono);letter-spacing:.06em}
+.officebox{flex:0 0 auto;display:flex;flex-direction:column;gap:11px;
+width:clamp(260px,30vw,330px);max-width:100%}
+.contact{background:var(--cream);border:1px solid var(--line);border-radius:12px;
+padding:14px 18px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;line-height:1.7}
+.contact div{display:flex;gap:10px}
+.contact span{font-size:11.5px;color:var(--brown3);letter-spacing:.1em;flex:none;
+min-width:3.8em;padding-top:2px}
+.official{display:flex;align-items:center;gap:13px;background:var(--yellow);
+border-radius:14px;padding:17px 26px;font-weight:700;font-size:16.5px;
+box-shadow:0 3px 0 var(--yellow-d)}
+.official small{display:block;font-weight:400;font-size:11.5px;font-family:var(--mono);
+letter-spacing:.04em;color:var(--brown2);margin-top:2px}
+.official .go{width:26px;height:26px;border-radius:50%;background:var(--white);display:grid;
+place-items:center;font-size:13px;flex:none}
+.official:hover{transform:translateY(1px);box-shadow:0 2px 0 var(--yellow-d)}
+
+/* ページヘッダ内のデータ帯 */
+.phead-data{border-top:1px dotted var(--line);padding-top:20px;
+display:flex;align-items:flex-end;gap:12px 40px;flex-wrap:wrap}
+.dstat{display:flex;align-items:baseline;gap:5px}
+.dstat span{font-size:12px;color:var(--brown3);letter-spacing:.1em;margin-right:3px}
+.dstat b{font-family:var(--mono);font-size:23px;line-height:1.1}
+.dstat i{font-style:normal;font-size:12.5px;color:var(--brown2)}
+.dsep{width:1px;align-self:stretch;background:var(--line);margin-inline:2px}
+@media (max-width:700px){.dsep{display:none}}
+.dtext{display:flex;flex-direction:column;gap:1px;font-size:14px;line-height:1.6}
+.dtext span{font-size:11.5px;color:var(--brown3);letter-spacing:.1em}
+.dmap{align-self:center;display:inline-flex;align-items:center;gap:7px;font-size:13px;
+border:1px solid var(--line);border-radius:999px;padding:7px 16px;background:var(--cream);
+color:var(--brown2)}
+.dmap:hover{border-color:var(--yellow);background:var(--yellow-l)}
+.asof{width:100%;font-size:11.5px;color:var(--brown3);letter-spacing:.06em}
+
+/* ══ セクション見出し ══ */
+.sec{padding-block:44px}
+.sec-title{display:flex;align-items:flex-end;justify-content:center;gap:clamp(10px,4vw,44px);
+margin-bottom:24px}
+.sec-title h2{font-size:clamp(20px,2.7vw,25px);text-align:center;padding-bottom:6px}
+@media (max-width:640px){.sec-title .il{display:none}}
+.panel{background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:clamp(18px,3.4vw,32px)}
+
+/* ══ リンク一覧 ══ */
+.links{display:flex;flex-direction:column;gap:11px}
+.lrow{display:flex;align-items:center;gap:17px;border:1px solid var(--line);border-radius:12px;
+padding:16px 20px;background:var(--cream);transition:.15s}
+.lrow:hover{border-color:var(--yellow);background:var(--yellow-l)}
+.lrow .ic{width:44px;height:44px;border-radius:50%;background:var(--white);border:1px solid var(--line);
+display:grid;place-items:center;flex:none;color:var(--yellow-d)}
+.lrow .b{flex:1;min-width:0}
+.lrow .nm{font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.lrow .url{font-family:var(--mono);font-size:11.5px;color:var(--brown3);
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;margin-top:1px}
+.lrow .meta{font-size:11.5px;color:var(--brown3);margin-top:3px;display:flex;gap:14px;flex-wrap:wrap}
+.lrow .go{width:26px;height:26px;border-radius:50%;background:var(--yellow);color:var(--white);
+display:grid;place-items:center;font-size:13px;flex:none}
+.chip{font-size:10.5px;letter-spacing:.06em;border-radius:5px;padding:1px 7px;font-weight:400}
+.chip.ext{border:1px solid var(--green);color:var(--green)}
+.chip.art{border:1px solid var(--alert);color:var(--alert)}
+.lrow.off{opacity:.55;background:var(--cream2)}
+.lrow.off .ic{color:var(--brown3)}
+.lrow.off .go{background:var(--line);color:var(--brown3)}
+.soonhead{font-size:13px;color:var(--brown3);margin:22px 0 10px;display:flex;align-items:center;gap:10px}
+.soonhead::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ══ 波形＋帯 ══ */
+.wave{display:block;width:100%;height:auto;color:var(--band)}
+.band{background:var(--band);padding-block:6px 42px}
+.band .kicker{text-align:center;font-size:14.5px;color:var(--brown2);line-height:1.9;font-weight:500}
+.band h2{text-align:center;font-size:clamp(21px,2.9vw,27px);margin-top:6px;margin-bottom:24px}
+.nb{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:760px){.nb{grid-template-columns:1fr}}
+.ncard{background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--shadow);
+display:flex;flex-direction:column;gap:11px}
+.ncard .top{display:flex;align-items:baseline;gap:9px}
+.ncard .top b{font-size:20px}
+.ncard .top em{font-style:normal;font-size:12px;color:var(--brown3)}
+.ncard .st{display:flex;gap:14px;font-size:12px;color:var(--brown2);font-family:var(--mono)}
+.ncard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.ncard li a{display:flex;align-items:center;gap:9px;font-size:13.5px;padding:4px 0;color:var(--link)}
+.ncard li a::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--yellow);flex:none}
+.pill{display:flex;align-items:center;justify-content:center;gap:12px;margin:26px auto 0;
+background:var(--yellow);color:var(--brown);border-radius:999px;padding:15px 38px;font-weight:700;
+font-size:15.5px;letter-spacing:.08em;width:fit-content;max-width:100%;box-shadow:0 3px 0 var(--yellow-d)}
+.pill .go{width:24px;height:24px;border-radius:50%;background:var(--white);display:grid;
+place-items:center;font-size:12px;flex:none}
+.pill:hover{transform:translateY(1px);box-shadow:0 2px 0 var(--yellow-d)}
+
+/* ══ データ ══ */
+.stats{display:grid;grid-template-columns:1.3fr 1fr;align-items:center}
+@media (max-width:760px){.stats{grid-template-columns:1fr}}
+.photo{aspect-ratio:16/10;border-radius:14px;position:relative;overflow:hidden;
+background:linear-gradient(180deg,#9EC3D4 0%,#6E9B7E 55%,#41684F 100%)}
+.photo span{position:absolute;left:0;right:0;bottom:9px;text-align:center;
+color:rgba(255,255,255,.85);font-size:12px;letter-spacing:.1em}
+.statcard{background:var(--white);border-radius:14px;box-shadow:var(--shadow);padding:24px 22px;
+margin-left:-28px;display:flex;flex-direction:column;gap:9px}
+@media (max-width:760px){.statcard{margin-left:0;margin-top:-24px}}
+.srow{display:flex;align-items:baseline;justify-content:center;gap:9px}
+.srow em{font-style:normal;font-size:13px;color:var(--brown2);min-width:4.5em;text-align:right}
+.srow b{font-family:var(--mono);font-size:27px}
+.srow.sm b{font-size:18px}
+.srow i{font-style:normal;font-size:13px;color:var(--brown2)}
+.addr{margin-top:22px;background:var(--white);border-radius:14px;box-shadow:var(--shadow);
+padding:20px 24px;display:flex;gap:26px;flex-wrap:wrap;font-size:14.5px}
+.addr div{display:flex;flex-direction:column;gap:2px}
+.addr span{font-size:11.5px;color:var(--brown3);letter-spacing:.1em}
+
+/* ══ SNS ══ */
+.sns{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
+.sitem{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;
+padding:13px 16px;background:var(--cream);font-size:14.5px}
+.sitem .ic{width:34px;height:34px;border-radius:50%;background:var(--white);border:1px solid var(--line);
+display:grid;place-items:center;flex:none;font-size:15px}
+.sitem:hover{border-color:var(--yellow);background:var(--yellow-l)}
+.sitem.no{opacity:.45;background:var(--cream2)}
+.sitem small{display:block;font-size:11px;color:var(--brown3)}
+
+/* ══ カード ══ */
+.mh{display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:start}
+@media (max-width:640px){.mh{grid-template-columns:1fr}}
+.mhimg{aspect-ratio:63/88;border-radius:10px;border:1px dashed var(--line);background:var(--cream2);
+display:grid;place-items:center;text-align:center;font-size:12px;color:var(--brown3);padding:12px;line-height:1.7}
+.mhbody{display:flex;flex-direction:column;gap:10px}
+.mhbody h3{font-size:19px}
+.dl{display:grid;grid-template-columns:5.5em 1fr;gap:5px 16px;font-size:14px}
+.dl dt{color:var(--brown3);font-size:12.5px;margin:0}
+.dl dd{margin:0}
+.stock{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--green);font-weight:700}
+.stock::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green)}
+.nocard{border:1px dashed var(--line);border-radius:12px;padding:20px;text-align:center;
+color:var(--brown3);font-size:14px;background:var(--cream2)}
+
+/* ══ 出典 ══ */
+.src{background:var(--cream2);border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+display:flex;flex-direction:column;gap:9px}
+.src h3{font-size:15px}
+.src p,.src li{font-size:12.5px;color:var(--brown2);line-height:1.9}
+.src ul{margin:0;padding-left:1.2em}
+.stamp{font-family:var(--mono);font-size:12px;color:var(--brown);border:1px dashed var(--yellow-d);
+border-radius:8px;padding:5px 13px;align-self:flex-start;background:var(--yellow-l)}
+
+footer{background:var(--cream2);border-top:1px solid var(--line);margin-top:46px}
+.footbar{padding-block:22px 30px;display:flex;justify-content:center;gap:9px 26px;flex-wrap:wrap;
+font-size:13px;color:var(--brown2)}
+.footbar a{display:flex;align-items:center;gap:7px}
+.footbar a::before{content:"›";width:16px;height:16px;border-radius:50%;background:var(--yellow);
+color:var(--white);display:grid;place-items:center;font-size:10px;line-height:1}
+.devnote{border:1px dashed var(--brown3);border-radius:13px;padding:16px 18px;background:var(--cream2);
+margin-block:30px 0}
+.devnote p{font-size:12.5px;color:var(--brown2);line-height:1.9}
+.devnote b{color:var(--brown)}
+
+@media (max-width:980px){
+ .side{position:relative;width:auto;flex-direction:row;flex-wrap:wrap;align-items:center;
+  border-right:0;border-bottom:1px solid var(--line);overflow:visible}
+ .side .brand{padding:14px 20px;flex-direction:row;gap:12px}
+ .side .brand .mark{width:38px;height:38px}
+ .side .brand b{font-size:21px}
+ .side .brand small{display:none}
+ .nav{flex-direction:row;flex-wrap:wrap;flex:1}
+ .navitem{position:static}
+ .navbtn{width:auto;border-top:0;padding:10px 13px;font-size:13.5px}
+ .navitem:last-of-type .navbtn{border-bottom:0}
+ .navbtn .ci{display:none}
+ .submenu{position:absolute;left:0;right:0;top:100%;width:auto;height:auto;bottom:auto;
+  max-height:72vh;border-right:0;border-bottom:1px solid var(--line);
+  box-shadow:0 16px 32px rgba(56,39,16,.12);padding:26px 22px 30px;z-index:60}
+ .submenu ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px}
+ .submenu li.has-sub{grid-column:1/-1}
+ .panel3{left:0;right:0;top:0;bottom:0;width:auto;z-index:70;border-right:0;box-shadow:none;
+  padding:20px 22px 34px;gap:14px}
+ .panel3 .back{display:inline-flex}
+ .panel3 ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:2px}
+ .side-note{display:none}
+ .page{margin-left:0}
+}
+
+/* ══════════ 70年代ポップ（レトロ）スキン ══════════
+   レイアウト・階層・並び順・挙動は一切変更せず、
+   色／書体／枠／影／ロゴの見え方だけを差し替えています。 */
+:root{
+--cream:#F4EAD3; --cream2:#EDE0C2; --band:#F1D88F; --white:#FCF8EE;
+--yellow:#E3A62C; --yellow-d:#A87413; --yellow-l:#F7E6BC;
+--brown:#3A2A18; --brown2:#6B5940; --brown3:#9C8A6C;
+--line:#D6C39C; --link:#245E7C; --green:#7A8B3C; --alert:#9C3B34;
+--hard:#DFCCA4;
+--disp:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;
+--shadow:5px 5px 0 var(--hard);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--cream:#1D1710; --cream2:#251E15; --band:#3C2E15; --white:#262016;
+--yellow:#DFAE4A; --yellow-d:#F0CE7C; --yellow-l:#39290F;
+--brown:#F2E8D4; --brown2:#BCAC8E; --brown3:#8C7F66;
+--line:#4A3D2A; --link:#7FBCE6; --green:#A8B863; --alert:#DE8A82;
+--hard:#0F0C08; --shadow:5px 5px 0 var(--hard);
+}}
+:root[data-theme="dark"]{
+--cream:#1D1710; --cream2:#251E15; --band:#3C2E15; --white:#262016;
+--yellow:#DFAE4A; --yellow-d:#F0CE7C; --yellow-l:#39290F;
+--brown:#F2E8D4; --brown2:#BCAC8E; --brown3:#8C7F66;
+--line:#4A3D2A; --link:#7FBCE6; --green:#A8B863; --alert:#DE8A82;
+--hard:#0F0C08; --shadow:5px 5px 0 var(--hard);
+}
+
+/* 看板まわりだけ極太書体に。本文は従来どおり */
+.brand b,h1,.sec-title h2,.band h2,.pill,.official{font-family:var(--disp);font-weight:400}
+h1{letter-spacing:.03em}
+.sec-title h2,.band h2{letter-spacing:.05em;line-height:1.45}
+.pill,.official{letter-spacing:.07em}
+.brand b{letter-spacing:.07em}
+
+/* 細い線 → 太い線＋ベタ影 */
+.panel,.phead,.ncard,.statcard,.src,.trust,.mapwrap,.logobox,.searchbox{
+border:2px solid var(--brown)}
+.contact,.lrow,.nrow,.sitem,.type,.item,.gcard,.mp,.mhimg,.nocard,.stamp,.chip,.badge,.rchip{
+border-width:2px}
+.badge{border-color:var(--line)}
+.pill,.official{border:2px solid var(--brown);box-shadow:4px 4px 0 var(--brown)}
+.pill:hover,.official:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--brown)}
+.side,.submenu,.panel3{border-right:2px solid var(--brown)}
+.navbtn{border-top:1.5px solid var(--line)}
+.navitem:last-of-type .navbtn{border-bottom:1.5px solid var(--line)}
+.submenu li a::before,.subbtn::before,.pill .go,.official .go,.lrow .go,.nrow .go,
+.footbar a::before{border:1.5px solid var(--brown)}
+.side-note{border-top:1.5px solid var(--line)}
+.submenu .note,.panel3 .note{border-top:1.5px solid var(--line)}
+.phead-data{border-top:2px solid var(--line)}
+.soonhead::after{height:2px}
+
+/* ロゴ：サンバーストを強く */
+.brand .mark{border-width:3px;box-shadow:3px 3px 0 var(--hard)}
+
+/* 風景：からし＋アボカド */
+.photo{background:linear-gradient(180deg,#D9CBA0 0%,#A9B478 55%,#6C7A38 100%)}
+
+/* ══ 70年代の差し色とパターン（ポイント使い） ══ */
+:root{
+--or:#E8912B; --red:#CF4222; --blue:#2E5F8E; --navy:#1B2C52;
+--teal:#67BFB4; --pink:#EDB39C;
+--stripe4:linear-gradient(90deg,var(--or) 0 25%,var(--red) 25% 50%,var(--blue) 50% 75%,var(--navy) 75% 100%);
+--diag:repeating-linear-gradient(-45deg,
+ var(--white) 0 4px,var(--or) 4px 15px,var(--white) 15px 19px,var(--red) 19px 30px,
+ var(--white) 30px 34px,var(--blue) 34px 45px,var(--white) 45px 49px,var(--navy) 49px 60px);
+--link:#2E5F8E; --alert:#CF4222;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--or:#E8A552; --red:#D9604A; --blue:#5E93C0; --navy:#3A5385;
+--teal:#7FCFC5; --pink:#E8BCA9; --link:#8FC2E8; --alert:#D9604A;
+}}
+:root[data-theme="dark"]{
+--or:#E8A552; --red:#D9604A; --blue:#5E93C0; --navy:#3A5385;
+--teal:#7FCFC5; --pink:#E8BCA9; --link:#8FC2E8; --alert:#D9604A;
+}
+
+/* ページ上端の斜めストライプ */
+.page::before{content:"";display:block;height:15px;background:var(--diag)}
+
+/* ロゴ：4色のサンバースト＋下に4色バー */
+.brand{position:relative}
+.brand .mark{
+background:
+ repeating-conic-gradient(from 0deg,
+  var(--or) 0deg 22.5deg,var(--red) 22.5deg 45deg,
+  var(--blue) 45deg 67.5deg,var(--navy) 67.5deg 90deg),
+ radial-gradient(circle,var(--white) 0 33%,transparent 34%)}
+.brand .mark::after{background:var(--red)}
+.brand::after{content:"";position:absolute;left:24px;right:24px;bottom:12px;height:5px;
+background:var(--stripe4)}
+
+/* セクション見出しの下に4色バー */
+.sec-title h2{padding-bottom:17px;background-image:var(--stripe4);background-repeat:no-repeat;
+background-size:76px 6px;background-position:bottom center}
+.band h2{padding-bottom:17px;background-image:var(--stripe4);background-repeat:no-repeat;
+background-size:76px 6px;background-position:bottom center;margin-bottom:26px}
+
+/* 帯・出典欄にドットグリッド */
+.band{background-image:radial-gradient(rgba(168,116,19,.16) 1.5px,transparent 1.6px);
+background-size:13px 13px}
+.src{background-image:radial-gradient(rgba(46,95,142,.14) 1.5px,transparent 1.6px);
+background-size:13px 13px}
+
+/* ご当地カードの枠に多色の同心円を薄く */
+.mhimg{background:
+ repeating-radial-gradient(circle,
+  rgba(232,145,43,.28) 0 5px,transparent 5px 11px,
+  rgba(103,191,180,.28) 11px 16px,transparent 16px 23px,
+  rgba(237,179,156,.28) 23px 28px,transparent 28px 36px),
+ var(--cream2)}
+
+/* ══ ページヘッダの背景に庁舎写真 ══ */
+:root{
+--veil-b:linear-gradient(180deg,rgba(252,248,238,0) 0 34%,rgba(252,248,238,.62) 72%,rgba(252,248,238,.88) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 33%,rgba(252,248,238,.93) 51%,rgba(252,248,238,.74) 76%,rgba(252,248,238,.6) 100%);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 34%,rgba(38,32,22,.66) 72%,rgba(38,32,22,.9) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 33%,rgba(38,32,22,.93) 51%,rgba(38,32,22,.76) 76%,rgba(38,32,22,.62) 100%);
+}}
+:root[data-theme="dark"]{
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 34%,rgba(38,32,22,.66) 72%,rgba(38,32,22,.9) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 33%,rgba(38,32,22,.93) 51%,rgba(38,32,22,.76) 76%,rgba(38,32,22,.62) 100%);
+}
+.phead{overflow:hidden;
+background-image:var(--veil-b),var(--veil-x),none;
+background-size:auto,auto,cover;
+background-position:center,center,center 44%;
+background-repeat:no-repeat,no-repeat,no-repeat}
+@media (max-width:760px){
+ .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(252,248,238,.80) 0 100%),none}
+ :root[data-theme="dark"] .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(38,32,22,.84) 0 100%),none}
+}
+
+/* ══ 視認性：薄い文字を濃く ══ */
+:root{--brown2:#574730; --brown3:#7B6A4E; --line:#CDB88C}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--brown2:#CBBEA4; --brown3:#A2957C; --line:#544733}}
+:root[data-theme="dark"]{--brown2:#CBBEA4; --brown3:#A2957C; --line:#544733}
+
+/* ══ メインコンテンツの文字を1pxアップ ══ */
+.page{font-size:18px}
+.crumb{font-size:14px}
+.badge{font-size:13.5px}
+.contact,.ncard li a{font-size:14.5px}
+.lrow .nm{font-size:17px}
+.lrow .url,.lrow .meta,.asof{font-size:12.5px}
+.dstat span{font-size:13px}
+.dstat i{font-size:13.5px}
+.maplink{font-size:14.5px}
+.sitem{font-size:15.5px}
+.sitem small{font-size:12px}
+.dl{font-size:15px}
+.dl dt{font-size:13.5px}
+.soonhead{font-size:14px}
+.chip{font-size:11.5px}
+.ncard .st{font-size:13px}
+.ncard .top em{font-size:13px}
+.src p,.src li{font-size:13.5px}
+.stamp{font-size:13px}
+.nocard{font-size:15px}
+.stock{font-size:14px}
+.footbar{font-size:14px}
+.kana{font-size:14.5px}
+.devnote p{font-size:13.5px}
+
+/* ══ 追加調整 ══ */
+
+/* 本文を丸ゴシックに */
+:root{--kaku:"Zen Maru Gothic","Zen Kaku Gothic New",'Hiragino Maru Gothic ProN',
+'Hiragino Sans',system-ui,sans-serif}
+
+/* 背景写真をはっきり見せる */
+:root{
+--veil-b:linear-gradient(180deg,rgba(252,248,238,0) 0 42%,rgba(252,248,238,.42) 74%,rgba(252,248,238,.80) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 23%,rgba(252,248,238,.80) 43%,rgba(252,248,238,.45) 72%,rgba(252,248,238,.22) 100%);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 42%,rgba(38,32,22,.5) 74%,rgba(38,32,22,.86) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 23%,rgba(38,32,22,.82) 43%,rgba(38,32,22,.5) 72%,rgba(38,32,22,.3) 100%);
+}}
+:root[data-theme="dark"]{
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 42%,rgba(38,32,22,.5) 74%,rgba(38,32,22,.86) 100%);
+--veil-x:linear-gradient(103deg,var(--white) 0 23%,rgba(38,32,22,.82) 43%,rgba(38,32,22,.5) 72%,rgba(38,32,22,.3) 100%);
+}
+@media (max-width:760px){
+ .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(252,248,238,.72) 0 100%),none}
+ :root[data-theme="dark"] .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(38,32,22,.78) 0 100%),none}
+}
+
+/* 中見出しをさらに2px大きく */
+.sec-title h2{font-size:clamp(22px,3vw,27px)}
+.band h2{font-size:clamp(23px,3.2vw,29px)}
+
+/* 行政・法務：アイコンを大きく */
+.lrow{gap:20px}
+.lrow .ic{width:60px;height:60px}
+.lrow .ic svg{width:31px;height:31px}
+.lrow .go{width:30px;height:30px;font-size:15px}
+
+/* 公式サイトボタンの崩れを解消 */
+.official{display:flex;align-items:center;gap:14px;line-height:1.35;padding:16px 22px}
+.official .ot{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font-size:16px}
+.official small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+font-family:var(--mono);margin-top:0}
+
+/* 公式SNS：正方形のマス＋公式アイコンのみ */
+.sns{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:13px}
+.sitem{aspect-ratio:1;flex-direction:column;justify-content:center;gap:11px;padding:12px;
+text-align:center;background:var(--white)}
+.sitem .ic{width:52px;height:52px;border-radius:14px;background:var(--cream);font-size:0}
+.sitem .ic svg{width:30px;height:30px}
+.sitem b{font-size:14px;font-weight:700;letter-spacing:.04em}
+.sitem .x{color:#111;background:#fff}
+.sitem .line{color:#06C755;background:#E9F8EF}
+.sitem .yt{color:#FF0000;background:#FDECEC}
+.sitem .fb{color:#1877F2;background:#E9F1FE}
+.sitem .ig{color:#C13584;background:#FBEAF3}
+.sitem .app{color:var(--brown2);background:var(--cream)}
+.sitem.no{opacity:.42;filter:grayscale(1)}
+:root[data-theme="dark"] .sitem .x{color:#fff;background:#1A1A1A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sitem .x{color:#fff;background:#1A1A1A}}
+
+/* ══ 追加調整（2） ══ */
+
+/* 左メニュー以外をさらに1pxアップ */
+.page{font-size:19px}
+.crumb{font-size:15px}
+.badge{font-size:14.5px}
+.contact,.ncard li a{font-size:15.5px}
+.lrow .nm{font-size:18px}
+.lrow .url,.lrow .meta,.asof{font-size:13.5px}
+.dstat span{font-size:14px}
+.dstat i{font-size:14.5px}
+.dstat b{font-size:25px}
+.maplink{font-size:15.5px}
+.dl{font-size:16px}
+.dl dt{font-size:14.5px}
+.soonhead{font-size:15px}
+.chip{font-size:12.5px}
+.ncard .st,.ncard .top em{font-size:14px}
+.src p,.src li{font-size:14.5px}
+.stamp{font-size:14px}
+.nocard{font-size:16px}
+.stock{font-size:15px}
+.footbar{font-size:15px}
+.kana{font-size:15.5px}
+.devnote p{font-size:14.5px}
+.official .ot{font-size:17px}
+.official small{font-size:13px}
+.sitem b{font-size:15px}
+
+/* 背景写真を90%で見せ、文字は下に敷いた面で守る */
+:root{
+--veil-b:linear-gradient(180deg,rgba(252,248,238,0) 0 55%,rgba(252,248,238,.18) 80%,rgba(252,248,238,.34) 100%);
+--veil-x:linear-gradient(103deg,rgba(252,248,238,.26) 0 22%,rgba(252,248,238,.10) 55%,rgba(252,248,238,.06) 100%);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 55%,rgba(38,32,22,.22) 80%,rgba(38,32,22,.4) 100%);
+--veil-x:linear-gradient(103deg,rgba(38,32,22,.3) 0 22%,rgba(38,32,22,.12) 55%,rgba(38,32,22,.06) 100%);
+}}
+:root[data-theme="dark"]{
+--veil-b:linear-gradient(180deg,rgba(38,32,22,0) 0 55%,rgba(38,32,22,.22) 80%,rgba(38,32,22,.4) 100%);
+--veil-x:linear-gradient(103deg,rgba(38,32,22,.3) 0 22%,rgba(38,32,22,.12) 55%,rgba(38,32,22,.06) 100%);
+}
+@media (max-width:760px){
+ .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(252,248,238,.22) 0 100%),none}
+ :root[data-theme="dark"] .phead{background-image:var(--veil-b),
+  linear-gradient(180deg,rgba(38,32,22,.3) 0 100%),none}
+}
+.phead{padding:20px}
+.ttl{background:var(--white);border:4px solid var(--brown);border-radius:14px;
+padding:20px 24px;flex:1 1 320px}
+.phead-data{background:var(--white);border:4px solid var(--brown);border-radius:14px;
+padding:18px 22px;border-top-width:4px}
+
+/* 公式SNS：アイコンをさらに大きく */
+.sns{grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:15px}
+.sitem .ic{width:70px;height:70px;border-radius:18px}
+.sitem .ic svg{width:42px;height:42px}
+.sitem .app svg{width:38px;height:38px}
+
+/* 枠線をさらに2px太く */
+.panel,.ncard,.src,.logobox,.contact,.lrow,.sitem,.gcard,.mhimg,.nocard,.rchip,.statcard{
+border-width:4px}
+.pill,.official{border-width:4px;box-shadow:6px 6px 0 var(--brown)}
+.pill:hover,.official:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--brown)}
+.chip,.badge,.stamp,.dmap{border-width:3px}
+.side,.submenu,.panel3{border-right-width:4px}
+.navbtn{border-top-width:3px}
+.navitem:last-of-type .navbtn{border-bottom-width:3px}
+.side-note,.submenu .note,.panel3 .note{border-top-width:3px}
+.submenu li a::before,.subbtn::before,.pill .go,.official .go,.lrow .go,.nrow .go,
+.footbar a::before{border-width:2px}
+.brand .mark{border-width:5px}
+.soonhead::after{height:3px}
+
+/* ══ 追加調整（3） ══ */
+
+/* 枠線を2pxマイナス */
+.panel,.ncard,.src,.logobox,.contact,.lrow,.sitem,.gcard,.mhimg,.nocard,.rchip,.statcard,
+.phead{border-width:2px}
+.pill,.official{border-width:2px;box-shadow:4px 4px 0 var(--brown)}
+.pill:hover,.official:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--brown)}
+.chip,.badge,.stamp,.dmap{border-width:2px}
+.side,.submenu,.panel3{border-right-width:2px}
+.navbtn{border-top-width:1.5px}
+.navitem:last-of-type .navbtn{border-bottom-width:1.5px}
+.side-note,.submenu .note,.panel3 .note{border-top-width:1.5px}
+.submenu li a::before,.subbtn::before,.pill .go,.official .go,.lrow .go,.nrow .go,
+.footbar a::before{border-width:1.5px}
+.brand .mark{border-width:3px}
+.soonhead::after{height:2px}
+
+/* ページヘッダ：背景写真をやめ、素の白パネルに戻す */
+.phead{background-image:none;background-color:var(--white);padding:clamp(22px,3.4vw,34px);
+overflow:visible}
+.ttl{background:none;border:0;border-radius:0;padding:0;flex:1 1 300px}
+.phead-data{background:none;border:0;border-top:2px solid var(--line);border-radius:0;
+padding:20px 0 0}
+
+/* 自治体ロゴ（市章）─ h1 の左隣 */
+.h1row{gap:10px 16px;align-items:center}
+.nameblock{display:flex;flex-direction:column;gap:0;min-width:0}
+.nameblock .kana{margin:0;text-align:left;line-height:1.5}
+.crest{width:clamp(56px,7.4vw,74px);aspect-ratio:1;flex:none;border-radius:50%;
+background:var(--white);border:2px dashed var(--brown3);
+display:grid;place-items:center;overflow:hidden}
+.crest i{font-style:normal;font-size:12px;letter-spacing:.1em;color:var(--brown3)}
+.crest.has{border:2px solid var(--brown);background:var(--white)}
+.crest.has i{display:none}
+/* マスクで着色しているので、テーマに合わせて色が変わります */
+.crest.has::before{content:"";width:76%;height:76%;background:var(--brown);
+-webkit-mask:var(--crest) center/contain no-repeat;mask:var(--crest) center/contain no-repeat}
+
+/* ══ タブレット・スマホ：ハンバーガーメニュー ══ */
+.burger{display:none}
+@media (max-width:980px){
+ .burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  width:50px;height:46px;margin-left:auto;margin-right:18px;padding:0;cursor:pointer;
+  background:var(--white);border:2px solid var(--brown);border-radius:11px;
+  box-shadow:3px 3px 0 var(--brown)}
+ .burger span{display:block;width:22px;height:2.5px;border-radius:2px;background:var(--brown);
+  transition:transform .2s,opacity .15s}
+ .burger.on{box-shadow:1px 1px 0 var(--brown);transform:translate(2px,2px)}
+ .burger.on span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+ .burger.on span:nth-child(2){opacity:0}
+ .burger.on span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+ .nav{display:none;position:absolute;left:0;right:0;top:100%;z-index:55;
+  flex-direction:column;flex-wrap:nowrap;background:var(--white);
+  border-bottom:2px solid var(--brown);
+  box-shadow:0 16px 32px rgba(56,39,16,.16);padding-bottom:8px;max-height:80vh;overflow-y:auto}
+ .side.open .nav{display:flex}
+ .navbtn{width:100%;padding:15px 20px;font-size:16px}
+ .navbtn .ci{display:grid}
+ .navbtn .ar{display:block}
+ .navitem:last-of-type .navbtn{border-bottom-width:0}
+
+ /* 第2階層：ボタンのすぐ下にアコーディオンで開く */
+ .submenu{position:static;inset:auto;width:auto;height:auto;max-height:none;
+  background:var(--cream2);border:0;border-bottom:1.5px solid var(--line);
+  box-shadow:none;animation:none;overflow:visible;
+  padding:16px 20px 20px;gap:14px;z-index:auto}
+ .submenu h3{font-size:17px}
+ .submenu h3 .ci{width:24px;height:24px}
+ .submenu h3 .ci svg{width:24px;height:24px}
+ .submenu .close{display:none}
+ .submenu ul{display:flex;flex-direction:column;gap:2px}
+ .submenu li.has-sub{grid-column:auto}
+ .submenu li a,.subbtn{font-size:15.5px;padding:10px 6px}
+
+ /* 第3階層：さらにそのすぐ下でアコーディオン */
+ .panel3{position:static;inset:auto;width:auto;height:auto;z-index:auto;
+  background:var(--white);border:1.5px solid var(--line);border-right:1.5px solid var(--line);
+  border-radius:10px;box-shadow:none;animation:none;overflow:visible;
+  padding:14px 16px 16px;margin:3px 0 9px;gap:10px}
+ .panel3 .back{display:none}
+ .panel3 h4{font-size:15.5px}
+ .panel3 ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:2px}
+ .panel3 li a{font-size:15px;padding:8px 6px}
+ .panel3 .note{margin-top:6px}
+}
+@media (prefers-reduced-motion:reduce){.burger span{transition:none}}
+
+/* 状態バッジを70年代の差し色に */
+.chip.ext{border-color:var(--blue);color:var(--blue)}
+.chip.art{border-color:var(--red);color:var(--red)}
+.maplink svg{color:var(--red)}
+.stock{color:var(--teal)}
+.stock::before{background:var(--teal);box-shadow:0 0 0 2px var(--brown)}
+.badge.code{border-color:var(--navy);color:var(--navy)}
+:root[data-theme="dark"] .badge.code{color:var(--blue)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge.code{color:var(--blue)}}
+
+/* ══════════════════ シンプル・フラット スキン ══════════════════
+   レイアウト・階層・並び順・挙動は変更なし。
+   色／書体／枠／影／装飾だけを差し替えています。 */
+:root{
+--cream:#F5F7F9; --cream2:#EDF0F3; --band:#EEF2F6; --white:#FFFFFF;
+--yellow:#2A6BB0; --yellow-d:#1E4F86; --yellow-l:#E9F0F7;
+--brown:#1F2933; --brown2:#525F6B; --brown3:#7C8895;
+--line:#DFE4E9; --link:#1F6FB2;
+--green:#2E7D5B; --alert:#C2410C;
+--or:#2A6BB0; --red:#C2410C; --blue:#2A6BB0; --navy:#525F6B;
+--teal:#2E7D5B; --pink:#7C8895; --hard:transparent;
+--shadow:0 1px 2px rgba(31,41,51,.05);
+--disp:"Zen Kaku Gothic New",'Hiragino Sans','Yu Gothic',system-ui,sans-serif;
+--kaku:"Zen Kaku Gothic New",'Hiragino Sans','Yu Gothic',system-ui,sans-serif;
+--mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+--veil-b:none; --veil-x:none;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--cream:#12161B; --cream2:#1A1F26; --band:#171C23; --white:#1B2129;
+--yellow:#5C9BD8; --yellow-d:#84B6E6; --yellow-l:#16232F;
+--brown:#E6EAEE; --brown2:#A8B2BC; --brown3:#7A848E;
+--line:#2A323B; --link:#7FBCE6; --green:#5FB088; --alert:#E08B5E;
+--or:#5C9BD8; --red:#E08B5E; --blue:#5C9BD8; --navy:#A8B2BC;
+--teal:#5FB088; --pink:#7A848E; --hard:transparent;
+--shadow:0 1px 2px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+--cream:#12161B; --cream2:#1A1F26; --band:#171C23; --white:#1B2129;
+--yellow:#5C9BD8; --yellow-d:#84B6E6; --yellow-l:#16232F;
+--brown:#E6EAEE; --brown2:#A8B2BC; --brown3:#7A848E;
+--line:#2A323B; --link:#7FBCE6; --green:#5FB088; --alert:#E08B5E;
+--or:#5C9BD8; --red:#E08B5E; --blue:#5C9BD8; --navy:#A8B2BC;
+--teal:#5FB088; --pink:#7A848E; --hard:transparent;
+--shadow:0 1px 2px rgba(0,0,0,.3);
+}
+
+body{letter-spacing:.02em}
+h1,h2,h3,h4{letter-spacing:.01em}
+.brand b,h1,.sec-title h2,.band h2,.pill,.official,.searchrow button,.maplead{
+font-family:var(--disp);font-weight:700}
+
+/* 装飾をすべて外す */
+.page::before{display:none}
+.brand::after{display:none}
+.sec-title h2,.band h2{background-image:none;padding-bottom:0}
+.sec-title .il{display:none}
+.band{background-image:none;background-color:var(--band)}
+.trust,.src,.phead{background-image:none}
+.wave{display:none}
+.hero .sun{display:none}
+.gcard::after{display:none}
+.mhimg{background:var(--cream2)}
+.soonhead::after{height:1px}
+
+/* ロゴ：単色の円 */
+.brand .mark{background:var(--yellow);border:0;box-shadow:none}
+.brand .mark::after{background:var(--white);inset:33%}
+
+/* 枠：1px・影なし・角丸を控えめに */
+.panel,.phead,.ncard,.statcard,.src,.logobox,.contact,.lrow,.sitem,.gcard,.mhimg,.nocard,
+.rchip,.searchbox,.two .box,.trust,.mapwrap,.nrow,.type,.item,.thumb,.linkpair{
+border:1px solid var(--line);box-shadow:none}
+.panel,.phead,.searchbox,.two .box,.trust,.mapwrap{border-radius:12px}
+.ncard,.statcard,.src,.logobox,.contact,.lrow,.sitem,.gcard,.nocard,.nrow,.type,.item,.mhimg{
+border-radius:10px}
+.rchip,.dmap{border-radius:999px;border-width:1px}
+.chip,.badge,.stamp{border-width:1px;border-radius:4px}
+.crest{border:1px solid var(--line)}
+.crest.has{border:1px solid var(--line)}
+.side,.submenu,.panel3{border-right:1px solid var(--line)}
+.submenu,.panel3{box-shadow:0 8px 24px rgba(31,41,51,.08)}
+.navbtn{border-top:1px solid var(--line)}
+.navitem:last-of-type .navbtn{border-bottom:1px solid var(--line)}
+.side-note,.submenu .note,.panel3 .note,.phead-data{border-top:1px solid var(--line)}
+.searchrow input{border-width:1px;border-radius:8px}
+.mp{border-width:1px;border-radius:6px;box-shadow:0 1px 2px rgba(31,41,51,.06)}
+
+/* ボタン：ベタ塗り・影なし */
+.pill,.official,.searchrow button{border:0;box-shadow:none;border-radius:8px;
+background:var(--yellow);color:#fff}
+.pill:hover,.official:hover,.searchrow button:hover{transform:none;background:var(--yellow-d)}
+.official small{color:rgba(255,255,255,.82)}
+.pill .go,.official .go{background:rgba(255,255,255,.2);color:#fff;border:0}
+:root[data-theme="dark"] .pill,:root[data-theme="dark"] .official,
+:root[data-theme="dark"] .searchrow button{color:#0E1318}
+:root[data-theme="dark"] .official small{color:rgba(14,19,24,.7)}
+:root[data-theme="dark"] .pill .go,:root[data-theme="dark"] .official .go{
+background:rgba(14,19,24,.16);color:#0E1318}
+
+/* 丸い「›」を外し、細い矢印に */
+.submenu li a::before,.subbtn::before,.footbar a::before,.subnav a::before{
+background:none;color:var(--brown3);border:0;font-size:15px;width:14px}
+.panel3 li a::before{background:var(--brown3);width:4px;height:4px}
+.lrow .go,.nrow .go,.linkpair a .go{background:var(--yellow-l);color:var(--yellow);border:0}
+.lrow .ic,.sitem .ic{border-radius:10px;border:1px solid var(--line)}
+.ic{background:var(--cream2)}
+
+/* ハンバーガー */
+.burger{border:1px solid var(--line);box-shadow:none;border-radius:8px}
+.burger.on{transform:none;box-shadow:none}
+
+/* 風景・地図：彩度を落とす */
+.hero{background:linear-gradient(180deg,#DAE3EB 0%,#B8C9D6 55%,#8FA4B5 100%)}
+.hero .hills path{fill:#7E95A8}
+.hero .hills path:nth-child(2){fill:#6B8398}
+.hero .hills path:nth-child(3){fill:#5A7186}
+.photo{background:linear-gradient(180deg,#DCE4EA 0%,#B3C4D1 55%,#8AA0B0 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{
+background:linear-gradient(180deg,#1E252C 0%,#1A2027 60%,#151A20 100%)}}
+:root[data-theme="dark"] .hero{
+background:linear-gradient(180deg,#1E252C 0%,#1A2027 60%,#151A20 100%)}
+.mapwrap{background:var(--cream2)}
+.jp g{stroke:#C3CCD4}
+.jp>path:not([stroke]){fill:#C3CCD4}
+.jp>path[stroke]{stroke:#D5DCE2}
+.mp:hover{background:var(--yellow);border-color:var(--yellow);color:#fff}
+.mp:hover span{color:#fff}
+
+/* 数字は本文書体で */
+.dstat b,.statrow b,.srow b,.count b{font-family:var(--kaku)}
+
+
+/* ══ タブレット・スマホ：アコーディオン内の見出しは親ボタンと同じ文言になるため隠す ══ */
+@media (max-width:980px){
+ .submenu h3{display:none}
+ .panel3 h4{display:none}
+}
+
+/* ══════════ 追加ページ用の共通パーツ ══════════ */
+
+/* 並べ替えボタン */
+.sorter{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+.sorter>b{font-size:12.5px;color:var(--brown3);letter-spacing:.1em;font-weight:400}
+.sortbtn{font:inherit;font-size:13.5px;letter-spacing:.03em;padding:7px 17px;border-radius:999px;
+border:1px solid var(--line);background:var(--white);color:var(--brown2);cursor:pointer;transition:.14s}
+.sortbtn:hover{border-color:var(--yellow);color:var(--brown)}
+.sortbtn.on{background:var(--yellow);border-color:var(--yellow);color:#fff;font-weight:700}
+:root[data-theme="dark"] .sortbtn.on{color:#0E1318}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sortbtn.on{color:#0E1318}}
+.sorter .count{margin-left:auto;font-size:13px;color:var(--brown3)}
+@media (max-width:520px){.sorter .count{margin-left:0;width:100%}}
+
+/* 自治体タイル一覧 */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:9px}
+.mgrid.logo{grid-template-columns:repeat(auto-fill,minmax(202px,1fr))}
+@media (max-width:560px){.mgrid.logo{grid-template-columns:repeat(2,1fr)}}
+.mhead{grid-column:1/-1;display:flex;align-items:center;gap:13px;font-size:13px;
+color:var(--brown3);letter-spacing:.08em;margin-top:18px}
+.mhead:first-child{margin-top:0}
+.mhead::after{content:"";flex:1;height:1px;background:var(--line)}
+.mtile{border:1px solid var(--line);border-radius:10px;background:var(--cream);
+padding:12px 14px 13px;display:flex;flex-direction:column;gap:1px;min-width:0;transition:.14s}
+.mtile:hover{border-color:var(--yellow);background:var(--yellow-l)}
+.mtile .k{font-size:11px;color:var(--brown3);letter-spacing:.08em;line-height:1.5;
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mtile .n{font-size:16.5px;font-weight:700;line-height:1.45}
+.mtile .p{font-size:11.5px;color:var(--brown2);line-height:1.6}
+.mtile.ward{background:var(--white)}
+
+/* 自治体ロゴ（市章・区章・町章・村章） */
+.mgrid.logo .mtile{flex-direction:row;align-items:center;gap:12px;padding:11px 13px}
+.mb{display:flex;flex-direction:column;gap:1px;min-width:0}
+.mcrest{width:40px;height:40px;flex:none;border-radius:50%;background:var(--white);
+border:1px dashed var(--brown3);display:grid;place-items:center;opacity:.5}
+.mcrest.has{border:1px solid var(--line);opacity:1}
+.mcrest.has::before{content:"";width:74%;height:74%;background:var(--brown);
+-webkit-mask:var(--crest) center/contain no-repeat;mask:var(--crest) center/contain no-repeat}
+.mtile:hover .mcrest{border-color:var(--yellow)}
+@media (max-width:560px){
+ .mgrid.logo .mtile{gap:8px;padding:10px 10px}
+ .mgrid.logo .mcrest{width:28px;height:28px}
+ .mgrid.logo .mtile .n{font-size:14.5px;letter-spacing:0}
+ .mgrid.logo .mtile .k{font-size:10.5px}
+}
+
+/* リンク行：該当ページなし */
+.lrow.none{background:var(--cream2);border-style:dashed}
+.lrow.none .ic{color:var(--brown3)}
+.lrow.none .go{background:var(--cream2);color:var(--brown3)}
+.chip.none{border:1px solid var(--brown3);color:var(--brown3)}
+
+/* ページ内リード文 */
+.lead{font-size:15px;color:var(--brown2);line-height:1.95;margin-bottom:20px}
+.subnote{font-size:12.5px;color:var(--brown3);line-height:1.9;margin-top:16px;
+border-top:1px solid var(--line);padding-top:14px}
+.lrow.none{border-color:var(--brown3)}
+.lrow.none .nm{color:var(--brown2)}
+
+
+/* 隣接自治体まとめページ */
+.nb4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.nb4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.nb4{grid-template-columns:1fr}}
+.nb4 .ncard.base{border-color:var(--yellow);background:var(--yellow-l)}
+.nb4 .ncard .top b{font-size:19px}
+
+.cmpwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--white)}
+.cmp{border-collapse:separate;border-spacing:0;width:100%;min-width:820px;font-size:14.5px}
+.cmp.num{min-width:640px}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:15px 18px;
+border-bottom:1px solid var(--line)}
+.cmp thead th{background:var(--cream2);font-size:15.5px;white-space:nowrap}
+.cmp thead th:first-child{position:sticky;left:0;z-index:3;background:var(--cream2)}
+.cmp tbody th{position:sticky;left:0;z-index:2;background:var(--cream);width:190px;
+font-size:14px;font-weight:700;white-space:nowrap;
+box-shadow:1px 0 0 var(--line)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp td a{color:var(--link);text-decoration:underline;text-underline-offset:3px;
+text-decoration-thickness:1px}
+.cmp td a:hover{text-decoration-thickness:2px}
+.cmp .u{display:block;margin-top:3px;font-family:var(--mono);font-size:11px;
+color:var(--brown3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.cmp td.na{color:var(--brown3);font-size:13.5px}
+.cmp.num td{font-family:var(--kaku);white-space:nowrap}
+.openall{display:block;margin-top:8px;font:inherit;font-size:12.5px;letter-spacing:.02em;
+padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--white);
+color:var(--brown2);cursor:pointer;white-space:nowrap;transition:.14s}
+.openall:hover{border-color:var(--yellow);background:var(--yellow-l);color:var(--brown)}
+.nb4 .ncard .top{flex-direction:column;align-items:flex-start;gap:2px}
+.nb4 .ncard .top em{font-size:12.5px}
+.nb4 .st{flex-wrap:wrap;gap:4px 14px}
+
+</style>
+
+<nav class="side" aria-label="メインナビゲーション">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span><b>TDF47</b>
+    <small>ZENKOKU JICHITAI LINK</small>
+  </div>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mainnav" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav" id="mainnav">
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm1">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M10 20v-5h4v5"/></svg></span>
+        都道府県から探す<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm1" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>都道府県から探す</h3>
+        <ul>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1a">北海道・東北<em>7</em></button>
+            <div class="panel3" id="p1a" hidden><h4>北海道・東北</h4><ul>
+              <li><a href="#">北海道<em>179</em></a></li><li><a href="#">青森県<em>40</em></a></li>
+              <li><a href="#">岩手県<em>33</em></a></li><li><a href="#">宮城県<em>35</em></a></li>
+              <li><a href="#">秋田県<em>25</em></a></li><li><a href="#">山形県<em>35</em></a></li>
+              <li><a href="#">福島県<em>59</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1b">関東<em>7</em></button>
+            <div class="panel3" id="p1b" hidden><h4>関東</h4><ul>
+              <li><a href="#">茨城県<em>44</em></a></li><li><a href="#">栃木県<em>25</em></a></li>
+              <li><a href="#">群馬県<em>35</em></a></li><li><a href="#">埼玉県<em>63</em></a></li>
+              <li><a href="#">千葉県<em>54</em></a></li><li><a href="#">東京都<em>62</em></a></li>
+              <li><a href="#">神奈川県<em>33</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1c">中部<em>9</em></button>
+            <div class="panel3" id="p1c" hidden><h4>中部</h4><ul>
+              <li><a href="#">新潟県<em>30</em></a></li><li><a href="#">富山県<em>15</em></a></li>
+              <li><a href="#">石川県<em>19</em></a></li><li><a href="#">福井県<em>17</em></a></li>
+              <li><a href="#">山梨県<em>27</em></a></li><li><a href="#">長野県<em>77</em></a></li>
+              <li><a href="#">岐阜県<em>42</em></a></li><li><a href="#">静岡県<em>35</em></a></li>
+              <li><a href="#">愛知県<em>54</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1d">近畿<em>7</em></button>
+            <div class="panel3" id="p1d" hidden><h4>近畿</h4><ul>
+              <li><a href="#">三重県<em>29</em></a></li><li><a href="#">滋賀県<em>19</em></a></li>
+              <li><a href="#">京都府<em>26</em></a></li><li><a href="#">大阪府<em>43</em></a></li>
+              <li><a href="#">兵庫県<em>41</em></a></li><li><a href="#">奈良県<em>39</em></a></li>
+              <li><a href="#">和歌山県<em>30</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1e">中国<em>5</em></button>
+            <div class="panel3" id="p1e" hidden><h4>中国</h4><ul>
+              <li><a href="#">鳥取県<em>19</em></a></li><li><a href="#">島根県<em>19</em></a></li>
+              <li><a href="#">岡山県<em>27</em></a></li><li><a href="#">広島県<em>23</em></a></li>
+              <li><a href="#">山口県<em>19</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1f">四国<em>4</em></button>
+            <div class="panel3" id="p1f" hidden><h4>四国</h4><ul>
+              <li><a href="#">徳島県<em>24</em></a></li><li><a href="#">香川県<em>17</em></a></li>
+              <li><a href="#">愛媛県<em>20</em></a></li><li><a href="#">高知県<em>34</em></a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p1g">九州・沖縄<em>8</em></button>
+            <div class="panel3" id="p1g" hidden><h4>九州・沖縄</h4><ul>
+              <li><a href="#">福岡県<em>60</em></a></li><li><a href="#">佐賀県<em>20</em></a></li>
+              <li><a href="#">長崎県<em>21</em></a></li><li><a href="#">熊本県<em>45</em></a></li>
+              <li><a href="#">大分県<em>18</em></a></li><li><a href="#">宮崎県<em>26</em></a></li>
+              <li><a href="#">鹿児島県<em>43</em></a></li><li><a href="#">沖縄県<em>41</em></a></li></ul></div></li>
+        </ul>
+        <p class="note">47都道府県・1,741市区町村を収録しています。</p>
+      </div>
+    </div>
+
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm2">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="8" height="14"/><rect x="13" y="3" width="8" height="17"/><path d="M5 10h4M5 14h4M15 7h4M15 11h4"/></svg></span>
+        区分から探す<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm2" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>区分から探す</h3>
+        <ul>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2a">政令指定都市<em>20</em></button>
+            <div class="panel3" id="p2a" hidden><h4>政令指定都市</h4><ul>
+              <li><a href="#">札幌市</a></li><li><a href="#">仙台市</a></li><li><a href="#">さいたま市</a></li>
+              <li><a href="#">千葉市</a></li><li><a href="#">横浜市</a></li><li><a href="#">川崎市</a></li>
+              <li><a href="#">相模原市</a></li><li><a href="#">新潟市</a></li><li><a href="#">静岡市</a></li>
+              <li><a href="#">浜松市</a></li><li><a href="#">名古屋市</a></li><li><a href="#">京都市</a></li>
+              <li><a href="#">大阪市</a></li><li><a href="#">堺市</a></li><li><a href="#">神戸市</a></li>
+              <li><a href="#">岡山市</a></li><li><a href="#">広島市</a></li><li><a href="#">北九州市</a></li>
+              <li><a href="#">福岡市</a></li><li><a href="#">熊本市</a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2b">中核市<em>62</em></button>
+            <div class="panel3" id="p2b" hidden><h4>中核市</h4><ul>
+              <li><a href="#">都道府県別に見る</a></li><li><a href="#">五十音順に見る</a></li>
+              <li><a href="#">人口の多い順に見る</a></li></ul>
+              <p class="note">62市あるため、並べ方を選んでください。</p></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2c">東京23区<em>23</em></button>
+            <div class="panel3" id="p2c" hidden><h4>東京23区</h4><ul>
+              <li><a href="#">千代田区</a></li><li><a href="#">中央区</a></li><li><a href="#">港区</a></li>
+              <li><a href="#">新宿区</a></li><li><a href="#">文京区</a></li><li><a href="#">台東区</a></li>
+              <li><a href="#">墨田区</a></li><li><a href="#">江東区</a></li><li><a href="#">品川区</a></li>
+              <li><a href="#">目黒区</a></li><li><a href="#">大田区</a></li><li><a href="#">世田谷区</a></li>
+              <li><a href="#">渋谷区</a></li><li><a href="#">中野区</a></li><li><a href="#">杉並区</a></li>
+              <li><a href="#">豊島区</a></li><li><a href="#">北区</a></li><li><a href="#">荒川区</a></li>
+              <li><a href="#">板橋区</a></li><li><a href="#">練馬区</a></li><li><a href="#">足立区</a></li>
+              <li><a href="#">葛飾区</a></li><li><a href="#">江戸川区</a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2d">市<em>792</em></button>
+            <div class="panel3" id="p2d" hidden><h4>市</h4><ul>
+              <li><a href="#">都道府県別に見る</a></li><li><a href="#">五十音順に見る</a></li>
+              <li><a href="#">人口の多い順に見る</a></li><li><a href="#">面積の大きい順に見る</a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2e">町<em>743</em></button>
+            <div class="panel3" id="p2e" hidden><h4>町</h4><ul>
+              <li><a href="#">都道府県別に見る</a></li><li><a href="#">五十音順に見る</a></li>
+              <li><a href="#">「まち」「ちょう」の読み別</a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2f">村<em>183</em></button>
+            <div class="panel3" id="p2f" hidden><h4>村</h4><ul>
+              <li><a href="#">都道府県別に見る</a></li><li><a href="#">五十音順に見る</a></li>
+              <li><a href="#">「むら」「そん」の読み別</a></li></ul></div></li>
+          <li class="has-sub"><button class="subbtn" type="button" aria-expanded="false" aria-controls="p2g">広域連合<em>47</em></button>
+            <div class="panel3" id="p2g" hidden><h4>広域連合</h4><ul>
+              <li><a href="#">都道府県別に見る</a></li><li><a href="#">地方ブロック別に見る</a></li></ul>
+              <p class="note">一部事務組合は準備中です。</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm3">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h7"/></svg></span>
+        収録している情報<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm3" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>収録している情報</h3>
+        <ul>
+          <li><a href="#">公式サイト</a></li><li><a href="#">例規集</a></li>
+          <li><a href="#">議会会議録</a></li><li><a href="#">広報誌</a></li>
+          <li><a href="#">公式SNS・アプリ</a></li><li><a href="#">人口・面積・庁舎</a></li>
+          <li><a href="#">隣接自治体で比べる</a></li>
+        </ul>
+        <p class="note">パブリックコメント・入札・職員採用・統計は準備中です。</p>
+      </div>
+    </div>
+
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm4">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M7 6.5c2.5 2 7.5 2 10 0M7 17.5c2.5-2 7.5-2 10 0"/></svg></span>
+        ご当地カード<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm4" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>ご当地カード</h3>
+        <ul>
+          <li><a href="#">マンホールカード<em>1,2◯◯</em></a></li>
+          <li><a href="#">ダムカード<em>7◯◯</em></a></li>
+          <li><a href="#">都道府県別にさがす</a></li>
+          <li><a href="#">配布中のカードだけ見る</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm5">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.6"/></svg></span>
+        TDF47について<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm5" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>TDF47について</h3>
+        <ul>
+          <li><a href="#">このサイトについて</a></li><li><a href="#">データの出典</a></li>
+          <li><a href="#">更新のしくみ</a></li><li><a href="#">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="navitem">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm6">
+        <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h11l3 3v13H5z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        お問い合わせ<span class="ar">›</span>
+      </button>
+      <div class="submenu" id="sm6" hidden>
+        <button class="close" type="button" data-close aria-label="閉じる">✕</button>
+        <h3>お問い合わせ</h3>
+        <ul>
+          <li><a href="#">リンク切れを報告する</a></li>
+          <li><a href="#">掲載内容のご意見・ご要望</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="side-note">収録 1,835団体<br>最終確認 2026-09-11</p>
+</nav>
+
+<div class="page">
+  <div class="inner">
+    <nav class="crumb" aria-label="現在地">
+      <a href="#">TDF47</a><span>›</span><a href="#">関東</a><span>›</span><a href="#">埼玉県</a><span>›</span><a href="#">蕨市</a><span>›</span>隣接自治体とくらべる
+    </nav>
+
+    <div class="phead">
+      <div class="phead-top">
+        <div class="ttl">
+          <div class="h1row">
+            <div class="nameblock">
+              <p class="kana">わらびし</p>
+              <h1>蕨市と、となりの3市</h1>
+            </div>
+          </div>
+          <div class="badges">
+            <span class="badge">蕨市</span>
+            <span class="badge">川口市</span>
+            <span class="badge">戸田市</span>
+            <span class="badge">さいたま市</span>
+          </div>
+        </div>
+
+        <div class="officebox">
+          <a class="official" href="#openall-top">
+            <span class="ot">公式サイトを4つまとめて開く<small>新しいタブが4つ開きます</small></span>
+            <span class="go">↗</span>
+          </a>
+          <div class="contact">
+            <div><span>くらべ方</span>行ごとに、同じ種類のリンクを横に並べています。行の左はしのボタンで4市ぶんをまとめて開けます。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phead-data">
+        <div class="dstat"><span>対象</span><b>4</b><i>市</i></div>
+        <div class="dstat"><span>合計人口</span><b>2,152,875</b><i>人</i></div>
+        <div class="dstat"><span>くらべる項目</span><b>8</b><i>項目</i></div>
+        <p class="asof">蕨市に隣接するのは 川口市・戸田市・さいたま市 の3市です（国土数値情報 行政区域による）</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner sec">
+    <div class="sec-title"><h2>4市の基本データ</h2></div>
+    <div class="panel">
+      <div class="nb4">
+        <div class="ncard base">
+          <div class="top"><b>蕨市</b><em>このページの起点</em></div>
+          <div class="st"><span>74,896人</span><span>5.11km²</span></div>
+          <ul><li><a href="#">蕨市のページ</a></li></ul>
+        </div>
+        <div class="ncard">
+          <div class="top"><b>川口市</b><em>中核市</em></div>
+          <div class="st"><span>594,274人</span><span>61.95km²</span></div>
+          <ul><li><a href="#">川口市のページ</a></li></ul>
+        </div>
+        <div class="ncard">
+          <div class="top"><b>戸田市</b><em>市</em></div>
+          <div class="st"><span>142,183人</span><span>18.19km²</span></div>
+          <ul><li><a href="#">戸田市のページ</a></li></ul>
+        </div>
+        <div class="ncard">
+          <div class="top"><b>さいたま市</b><em>政令指定都市</em></div>
+          <div class="st"><span>1,341,522人</span><span>217.43km²</span></div>
+          <ul><li><a href="#">さいたま市のページ</a></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner sec" style="padding-top:6px" id="openall-top">
+    <div class="sec-title"><h2>リンクをくらべる</h2></div>
+    <div class="panel">
+      <p class="lead">行の左はしの「4つまとめて開く」を押すと、その行の4市ぶんのリンクが新しいタブでいっぺんに開きます。</p>
+      <div class="cmpwrap">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col">項目</th>
+              <th scope="col">蕨市</th>
+              <th scope="col">川口市</th>
+              <th scope="col">戸田市</th>
+              <th scope="col">さいたま市</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">公式サイト
+                <button class="openall" type="button" data-open="official">4つまとめて開く</button></th>
+              <td><a href="#" data-g="official">蕨市</a><span class="u">city.warabi.saitama.jp</span></td>
+              <td><a href="#" data-g="official">川口市</a><span class="u">city.kawaguchi.lg.jp</span></td>
+              <td><a href="#" data-g="official">戸田市</a><span class="u">city.toda.saitama.jp</span></td>
+              <td><a href="#" data-g="official">さいたま市</a><span class="u">city.saitama.lg.jp</span></td>
+            </tr>
+            <tr>
+              <th scope="row">例規集
+                <button class="openall" type="button" data-open="reiki">4つまとめて開く</button></th>
+              <td><a href="#" data-g="reiki">例規集</a><span class="u">/shisei/vision/reiki/</span></td>
+              <td><a href="#" data-g="reiki">例規集</a><span class="u">/reiki/reiki_honbun/</span></td>
+              <td><a href="#" data-g="reiki">例規集</a><span class="u">/reiki/reiki_honbun/</span></td>
+              <td><a href="#" data-g="reiki">例規集</a><span class="u">/reiki/reiki_honbun/</span></td>
+            </tr>
+            <tr>
+              <th scope="row">議会会議録
+                <button class="openall" type="button" data-open="gikai">4つまとめて開く</button></th>
+              <td><a href="#" data-g="gikai">会議録検索</a><span class="u">warabi.gijiroku.com</span></td>
+              <td><a href="#" data-g="gikai">会議録検索</a><span class="u">ssp.kaigiroku.net</span></td>
+              <td><a href="#" data-g="gikai">会議録検索</a><span class="u">ssp.kaigiroku.net</span></td>
+              <td><a href="#" data-g="gikai">会議録検索</a><span class="u">ssp.kaigiroku.net</span></td>
+            </tr>
+            <tr>
+              <th scope="row">広報誌
+                <button class="openall" type="button" data-open="kouhou">4つまとめて開く</button></th>
+              <td><a href="#" data-g="kouhou">広報わらび</a><span class="u">令和8年9月号</span></td>
+              <td><a href="#" data-g="kouhou">広報かわぐち</a><span class="u">令和8年9月号</span></td>
+              <td><a href="#" data-g="kouhou">広報戸田市</a><span class="u">令和8年9月号</span></td>
+              <td><a href="#" data-g="kouhou">市報さいたま</a><span class="u">令和8年9月号</span></td>
+            </tr>
+            <tr>
+              <th scope="row">公式X</th>
+              <td><a href="#">@warabi_city</a></td>
+              <td><a href="#">@kawaguchi_city</a></td>
+              <td><a href="#">@toda_city</a></td>
+              <td><a href="#">@saitama_city</a></td>
+            </tr>
+            <tr>
+              <th scope="row">公式LINE</th>
+              <td><a href="#">あり</a></td>
+              <td><a href="#">あり</a></td>
+              <td><a href="#">あり</a></td>
+              <td><a href="#">あり</a></td>
+            </tr>
+            <tr>
+              <th scope="row">マンホールカード</th>
+              <td><a href="#">蕨市A001</a><span class="u">第14弾 / 在庫あり</span></td>
+              <td><a href="#">川口市A001</a><span class="u">第7弾 / 残りわずか</span></td>
+              <td><a href="#">戸田市A001</a><span class="u">第16弾 / 在庫あり</span></td>
+              <td><a href="#">さいたま市A001 ほか1種</a><span class="u">第1弾・第13弾</span></td>
+            </tr>
+            <tr>
+              <th scope="row">パブリックコメント</th>
+              <td class="na">準備中（v2.0）</td>
+              <td class="na">準備中（v2.0）</td>
+              <td class="na">準備中（v2.0）</td>
+              <td class="na">準備中（v2.0）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subnote">ポップアップブロックが有効な場合、「まとめて開く」で開くのは1つ目のタブだけになります。ブラウザに表示される許可のメッセージから、このサイトを許可してください。</p>
+    </div>
+  </div>
+
+  <div class="inner sec" style="padding-top:6px;padding-bottom:52px">
+    <div class="sec-title"><h2>数字でくらべる</h2></div>
+    <div class="panel">
+      <div class="cmpwrap">
+        <table class="cmp num">
+          <thead>
+            <tr>
+              <th scope="col">項目</th>
+              <th scope="col">蕨市</th><th scope="col">川口市</th>
+              <th scope="col">戸田市</th><th scope="col">さいたま市</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">人口</th>
+              <td>74,896人</td><td>594,274人</td><td>142,183人</td><td>1,341,522人</td></tr>
+            <tr><th scope="row">世帯数</th>
+              <td>39,412世帯</td><td>294,118世帯</td><td>71,540世帯</td><td>640,318世帯</td></tr>
+            <tr><th scope="row">面積</th>
+              <td>5.11km²</td><td>61.95km²</td><td>18.19km²</td><td>217.43km²</td></tr>
+            <tr><th scope="row">人口密度</th>
+              <td>14,657人/km²</td><td>9,593人/km²</td><td>7,816人/km²</td><td>6,170人/km²</td></tr>
+            <tr><th scope="row">区分</th>
+              <td>市</td><td>中核市</td><td>市</td><td>政令指定都市</td></tr>
+            <tr><th scope="row">団体コード</th>
+              <td>11223</td><td>11203</td><td>11224</td><td>11100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="subnote">人口・世帯数は令和8年1月1日現在（住民基本台帳）／面積は令和7年全国都道府県市区町村別面積調／人口密度はTDF47が算出</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="inner">
+      <p class="kicker">もう少し広く見る。</p>
+      <h2>ほかのくらべ方</h2>
+      <div class="nb">
+        <div class="ncard">
+          <div class="top"><b>県南4市</b><em>蕨市・戸田市・川口市・草加市</em></div>
+          <div class="st"><span>4市</span></div>
+          <ul><li><a href="#">このまとまりでくらべる</a></li></ul>
+        </div>
+        <div class="ncard">
+          <div class="top"><b>人口が近い市</b><em>7万人台の市</em></div>
+          <div class="st"><span>全国 38市</span></div>
+          <ul><li><a href="#">このまとまりでくらべる</a></li></ul>
+        </div>
+        <div class="ncard">
+          <div class="top"><b>面積が小さい市</b><em>10km²未満の市</em></div>
+          <div class="st"><span>全国 5市</span></div>
+          <ul><li><a href="#">このまとまりでくらべる</a></li></ul>
+        </div>
+      </div>
+      <a class="pill" href="#">蕨市のページにもどる<span class="go">›</span></a>
+    </div>
+  </div>
+
+  <div class="inner" style="padding-top:34px;padding-bottom:10px">
+    <div class="src">
+      <h3>このページのデータについて</h3>
+      <span class="stamp">最終確認 2026-09-11 ／ リンク切れ 0件</span>
+      <ul>
+        <li>隣接関係 — 国土数値情報（行政区域）</li>
+        <li>人口・世帯数 — e-Stat 住民基本台帳人口（令和8年1月1日現在）／面積 — 国土地理院 全国都道府県市区町村別面積調</li>
+        <li>例規集 — 地方自治研究機構「全国自治体例規集」／議会 — 全国自治体の会議録検索MAP／広報誌・SNS — 都道府県市区町村（uub.jp）</li>
+        <li>マンホールカード — 下水道広報プラットホーム</li>
+      </ul>
+      <p>リンク先の内容はTDF47が作成したものではありません。誤りにお気づきの点は <a href="#" style="color:var(--link);text-decoration:underline">こちらからご報告</a> ください。</p>
+    </div>
+
+    <div class="devnote">
+      <p><b>このページはデザイン確認用のモックアップです。</b>数値・URLはサンプルで、実際の公表値とは一致しません。<br>
+      <b>「4つまとめて開く」は実際に動きます</b>（このモックではリンク先が空のため、同じページが開きます）。ポップアップブロックの影響を受けるため、そのことをページ内にも書いています。<br>
+      <b>表はスマホでは横スクロールになります。</b>1列目（項目名）は固定され、指で横に送っても項目名が隠れません。</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="inner footbar">
+      <a href="#">このサイトについて</a>
+      <a href="#">出典とデータについて</a>
+      <a href="#">リンク切れを報告する</a>
+      <a href="#">プライバシーポリシー</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.navbtn'));
+  var subs = Array.prototype.slice.call(document.querySelectorAll('.subbtn'));
+  // 第3階層パネルの置き場所
+  //  PC   : body 直下（サブメニューの transform に影響されないよう固定配置）
+  //  SP/TB: 元の位置に戻してアコーディオンにする
+  var MQ = window.matchMedia('(max-width:980px)');
+  var slots = Array.prototype.slice.call(document.querySelectorAll('.panel3')).map(function(p){
+    return { el:p, parent:p.parentNode, next:p.nextSibling };
+  });
+  function placePanels(){
+    slots.forEach(function(o){
+      if (MQ.matches){
+        if (o.el.parentNode !== o.parent) o.parent.insertBefore(o.el, o.next);
+      } else if (o.el.parentNode !== document.body){
+        document.body.appendChild(o.el);
+      }
+    });
+  }
+  placePanels();
+  if (MQ.addEventListener) MQ.addEventListener('change', placePanels);
+  else if (MQ.addListener) MQ.addListener(placePanels);
+  function panelOf(b){ return document.getElementById(b.getAttribute('aria-controls')); }
+  function shut(b){ b.setAttribute('aria-expanded','false'); b.classList.remove('on');
+    var p=panelOf(b); if(p) p.hidden=true; }
+  function closeSubs(scope,except){ subs.forEach(function(s){
+    if(s===except) return; if(scope && !scope.contains(s)) return; shut(s); }); }
+  function closeAll(except){ closeSubs(null,null); btns.forEach(function(b){ if(b!==except) shut(b); }); }
+  btns.forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation();
+    var p=panelOf(b), open=b.getAttribute('aria-expanded')==='true';
+    closeAll(b); b.setAttribute('aria-expanded',String(!open)); b.classList.toggle('on',!open);
+    if(p) p.hidden=open; }); });
+  subs.forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation();
+    var p=panelOf(s), open=s.getAttribute('aria-expanded')==='true';
+    closeSubs(s.closest('.submenu'),s); s.setAttribute('aria-expanded',String(!open));
+    s.classList.toggle('on',!open); if(p) p.hidden=open; }); });
+  document.querySelectorAll('[data-close]').forEach(function(x){
+    x.addEventListener('click',function(e){ e.stopPropagation(); closeAll(null); }); });
+  document.querySelectorAll('[data-back]').forEach(function(x){
+    x.addEventListener('click',function(e){ e.stopPropagation(); closeSubs(null,null); }); });
+  // ハンバーガー（タブレット・スマホ）
+  var side = document.querySelector('.side');
+  var burger = document.querySelector('.burger');
+  function closeNav(){
+    if(!side) return;
+    side.classList.remove('open');
+    if(burger){ burger.classList.remove('on'); burger.setAttribute('aria-expanded','false');
+      burger.setAttribute('aria-label','メニューを開く'); }
+    closeAll(null);
+  }
+  if(burger){
+    burger.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open = side.classList.toggle('open');
+      burger.classList.toggle('on',open);
+      burger.setAttribute('aria-expanded',String(open));
+      burger.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+      if(!open) closeAll(null);
+    });
+  }
+
+  document.addEventListener('click',function(e){
+    if(!e.target.closest) return;
+    if(e.target.closest('.navitem') || e.target.closest('.panel3')) return;
+    closeAll(null);
+    if(!e.target.closest('.side')) closeNav();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ closeAll(null); closeNav(); } });
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll('.openall').forEach(function(b){
+    b.addEventListener('click', function(){
+      var g = b.dataset.open;
+      var links = document.querySelectorAll('.cmp a[data-g="' + g + '"]');
+      Array.prototype.slice.call(links).forEach(function(a){
+        window.open(a.getAttribute('href'), '_blank', 'noopener');
+      });
+    });
+  });
+})();
+</script>
+
+</body></html>

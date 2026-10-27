@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block css %}pref{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>全国の市区町村</h1></div></div>
+      <div class="badges"><span class="badge">{{ muni_count|format_num }}市区町村（ほか北方領土の{{ hoppo_count }}村）</span></div></div></div>
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    <div class="listtools">
+      <input type="search" id="all-q" class="listtools__q" placeholder="市区町村名・よみ・ローマ字で絞り込み" aria-label="絞り込み">
+      <p class="listtools__count" id="all-count"></p>
+    </div>
+    <div class="mgrid" id="all-list">
+      {% for e in items %}
+      <a class="mtile" href="{{ e.path }}" data-name="{{ e.name }}" data-kana="{{ e.kana }}" data-slug="{{ e.slug }}" data-pref="{{ e.pref_name }}">
+        <span class="k">{{ e.pref_name }}</span><span class="n">{{ e.name }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="note" id="all-empty" hidden>該当する市区町村がありません。</p>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/assets/js/all.js" defer></script>{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block css %}union{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock">
+      <h1>全国の{{ item_label }}一覧</h1>
+    </div></div>
+    <div class="badges"><span class="badge">{{ stats.total }}市区町村</span></div></div></div>
+    {% if item_desc %}<p class="asof" style="margin-top:10px">{{ item_desc }}全国の{{ item_label }}へのリンクを、ここから直接たどれます。</p>{% endif %}
+  </div>
+</div>
+
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    <!-- 情報の有無でしぼり込むチップ（クリックで切替）-->
+    <div class="itchips" role="group" aria-label="情報の有無でしぼり込む">
+      <button type="button" class="itchip on" data-state="">すべて<em>{{ stats.total }}</em></button>
+      <button type="button" class="itchip" data-state="has">リンクあり<em>{{ stats.have }}</em></button>
+      {% if stats.seeded %}<button type="button" class="itchip" data-state="unc">未確認<em>{{ stats.seeded }}</em></button>{% endif %}
+      <button type="button" class="itchip" data-state="no">{% if item_key=='neighbors' %}隣接なし{% else %}該当なし{% endif %}<em>{{ stats.none + stats.missing }}</em></button>
+    </div>
+
+    <!-- 都道府県プルダウン＋フリーワード -->
+    <div class="itfilter">
+      <select id="it-pref" aria-label="都道府県でしぼり込む">
+        <option value="">すべての都道府県</option>
+        {% for p in pref_opts %}<option value="{{ p.slug }}">{{ p.name }}</option>{% endfor %}
+      </select>
+      <input type="search" id="it-q" placeholder="市区町村名・よみで絞り込み" aria-label="絞り込み">
+      <p class="itcount" id="it-count"></p>
+    </div>
+
+    <p class="ithint">列見出し（<b>市区町村</b>・<b>最終確認</b>）をクリックすると並べ替えできます。</p>
+
+    <div class="itbl-wrap">
+      <table class="itbl">
+        <thead>
+          <tr>
+            <th class="sortable" data-sort="kana" title="市区町村名で並べ替え">市区町村</th>
+            <th>都道府県</th>
+            <th>{{ col_label }}</th>
+            <th class="lc sortable" data-sort="lc" title="最終確認日で並べ替え">最終確認</th>
+          </tr>
+        </thead>
+        <tbody id="it-body">
+          {% for r in rows %}
+          <tr data-pref="{{ r.pref_slug }}" data-name="{{ r.name }}" data-kana="{{ r.kana }}" data-slug="{{ r.slug }}" data-state="{{ 'has' if r.state=='ready' else 'unc' if r.state=='seeded' else 'no' }}" data-lc="{{ r.last_checked or '' }}">
+            <td class="nm"><a href="{{ r.path }}">{{ r.name }}</a></td>
+            <td class="pf">{{ r.pref_name }}</td>
+            <td class="lk">
+              {% if r.kind == 'neighbors' %}
+                {% if r.url %}<a class="exl" href="{{ r.url }}">隣接 {{ r.count }}自治体<span class="go">›</span></a>{% else %}<span class="muted">隣接なし</span>{% endif %}
+              {% elif r.kind == 'sns' %}
+                {% if r.sns %}<span class="snsrow">{% for s in r.sns %}<a class="snschip" href="{{ s.url }}" target="_blank" rel="noopener">{{ s.label }}</a>{% endfor %}</span>{% else %}<span class="muted">なし</span>{% endif %}
+              {% else %}
+                {% if r.url %}<a class="exl out" href="{{ r.url }}" target="_blank" rel="noopener">{{ col_label }}を開く<span class="ext">↗</span></a>{% if r.state == 'seeded' %} <span class="tag-unc">未確認</span>{% endif %}
+                {% elif r.state == 'none' %}<span class="muted">該当なし</span>
+                {% else %}<span class="muted">未収集</span>{% endif %}
+              {% endif %}
+            </td>
+            <td class="lc">{% if r.last_checked %}{{ r.last_checked }}{% else %}—{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="note" id="it-empty" hidden>該当する市区町村がありません。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var body=document.getElementById('it-body');if(!body)return;
+  var rows=[].slice.call(body.querySelectorAll('tr'));
+  var pref=document.getElementById('it-pref'), q=document.getElementById('it-q'),
+      count=document.getElementById('it-count'), empty=document.getElementById('it-empty'),
+      chips=[].slice.call(document.querySelectorAll('.itchip')),
+      ths=[].slice.call(document.querySelectorAll('.itbl th.sortable'));
+  var state='', sortKey='', sortAsc=true;
+  function norm(s){return (s||'').toLowerCase();}
+  function filter(){
+    var pf=pref.value, kw=norm(q.value), n=0;
+    rows.forEach(function(r){
+      var okP=!pf||r.dataset.pref===pf;
+      var okS=!state||r.dataset.state===state;
+      var okK=!kw||norm(r.dataset.name).indexOf(kw)>=0||norm(r.dataset.kana).indexOf(kw)>=0||norm(r.dataset.slug).indexOf(kw)>=0;
+      var show=okP&&okS&&okK; r.style.display=show?'':'none'; if(show)n++;
+    });
+    count.textContent=n+'件'; empty.hidden=n>0;
+  }
+  function sort(key,asc){
+    var arr=rows.slice();
+    arr.sort(function(a,b){
+      var av=a.dataset[key]||'', bv=b.dataset[key]||'';
+      if(key==='lc'){ if(!av&&!bv)return 0; if(!av)return 1; if(!bv)return -1; }
+      if(av<bv)return asc?-1:1; if(av>bv)return asc?1:-1; return 0;
+    });
+    arr.forEach(function(r){body.appendChild(r);});
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.classList.remove('on');}); c.classList.add('on');
+    state=c.dataset.state; filter();
+  });});
+  ths.forEach(function(th){th.addEventListener('click',function(){
+    var key=th.dataset.sort;
+    if(sortKey===key){sortAsc=!sortAsc;}else{sortKey=key;sortAsc=true;}
+    ths.forEach(function(x){x.classList.remove('asc','desc');});
+    th.classList.add(sortAsc?'asc':'desc');
+    sort(key,sortAsc);
+  });});
+  pref.addEventListener('change',filter); q.addEventListener('input',filter);
+  filter();
+})();
+</script>
+{% endblock %}

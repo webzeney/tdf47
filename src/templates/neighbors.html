@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block css %}neighbors{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span><a href="{{ e.path }}">{{ e.name }}</a><span>›</span>隣接自治体
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock">
+      {% if e.kana %}<p class="kana">{{ e.kana }}</p>{% endif %}
+      <h1>{{ e.name }}と、となりの{{ neighbors|length }}自治体</h1>
+    </div></div></div></div>
+    <div class="phead-data"><div class="dstat"><span>隣接</span><b>{{ neighbors|length }}</b><i>自治体</i></div></div>
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="sec-title"><h2>{{ e.name }}に隣接する自治体</h2></div>
+  <div class="panel">
+    <div class="cmp-head">
+      <p class="cmp-lead">{{ e.name }}と、陸続きで隣接する{{ neighbors|length }}自治体を表で比べられます。人口・面積はクリックで並べ替えできます。</p>
+      <button class="copybtn" type="button">表をコピー</button>
+    </div>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>自治体</th>
+            <th>都道府県</th>
+            <th>区分</th>
+            <th class="num sortable" data-k="pop">人口</th>
+            <th class="num sortable" data-k="area">面積</th>
+            <th class="link">リンク</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="base">
+            <td><b>{{ e.name }}</b> <span class="tag">起点</span></td>
+            <td>{{ pref.name }}</td>
+            <td>{{ e.type_label or '—' }}</td>
+            <td class="num" data-v="{{ e.population or 0 }}">{{ base_pop or '—' }}</td>
+            <td class="num" data-v="{{ e.area_km2 or 0 }}">{{ base_area or '—' }}</td>
+            <td class="link"><a href="{{ e.path }}">ページ<span class="go">›</span></a></td>
+          </tr>
+          {% for n in neighbors %}
+          <tr>
+            <td>{{ n.name }}</td>
+            <td>{{ n.pref_name }}</td>
+            <td>{{ n.type_label or '—' }}</td>
+            <td class="num" data-v="{{ n['pop'] or 0 }}">{{ n.pop_disp or '—' }}</td>
+            <td class="num" data-v="{{ n['area'] or 0 }}">{{ n.area_disp or '—' }}</td>
+            <td class="link"><a href="{{ n.path }}">ページ<span class="go">›</span></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var tbl=document.querySelector('.cmp');if(!tbl)return;
+  var tb=tbl.querySelector('tbody');
+  tbl.querySelectorAll('th.sortable').forEach(function(th){
+    var asc=false;
+    th.addEventListener('click',function(){
+      asc=!asc;var i=[].indexOf.call(th.parentNode.children,th);
+      var rows=[].slice.call(tb.querySelectorAll('tr'));
+      rows.sort(function(a,b){
+        var av=+a.children[i].dataset.v, bv=+b.children[i].dataset.v;
+        return asc?av-bv:bv-av;
+      });
+      rows.forEach(function(r){tb.appendChild(r);});
+      tbl.querySelectorAll('th.sortable').forEach(function(x){x.classList.remove('asc','desc');});
+      th.classList.add(asc?'asc':'desc');
+    });
+  });
+  var cb=document.querySelector('.copybtn');
+  if(cb){cb.addEventListener('click',function(){
+    var lines=[];
+    tbl.querySelectorAll('tr').forEach(function(tr){
+      var cells=[].slice.call(tr.children).filter(function(td){return !td.classList.contains('link');})
+        .map(function(td){return td.textContent.replace(/\s+/g,' ').trim();});
+      lines.push(cells.join('\t'));
+    });
+    var txt=lines.join('\n'),done=function(ok){cb.textContent=ok?'コピーしました':'コピー失敗';setTimeout(function(){cb.textContent='表をコピー';},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(false);});
+    }else{
+      var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+      var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);done(ok);
+    }
+  });}
+})();
+</script>
+{% endblock %}

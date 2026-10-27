@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block css %}union{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ page_title }}</h1></div></div></div></div>
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:48px">
+  <div class="panel">
+    <div class="prose">{{ body|safe }}</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+name: リンク死活監視（日次ローリング）
+
+# ★クロールは手元のPCでは行わない（設計書の絶対ルール）。
+#   GitHubのクラウド(ubuntu-latest)で実行するので手元のPCのIPは使わない。
+# 毎日、確認の古いリンクから一定数を検証し「最終確認日」を更新 → DBをコミット → 再生成してFTP配信。
+# 1回の件数(limit)は無料枠に収まる範囲。初回の全件検証は workflow_dispatch で limit=0 を指定。
+on:
+  schedule:
+    - cron: '30 18 * * *'   # UTC 18:30 = JST 3:30
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: '1回に検証するリンク数（0=全件。初回の全件検証に使用）'
+        required: false
+        default: '2500'
+
+concurrency:
+  group: tdf47-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: リンクを検証（古い順に limit 件）
+        env:
+          TZ: Asia/Tokyo
+        run: python3 src/probe.py --limit ${{ github.event.inputs.limit || '2500' }}
+
+      - name: DBの変更をコミット
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add db/tdf47.sqlite reports/ 2>/dev/null || git add db/tdf47.sqlite
+          if git diff --staged --quiet; then echo "変更なし"; else git commit -m "probe: リンク死活監視を反映 ($(date +%F))" && git pull --rebase && git push; fi
+
+  # 配信は別ジョブ。FTP配信は deploy.yml・soumu.yml と同じグループで1本ずつ実行する。
+  publish:
+    needs: probe
+    runs-on: ubuntu-latest
+    concurrency:
+      group: tdf47-ftp
+      cancel-in-progress: false
+    steps:
+      - name: リポジトリを取得（main の最新）
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存をインストール（生成に必要なのは Jinja2 のみ。DBはコミット済み）
+        run: pip install jinja2
+
+      - name: 静的サイトを生成
+        env:
+          TZ: Asia/Tokyo
+          TDF47_SITE_URL: ${{ vars.SITE_URL }}
+          TDF47_GA4_ID: ${{ vars.GA4_ID }}
+          TDF47_CONTACT_URL: ${{ vars.CONTACT_URL }}
+        run: python3 src/build.py
+
+      - name: 配信先パスを正規化（末尾スラッシュ必須）
+        run: |
+          # 配信先はサーバー内の公開フォルダ tdf47.com に固定。
+          # GitHub変数 FTP_DIR には依存しない（誤設定による取り違えを防ぐため）。
+          echo "SERVER_DIR=/tdf47.com/" >> "$GITHUB_ENV"
+
+      - name: dist/ をFTPでサーバーへ配信
+        id: ftp
+        continue-on-error: true   # サーバー側の一時的なタイムアウトに備え、失敗したら下で1回だけやり直す
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store
+
+      - name: FTP配信をやり直す（1回目が失敗したときだけ）
+        if: ${{ steps.ftp.outcome == 'failure' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store

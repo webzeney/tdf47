@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block css %}top{% endblock %}
+{% block content %}
+
+<h1 class="sr-only">全国自治体リンク集 TDF47｜全国1,741市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへの自治体リンク</h1>
+<div class="hero">
+  <img class="heroimg" src="/assets/img/top-hero.webp?v={{ asset_ver }}" alt="全国の自治体情報を地図とデータでつなぐイメージ">
+  <p class="tagline">全国の自治体リンクを、<br class="tbr">ひとつの場所から</p>
+</div>
+
+<div class="inner">
+  <div class="searchwrap">
+    <div class="searchbox">
+
+      <div class="tabs" role="tablist" aria-label="自治体の探し方">
+        <button class="tab on" type="button" role="tab" id="tb-word" aria-controls="tp-word" aria-selected="true">
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4" stroke-linecap="round"/></svg>
+          フリーワードで探す
+        </button>
+        <button class="tab" type="button" role="tab" id="tb-map" aria-controls="tp-map" aria-selected="false" tabindex="-1">
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1.5 4 5.8 2.2l4.4 1.8L14.5 2.2v9.8L10.2 13.8 5.8 12 1.5 13.8z" stroke-linejoin="round"/><path d="M5.8 2.2V12M10.2 4v9.8"/></svg>
+          地図から探す
+        </button>
+      </div>
+
+      <div class="tabpanel" id="tp-word" role="tabpanel" aria-labelledby="tb-word">
+        <span class="lab">調べたい自治体名を入力してください</span>
+        <div class="searchrow">
+          <input id="q" type="search" placeholder="（例）蕨市　わらび　11223" aria-label="自治体を検索">
+          <button type="button">検索する</button>
+        </div>
+        <div class="srch-cond">
+          <span class="cond-lab">区分でしぼり込む</span>
+          <a class="cond" href="/type/seirei/">政令指定都市</a>
+          <a class="cond" href="/type/chukaku/">中核市</a>
+          <a class="cond" href="/type/tokyo23/">東京23区</a>
+          <a class="cond" href="/type/shi/">市</a>
+          <a class="cond" href="/type/cho/">町</a>
+          <a class="cond" href="/type/son/">村</a>
+          <a class="cond" href="/type/union/">広域連合</a>
+        </div>
+        <div class="srch-links">
+          <a class="help" href="/all/">全国一覧（{{ stat_teams|format_num }}団体）</a>
+          <a class="help" href="/about/">検索のヘルプ</a>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="tp-map" role="tabpanel" aria-labelledby="tb-map" hidden>
+        <p class="maplead">都道府県をお選びください</p>
+        <div class="mapwrap">
+          {% include "_jpmap.html" %}
+            <div class="mblocks">
+              <div class="mblock" style="--x:1%;--y:3%;--o:3;--c:#fbae46">
+                <span class="mbname">中国</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(3,auto)">
+                  <a class="mp" href="{{ pp['鳥取'] }}">鳥取<span>›</span></a>
+                  <a class="mp" href="{{ pp['島根'] }}">島根<span>›</span></a>
+                  <a class="mp" href="{{ pp['岡山'] }}">岡山<span>›</span></a>
+                  <a class="mp" href="{{ pp['広島'] }}">広島<span>›</span></a>
+                  <a class="mp" href="{{ pp['山口'] }}">山口<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:18%;--y:3%;--o:4;--c:#b5d24f">
+                <span class="mbname">近畿</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(4,auto)">
+                  <a class="mp" href="{{ pp['三重'] }}">三重<span>›</span></a>
+                  <a class="mp" href="{{ pp['滋賀'] }}">滋賀<span>›</span></a>
+                  <a class="mp" href="{{ pp['京都'] }}">京都<span>›</span></a>
+                  <a class="mp" href="{{ pp['大阪'] }}">大阪<span>›</span></a>
+                  <a class="mp" href="{{ pp['兵庫'] }}">兵庫<span>›</span></a>
+                  <a class="mp" href="{{ pp['奈良'] }}">奈良<span>›</span></a>
+                  <a class="mp" href="{{ pp['和歌山'] }}">和歌山<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:80%;--y:22%;--o:7;--c:#539fe6">
+                <span class="mbname">北海道・東北</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(4,auto)">
+                  <a class="mp" style="--c:#7588e3" href="{{ pp['北海道'] }}">北海道<span>›</span></a>
+                  <a class="mp" href="{{ pp['青森'] }}">青森<span>›</span></a>
+                  <a class="mp" href="{{ pp['岩手'] }}">岩手<span>›</span></a>
+                  <a class="mp" href="{{ pp['宮城'] }}">宮城<span>›</span></a>
+                  <a class="mp" href="{{ pp['秋田'] }}">秋田<span>›</span></a>
+                  <a class="mp" href="{{ pp['山形'] }}">山形<span>›</span></a>
+                  <a class="mp" href="{{ pp['福島'] }}">福島<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:59%;--y:60%;--o:5;--c:#61cd84">
+                <span class="mbname">中部</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(5,auto)">
+                  <a class="mp" href="{{ pp['新潟'] }}">新潟<span>›</span></a>
+                  <a class="mp" href="{{ pp['富山'] }}">富山<span>›</span></a>
+                  <a class="mp" href="{{ pp['石川'] }}">石川<span>›</span></a>
+                  <a class="mp" href="{{ pp['福井'] }}">福井<span>›</span></a>
+                  <a class="mp" href="{{ pp['山梨'] }}">山梨<span>›</span></a>
+                  <a class="mp" href="{{ pp['長野'] }}">長野<span>›</span></a>
+                  <a class="mp" href="{{ pp['岐阜'] }}">岐阜<span>›</span></a>
+                  <a class="mp" href="{{ pp['静岡'] }}">静岡<span>›</span></a>
+                  <a class="mp" href="{{ pp['愛知'] }}">愛知<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:1%;--y:31%;--o:1;--c:#ff7575">
+                <span class="mbname">九州・沖縄</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(4,auto)">
+                  <a class="mp" href="{{ pp['福岡'] }}">福岡<span>›</span></a>
+                  <a class="mp" href="{{ pp['佐賀'] }}">佐賀<span>›</span></a>
+                  <a class="mp" href="{{ pp['長崎'] }}">長崎<span>›</span></a>
+                  <a class="mp" href="{{ pp['熊本'] }}">熊本<span>›</span></a>
+                  <a class="mp" href="{{ pp['大分'] }}">大分<span>›</span></a>
+                  <a class="mp" href="{{ pp['宮崎'] }}">宮崎<span>›</span></a>
+                  <a class="mp" href="{{ pp['鹿児島'] }}">鹿児島<span>›</span></a>
+                  <a class="mp" href="{{ pp['沖縄'] }}">沖縄<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:18%;--y:46%;--o:2;--c:#df9d82">
+                <span class="mbname">四国</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(2,auto)">
+                  <a class="mp" href="{{ pp['徳島'] }}">徳島<span>›</span></a>
+                  <a class="mp" href="{{ pp['香川'] }}">香川<span>›</span></a>
+                  <a class="mp" href="{{ pp['愛媛'] }}">愛媛<span>›</span></a>
+                  <a class="mp" href="{{ pp['高知'] }}">高知<span>›</span></a>
+                </div>
+              </div>
+              <div class="mblock" style="--x:80%;--y:58%;--o:6;--c:#60cfd9">
+                <span class="mbname">関東</span>
+                <div class="mbgrid" style="grid-template-rows:repeat(4,auto)">
+                  <a class="mp" href="{{ pp['茨城'] }}">茨城<span>›</span></a>
+                  <a class="mp" href="{{ pp['栃木'] }}">栃木<span>›</span></a>
+                  <a class="mp" href="{{ pp['群馬'] }}">群馬<span>›</span></a>
+                  <a class="mp" href="{{ pp['埼玉'] }}">埼玉<span>›</span></a>
+                  <a class="mp" href="{{ pp['千葉'] }}">千葉<span>›</span></a>
+                  <a class="mp" href="{{ pp['東京'] }}">東京<span>›</span></a>
+                  <a class="mp" href="{{ pp['神奈川'] }}">神奈川<span>›</span></a>
+                </div>
+              </div>
+            </div>
+        </div>
+        <p class="mapextra">
+          <a href="/all/">全国から探す {{ stat_teams|format_num }}団体</a>
+        </p>
+        <a class="pill" href="/all/">すべての市区町村を一覧で見る<span class="go">›</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="inner sec">
+  <div class="sec-title">
+    <h2>更新のお知らせ</h2>
+  </div>
+  <div class="panel news">
+    <ul>
+      <li><a class="nrow" href="/about/updates/"><span class="body"><span class="cat">お知らせ</span><span class="ttl">サイトを公開しました。全国{{ muni_count|format_num }}市区町村の公式サイト・例規集・広報誌・SNSへのリンクを収録しています</span></span><span class="go">›</span></a></li>
+      <li><a class="nrow" href="/about/updates/"><span class="body"><span class="cat">データ更新</span><span class="ttl">団体マスタ（総務省 全国地方公共団体コード）を整備しました</span></span><span class="go">›</span></a></li>
+      <li><a class="nrow" href="/about/sources/"><span class="body"><span class="cat">お知らせ</span><span class="ttl">リンクの生存確認（最終確認日の付与）を順次進めています</span></span><span class="go">›</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<svg class="wave" viewBox="0 0 1200 44" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 44 C 150 4, 270 44, 420 26 C 570 8, 690 40, 840 30 C 990 20, 1090 6, 1200 22 L1200 44Z" fill="currentColor"/>
+</svg>
+<div class="band">
+  <div class="inner">
+    <div class="band-top">
+      <div>
+        <p class="kicker">例規集も、議会会議録も、広報誌も。<br>隣のまちが何をしているか、すぐに分かる。</p>
+        <h2>TDF47 について</h2>
+      </div>
+    </div>
+    <div class="two">
+      <div>
+        <h3>収録している情報</h3>
+        <div class="box">
+          <a class="t" href="/item/official/">全国{{ muni_count|format_num }}市区町村の自治体リンク集です。1団体につき、公式サイト・例規集・議会会議録・広報誌・公式SNS・人口・隣接自治体を収録しています</a>
+          <p>パブリックコメント、入札・契約、職員採用、統計、総合計画、DX推進計画、自治体DXの取組状況は準備中です。順次追加していきます。</p>
+        </div>
+      </div>
+      <div>
+        <h3>ご当地カード</h3>
+        <div class="box">
+          <a class="t" href="/card/">マンホールカード・ダムカードの配布場所、配布時間、在庫状況を都道府県別に一覧できます</a>
+          <p>配布が終了したカードも、記録として残します。</p>
+        </div>
+      </div>
+    </div>
+    <a class="pill" href="/about/">収録内容をくわしく見る<span class="go">›</span></a>
+  </div>
+</div>
+<svg class="wave" viewBox="0 0 1200 44" preserveAspectRatio="none" aria-hidden="true" style="transform:scaleY(-1)">
+  <path d="M0 44 C 160 10, 300 42, 450 28 C 600 14, 720 40, 870 32 C 1010 24, 1100 8, 1200 24 L1200 44Z" fill="currentColor"/>
+</svg>
+
+<div class="inner sec" style="padding-top:20px">
+  <div class="sec-title"><h2>サイトのデータ</h2></div>
+  <div class="panel datapanel">
+    <div class="datastats">
+      <div class="statrow"><em>収録団体</em><b>{{ stat_teams|format_num }}</b><i>団体</i></div>
+      <div class="statrow"><em>リンク</em><b>{{ stat_links|format_num }}</b><i>件</i></div>
+      <div class="statrow"><em>最終確認</em><b>{% if stat_last_checked %}{{ stat_last_checked }}{% else %}収集中{% endif %}</b></div>
+    </div>
+    <div class="datasrc">
+      <p class="datasrc-ttl">データ元</p>
+      <ul class="datasrc-list">
+        <li>総務省 全国地方公共団体コード</li>
+        <li>e-Stat 住民基本台帳／国土地理院 面積調</li>
+        <li>地方自治研究機構 全国自治体例規集</li>
+        <li>会議録検索MAP／都道府県市区町村（uub.jp）</li>
+        <li>国土数値情報・日本郵便・GKP・国土交通省 ほか</li>
+      </ul>
+      <p class="more"><a class="pill" href="/about/sources/">出典の詳細を見る<span class="go">›</span></a></p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+name: 総務省の財政データ更新（決算カード・類似団体区分・主要財政指標）
+
+# 総務省が新しい年度の「市町村決算カード」「類似団体比較カード」「主要財政指標一覧」を公表したら取り込む。
+# 公表時期が決まっていないため毎月1回確認し、内容が変わったときだけDBをコミットして再配信する
+# （実際の更新は年1回）。ファイルURLは年度ごとに変わるので、fetch_soumu.py が一覧ページの最新年度から解決する。
+# ★クロールは手元のPCでは行わない（設計書の絶対ルール）。GitHubのクラウドで実行する。
+on:
+  schedule:
+    - cron: '17 19 3 * *'   # 毎月3日 UTC 19:17 = JST 4日 4:17（日次の死活監視 JST 3:30 と重ならない時刻）
+  workflow_dispatch:
+
+concurrency:
+  group: tdf47-probe   # 死活監視と同じグループ（DBのコミットが衝突しないよう直列にする）
+  cancel-in-progress: false
+
+jobs:
+  soumu-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    permissions:
+      contents: write
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存をインストール
+        run: pip install openpyxl jinja2
+
+      - name: 総務省の最新年度を解決して取得
+        run: python3 src/ingest/fetch_soumu.py
+
+      - name: 取り込み（主要財政指標・類似団体区分・決算カード）
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          python3 src/ingest/13_fiscal.py
+          python3 src/ingest/14_ruiji.py
+
+      - name: 内容が変わったか確認
+        id: diff
+        run: |
+          # updated_at（取り込み日時）だけの差分は「変化なし」とみなす
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import sqlite3, subprocess, tempfile, os
+          old = tempfile.mktemp()
+          with open(old, "wb") as f:
+              f.write(subprocess.run(["git", "show", "HEAD:db/tdf47.sqlite"], capture_output=True, check=True).stdout)
+          q = "SELECT entity_code,fiscal_year,metric,value,value_text,source_url FROM fiscal ORDER BY 1,2,3"
+          a = sqlite3.connect(old).execute(q).fetchall()
+          b = sqlite3.connect("db/tdf47.sqlite").execute(q).fetchall()
+          print(f"changed={'true' if a != b else 'false'}")
+          os.remove(old)
+          EOF
+
+      - name: DBの変更をコミット
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add db/tdf47.sqlite
+          git commit -m "soumu: 決算カード・類似団体区分・主要財政指標を更新 ($(date +%F))"
+          git pull --rebase
+          git push
+
+  # 内容が変わったときだけ配信。FTP配信は deploy.yml・probe.yml と同じグループで1本ずつ実行する。
+  publish:
+    needs: soumu-update
+    if: needs.soumu-update.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: tdf47-ftp
+      cancel-in-progress: false
+    steps:
+      - name: リポジトリを取得（main の最新）
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存をインストール（生成に必要なのは Jinja2 のみ。DBはコミット済み）
+        run: pip install jinja2
+
+      - name: 静的サイトを生成
+        env:
+          TZ: Asia/Tokyo
+          TDF47_SITE_URL: ${{ vars.SITE_URL }}
+          TDF47_GA4_ID: ${{ vars.GA4_ID }}
+          TDF47_CONTACT_URL: ${{ vars.CONTACT_URL }}
+        run: python3 src/build.py
+
+      - name: 配信先パスを正規化（末尾スラッシュ必須）
+        run: |
+          # 配信先はサーバー内の公開フォルダ tdf47.com に固定。
+          # GitHub変数 FTP_DIR には依存しない（誤設定による取り違えを防ぐため）。
+          echo "SERVER_DIR=/tdf47.com/" >> "$GITHUB_ENV"
+
+      - name: dist/ をFTPでサーバーへ配信
+        id: ftp
+        continue-on-error: true   # サーバー側の一時的なタイムアウトに備え、失敗したら下で1回だけやり直す
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store
+
+      - name: FTP配信をやり直す（1回目が失敗したときだけ）
+        if: ${{ steps.ftp.outcome == 'failure' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ env.SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 120000
+          exclude: |
+            **/.git*
+            **/.DS_Store

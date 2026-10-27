@@ -1,0 +1,390 @@
+#!/usr/bin/env python3
+"""probe.py — 死活監視・差分検知（設計書 10章）。VPS上の日次cronで実行する。
+
+見るのは3つだけ（本文ハッシュは使わない。新着欄で毎日変わりノイズになるため）:
+  1. HTTPステータス（200以外）
+  2. 最終リダイレクト先URL（前回との差）
+  3. <title> の変化
+変化のあった行（changed=1）を reports/monthly-review-YYYYMM.csv に出し、
+月1回の目視確認 → 承認したものをDBへ反映する運用。
+
+マナー（設計書 13章）: robots.txt尊重 / 1リクエスト1秒以上 / User-Agentに連絡先。
+★このスクリプトは手元のPCで走らせない。VPSから実行すること。
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import datetime
+import os
+import re
+import sys
+import time
+import urllib.error
+import urllib.request
+from urllib.parse import parse_qs, unquote, urljoin, urlparse
+from urllib.robotparser import RobotFileParser
+
+SRC = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(SRC)
+sys.path.insert(0, SRC)
+import db  # noqa: E402
+
+UA = "TDF47-bot/1.0 (+https://tdf47.com/about/; link checker; contact: https://tdf47.com/contact/)"
+DELAY_SEC = 1.2       # 1リクエスト1秒以上
+TIMEOUT = 20
+NOW = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+MONTH = datetime.date.today().strftime("%Y%m")
+REVIEW_CSV = os.path.join(ROOT, "reports", f"monthly-review-{MONTH}.csv")
+
+REVIEW_FIELDS = ["checked_at", "entity_code", "entity_name", "kind", "prev_status", "new_status",
+                 "link_id", "url", "http_status", "final_url", "title", "error", "changed"]
+_TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
+_robots_cache: dict[str, RobotFileParser] = {}
+
+# 大手の例規集サービス。人がブラウザで開くと正常に表示されるが、プログラムからの確認では
+#   - ぎょうせい（d1-law.com）… 403 を返す（ボット拒否）
+#   - 第一法規（legal-square.com）… 古い暗号方式のため Python の既定設定では SSL ハンドシェイクに失敗
+# となり「リンク切れ」と誤判定されていた（2026-10-25 確認：北海道例規類集・Reiki-Base とも実在）。
+# これらのサービスで「拒否・通信方式の不一致」だった場合は、生死を判定できない（inconclusive）として
+# リンク切れにしない。404・ドメイン消滅など、明確に存在しない応答はこれまでどおりリンク切れにする。
+ROBOTS_ERR = "robots.txt で不許可"  # robots.txt で確認を断られたとき probe.error に入れる値
+INCONCLUSIVE_HOSTS = ("d1-law.com", "legal-square.com")
+INCONCLUSIVE_HTTP = {401, 403, 429}
+INCONCLUSIVE_ERR = ("SSL", "RemoteDisconnected", "timed out", "Connection reset")
+
+# 公式SNS（Facebook・Instagram・X）は robots.txt で自動確認を断られるため、直接は確認できない。
+# 代わりに、その自治体の公式サイト（トップページ）を確認したときに、そのアカウントへのリンクが
+# 載っているかを照合して probe に記録する（2026-10-25）。画面には出さない（内部記録のみ）。
+# 「掲載あり」→「掲載なし」に変わったものだけを月次レビュー CSV に載せる（見直しの材料）。
+# ※トップに載っていないだけでアカウントが消えたとは限らないので、link.status は変えない。
+OFFICIAL_LISTED = "公式サイトに掲載あり"
+OFFICIAL_MISSING = "公式サイトに掲載なし"
+OFFICIAL_MARKERS = (OFFICIAL_LISTED, OFFICIAL_MISSING)  # この2つは「確認の試み」に数えない
+_HREF_RE = re.compile(r"""href\s*=\s*["']([^"'#]+)["']""", re.IGNORECASE)
+_SNS_HOST_ALIAS = {"twitter.com": "x.com", "fb.com": "facebook.com", "instagr.am": "instagram.com",
+                   "page.line.me": "line", "line.me": "line"}
+_SNS_HOSTS = {"x.com", "facebook.com", "instagram.com", "youtube.com", "line"}
+_NOT_ACCOUNT = {"intent", "share", "sharer", "sharer.php", "home", "p", "explore", "reel", "watch",
+                "hashtag", "search", "dialog", "plugins", "tr", "results", "embed", "playlist",
+                "login", "signup", "i", "r", "ti", "stories"}
+
+
+def host_matches(url: str, suffixes=INCONCLUSIVE_HOSTS) -> bool:
+    h = (urlparse(url).hostname or "").lower()
+    return any(h == s or h.endswith("." + s) for s in suffixes)
+
+
+# サーバーが中間証明書を送っていない（証明書チェーン不完全）。ブラウザは自動で補って普通に開けるが、
+# Python では検証に失敗する（2026-10-25 直方市の公式サイトで確認）。サーバー自体は応答しているので、
+# どのホストでもリンク切れにはしない。
+INCOMPLETE_CHAIN_ERR = "unable to get local issuer certificate"
+
+
+def is_inconclusive(url: str, status, err) -> bool:
+    """生死を判定できない応答か（証明書チェーン不完全はすべてのホスト、それ以外は INCONCLUSIVE_HOSTS のみ）。"""
+    if err and status is None and INCOMPLETE_CHAIN_ERR in err:
+        return True
+    if not host_matches(url):
+        return False
+    if status in INCONCLUSIVE_HTTP:
+        return True
+    return bool(err) and status is None and any(k in err for k in INCONCLUSIVE_ERR)
+
+
+def _legacy_ssl_context():
+    """古い暗号方式のサーバー向け。証明書の検証は通常どおり行う。"""
+    import ssl
+    ctx = ssl.create_default_context()
+    ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+    ctx.options |= getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0x4)
+    return ctx
+
+
+def sns_key(url: str):
+    """SNSアカウントURLを照合用のキー (サービス, アカウント) にする。アカウントと判別できなければ None。
+    例: https://twitter.com/Warabi_City/ と https://x.com/warabi_city は同じキーになる。"""
+    try:
+        p = urlparse(url.strip())
+    except ValueError:
+        return None
+    h = (p.hostname or "").lower()
+    for pre in ("www.", "m.", "mobile.", "web."):
+        if h.startswith(pre):
+            h = h[len(pre):]
+    h = _SNS_HOST_ALIAS.get(h, h)
+    if h not in _SNS_HOSTS:
+        return None
+    segs = [x for x in unquote(p.path).lower().split("/") if x]
+    if not segs:
+        return None
+    if h == "facebook.com":
+        if segs[0] == "profile.php":
+            ids = parse_qs(p.query).get("id")
+            return (h, "id:" + ids[0]) if ids else None
+        if segs[0] == "pages" and segs[-1].isdigit():
+            return (h, "id:" + segs[-1])
+        if segs[0] == "people" and segs[-1].isdigit():
+            return (h, "id:" + segs[-1])
+    if h == "youtube.com":
+        if segs[0] in ("channel", "c", "user") and len(segs) > 1:
+            return (h, segs[0] + "/" + segs[1])
+        return (h, segs[0]) if segs[0].startswith("@") else None
+    if h == "line":
+        # page.line.me/<id> と line.me/R/ti/p/@<id> を同じキーに
+        acc = segs[-1] if segs[0] == "r" else segs[0]
+        acc = acc.lstrip("@")
+        return (h, acc) if acc and acc not in _NOT_ACCOUNT else None
+    if segs[0] in _NOT_ACCOUNT:
+        return None
+    return (h, segs[0].lstrip("@"))
+
+
+def sns_keys_in(html: str, base_url: str) -> set:
+    """ページ内のリンク先からSNSアカウントのキーを集める。"""
+    keys = set()
+    for href in _HREF_RE.findall(html or ""):
+        k = sns_key(urljoin(base_url, href.replace("&amp;", "&")))
+        if k:
+            keys.add(k)
+    return keys
+
+
+def check_official_listing(conn, entity_code, entity_name, official_final_url, html):
+    """公式サイトのページに、その団体の公式SNSアカウントが載っているかを照合して記録する。
+    月次レビューに載せる行（掲載あり→掲載なし に変わったもの）を返す。"""
+    found = sns_keys_in(html, official_final_url)
+    review = []
+    rows = conn.execute(
+        "SELECT id, url, status, kind_code FROM link WHERE entity_code=? AND substr(kind_code,1,4)='sns_' "
+        "AND url IS NOT NULL AND status IN ('ok','unchecked')", (entity_code,)).fetchall()
+    for r in rows:
+        k = sns_key(r["url"])
+        if not k:
+            continue
+        marker = OFFICIAL_LISTED if k in found else OFFICIAL_MISSING
+        prev = conn.execute(
+            "SELECT error FROM probe WHERE link_id=? AND error IN (?,?) ORDER BY checked_at DESC, id DESC LIMIT 1",
+            (r["id"],) + OFFICIAL_MARKERS).fetchone()
+        conn.execute(
+            "INSERT INTO probe (link_id,checked_at,http_status,final_url,page_title,changed,error) "
+            "VALUES (?,?,NULL,?,NULL,?,?)",
+            (r["id"], NOW, official_final_url, 0, marker))
+        if prev and prev["error"] == OFFICIAL_LISTED and marker == OFFICIAL_MISSING:
+            conn.execute("UPDATE probe SET changed=1 WHERE id=last_insert_rowid()")
+            review.append({"checked_at": NOW, "entity_code": entity_code, "entity_name": entity_name,
+                           "kind": r["kind_code"], "prev_status": r["status"], "new_status": r["status"],
+                           "link_id": r["id"], "url": r["url"], "http_status": "",
+                           "final_url": official_final_url, "title": "",
+                           "error": "公式サイトのトップページから、このアカウントへのリンクがなくなった",
+                           "changed": 1})
+    return review
+
+
+def allowed_by_robots(url: str) -> bool:
+    try:
+        parts = urlparse(url)
+        base = f"{parts.scheme}://{parts.netloc}"
+        rp = _robots_cache.get(base)
+        if rp is None:
+            rp = RobotFileParser()
+            rp.set_url(base + "/robots.txt")
+            try:
+                rp.read()
+            except Exception:
+                rp = None  # robots取得失敗時は許可扱い
+            _robots_cache[base] = rp
+        return True if rp is None else rp.can_fetch(UA, url)
+    except Exception:
+        return True
+
+
+def fetch(url: str):
+    """(http_status, final_url, title, error) を返す。"""
+    return fetch_page(url)[:4]
+
+
+def fetch_page(url: str, max_bytes: int = 200_000):
+    """(http_status, final_url, title, error, html) を返す。
+    例規集サービスで SSL ハンドシェイクに失敗したときは、古い暗号方式も許す設定で1回だけ再試行する。"""
+    res = _fetch(url, max_bytes=max_bytes)
+    if res[3] and res[0] is None and "SSL" in res[3] and host_matches(url):
+        time.sleep(DELAY_SEC)
+        res = _fetch(url, _legacy_ssl_context(), max_bytes=max_bytes)
+    return res
+
+
+def _fetch(url: str, context=None, max_bytes: int = 200_000):
+    req = urllib.request.Request(url, headers={"User-Agent": UA}, method="GET")
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT, context=context) as resp:
+            final_url = resp.geturl()
+            raw = resp.read(max_bytes)  # 先頭だけ（titleは頭にある。公式サイトはSNS照合のため多めに読む）
+            enc = resp.headers.get_content_charset() or "utf-8"
+            try:
+                html = raw.decode(enc, errors="replace")
+            except LookupError:
+                html = raw.decode("utf-8", errors="replace")
+            m = _TITLE_RE.search(html)
+            title = re.sub(r"\s+", " ", m.group(1)).strip() if m else None
+            return resp.status, final_url, title, None, html
+    except urllib.error.HTTPError as e:
+        return e.code, url, None, f"HTTPError {e.code}", ""
+    except Exception as e:
+        return None, url, None, f"{type(e).__name__}: {e}", ""
+
+
+def last_probe(conn, link_id):
+    row = conn.execute(
+        "SELECT http_status,final_url,page_title FROM probe "
+        "WHERE link_id=? AND (error IS NULL OR error NOT IN (?,?,?)) ORDER BY checked_at DESC LIMIT 1",
+        (link_id, ROBOTS_ERR) + OFFICIAL_MARKERS).fetchone()
+    return dict(row) if row else None
+
+
+def reclassify(conn) -> int:
+    """dead のうち、直近の確認結果が「判定できない」だったものを unchecked に戻す（通信なし・冪等）。"""
+    rows = conn.execute(
+        "SELECT l.id, l.url, p.http_status, p.error FROM link l "
+        "JOIN probe p ON p.id = (SELECT id FROM probe WHERE link_id=l.id "
+        "AND (error IS NULL OR error NOT IN (?,?)) ORDER BY checked_at DESC, id DESC LIMIT 1) "
+        "WHERE l.status='dead'", OFFICIAL_MARKERS).fetchall()
+    n = 0
+    for r in rows:
+        if is_inconclusive(r["url"], r["http_status"], r["error"]):
+            conn.execute("UPDATE link SET status='unchecked' WHERE id=?", (r["id"],))
+            n += 1
+    conn.commit()
+    return n
+
+
+KEEP_HISTORY = 3  # probe テーブルに残す1リンクあたりの履歴数
+
+
+def prune_history(conn) -> int:
+    """probe の履歴を1リンクにつき直近 KEEP_HISTORY 回分に間引く。
+    DBは毎日 git にコミットされるため、履歴を無制限に残すとDB・リポジトリが膨らみ続ける。
+    使っているのは「直近の結果」（前回との比較・誤判定の見直し・巡回の順番）だけ。
+    公式サイト掲載の照合（OFFICIAL_MARKERS）は通常の確認とは別枠で、それぞれ直近3回分を残す。
+    変化のあった確認は reports/monthly-review-*.csv にも残る。"""
+    cur = conn.execute(
+        "DELETE FROM probe WHERE id IN (SELECT id FROM (SELECT id, ROW_NUMBER() OVER "
+        "(PARTITION BY link_id, (error IS NOT NULL AND error IN (?,?)) "
+        "ORDER BY checked_at DESC, id DESC) AS rn FROM probe) WHERE rn > ?)",
+        OFFICIAL_MARKERS + (KEEP_HISTORY,))
+    n = cur.rowcount
+    conn.commit()
+    if n:
+        conn.execute("VACUUM")
+    return n
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--limit", type=int, default=0,
+                    help="1回に検証する最大リンク数（0=全件）。日次ローリング用。")
+    ap.add_argument("--reclassify-only", action="store_true",
+                    help="通信せず、既存の確認結果からリンク切れの誤判定だけを戻して終了する。")
+    args = ap.parse_args()
+
+    conn = db.connect()
+    db.init_schema(conn)
+    n_back = reclassify(conn)
+    print(f"誤判定の見直し: リンク切れ → 未確認 に戻したリンク {n_back} 件")
+    if args.reclassify_only:
+        conn.close()
+        return
+    # 種まき(unchecked)・既存ok・dead(復活確認) を対象。未確認(last_checked NULL)を最優先、
+    # 以降は確認が古い順。--limit で1回分を区切るとローリング検証になる。
+    # 並び順は「最後に確認を試みた日時」（probe の最新 checked_at）が古い順。一度も試していないものが最優先。
+    # ※以前は link.last_checked（生存を確認できた日）で並べていたため、robots.txt で不許可のリンクや
+    #   リンク切れのリンクは日付が入らず毎日先頭に居座り、1日の枠を食いつぶしていた（2026-10-25修正）。
+    sql = ("SELECT l.id, l.url, l.status, l.kind_code, e.code AS entity_code, e.name AS entity_name "
+           "FROM link l JOIN entity e ON e.code = l.entity_code "
+           "LEFT JOIN (SELECT link_id, MAX(checked_at) AS last_try FROM probe "
+           "WHERE error IS NULL OR error NOT IN (?,?) GROUP BY link_id) t "
+           "ON t.link_id = l.id "
+           "WHERE l.url IS NOT NULL AND l.status IN ('ok','unchecked','dead') "
+           "ORDER BY (t.last_try IS NOT NULL), t.last_try ASC, l.id ASC")
+    if args.limit and args.limit > 0:
+        sql += f" LIMIT {int(args.limit)}"
+    links = [dict(r) for r in conn.execute(sql, OFFICIAL_MARKERS)]
+    print(f"probe対象: {len(links)} リンク（limit={args.limit or '全件'}）")
+    changed_rows = []
+    n_robots = 0
+    n_sns = 0  # SNSの掲載照合をした公式サイトの数
+    for i, l in enumerate(links, 1):
+        url = l["url"]
+        if not allowed_by_robots(url):
+            # 確認しない（マナー）。試みた記録だけ残し、順番を後ろに回す。status は変えない。
+            conn.execute(
+                "INSERT INTO probe (link_id,checked_at,http_status,final_url,page_title,changed,error) "
+                "VALUES (?,?,NULL,NULL,NULL,0,?)", (l["id"], NOW, ROBOTS_ERR))
+            n_robots += 1
+            continue
+        if l["kind_code"] == "official":
+            status, final_url, title, err, html = fetch_page(url, max_bytes=600_000)
+        else:
+            status, final_url, title, err, html = fetch_page(url)
+        prev = last_probe(conn, l["id"])
+        changed = 0
+        if prev:
+            if (prev["http_status"] != status or prev["final_url"] != final_url
+                    or (title and prev["page_title"] and prev["page_title"] != title)):
+                changed = 1
+        conn.execute(
+            "INSERT INTO probe (link_id,checked_at,http_status,final_url,page_title,changed,error) "
+            "VALUES (?,?,?,?,?,?,?)",
+            (l["id"], NOW, status, final_url, title, changed, err))
+        # 生死を link.status に確定。生存なら last_checked を更新（中核機能）。
+        alive = status == 200 and err is None
+        if alive:
+            new_status = "ok"
+        elif is_inconclusive(url, status, err):
+            # 判定できない：リンク切れにはしない。最終確認日は更新しない。
+            new_status = "ok" if l["status"] == "ok" else "unchecked"
+        else:
+            new_status = "dead"
+        if alive:
+            conn.execute("UPDATE link SET status=?, last_checked=? WHERE id=?",
+                         (new_status, NOW[:10], l["id"]))
+            if l["kind_code"] == "official":
+                sns_review = check_official_listing(conn, l["entity_code"], l["entity_name"], final_url, html)
+                changed_rows.extend(sns_review)
+                n_sns += 1
+        else:
+            conn.execute("UPDATE link SET status=? WHERE id=?", (new_status, l["id"]))
+        if l["status"] == "unchecked":
+            changed = 1  # 初回検証は必ずレビュー対象に載せる
+        if changed or (status != 200):
+            changed_rows.append({"checked_at": NOW, "entity_code": l["entity_code"],
+                                 "entity_name": l["entity_name"], "kind": l["kind_code"],
+                                 "prev_status": l["status"], "new_status": new_status,
+                                 "link_id": l["id"], "url": url, "http_status": status,
+                                 "final_url": final_url, "title": title or "",
+                                 "error": err or "", "changed": changed})
+        if i % 200 == 0:
+            conn.commit()
+            print(f"  {i}/{len(links)} …")
+        time.sleep(DELAY_SEC)
+    conn.commit()
+    n_pruned = prune_history(conn)
+    print(f"古い確認履歴を削除: {n_pruned} 行（1リンクにつき直近 {KEEP_HISTORY} 回分を保持）")
+
+    # 月ごとのファイルに日々追記する（以前は毎回上書きで、その日の分しか残らなかった）。
+    # reports/monthly-review-*.csv は git 管理（probe.yml がコミット）。月1回の目視確認に使う。
+    os.makedirs(os.path.dirname(REVIEW_CSV), exist_ok=True)
+    new_file = not os.path.exists(REVIEW_CSV)
+    with open(REVIEW_CSV, "a", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=REVIEW_FIELDS)
+        if new_file:
+            w.writeheader()
+        w.writerows(changed_rows)
+    conn.close()
+    print(f"完了。確認 {len(links) - n_robots} 件 / robots.txt で不許可 {n_robots} 件 / "
+          f"SNSの掲載照合 {n_sns} 団体。要レビュー {len(changed_rows)} 行 → {REVIEW_CSV}")
+
+
+if __name__ == "__main__":
+    main()

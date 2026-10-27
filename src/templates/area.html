@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block css %}pref{% endblock %}
+{% block content %}
+<div class="inner">
+  <nav class="crumb" aria-label="現在地">
+    {% for c in crumbs %}{% if c.path %}<a href="{{ c.path }}">{{ c.label }}</a><span>›</span>{% else %}{{ c.label }}{% endif %}{% endfor %}
+  </nav>
+  <div class="phead">
+    <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ block.label }}</h1></div></div>
+      <div class="badges"><span class="badge">{{ block.prefs|length }}都道府県</span></div></div></div>
+  </div>
+</div>
+<div class="inner sec" style="padding-bottom:40px">
+  <div class="panel">
+    <div class="mgrid">
+      {% for p in block.prefs %}<a class="mtile" href="{{ p.path }}"><span class="n">{{ p.name }}</span><span class="p">{{ p.n }}市区町村</span></a>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
