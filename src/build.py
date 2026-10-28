@@ -861,8 +861,7 @@ class Builder:
             links += '<li><a href="/item/similar/">同規模の自治体で比べる</a></li>'
             self.build_item_similar()
         self.render("static.html", "/item/", "収録している情報",
-                    body=f"<p>各市区町村について収録している情報を、種別ごとに全国横断で一覧できます。</p>"
-                         f"<ul class='plain-links'>{links}</ul>",
+                    body=self._items_body(),
                     crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": "収録している情報"}])
         pref_opts = [{"name": p["name"], "slug": p["slug"]} for p in self.prefs]
         for key, (label, desc) in ITEM_META.items():
@@ -874,6 +873,53 @@ class Builder:
                         page_desc=f"全国{len(rows)}市区町村の{label}へのリンクを一覧できる自治体リンク集。{desc}",
                         crumbs=[{"label": SITE_SHORT, "path": "/"},
                                 {"label": "収録情報", "path": "/item/"}, {"label": label}])
+
+    def _count_kind(self, *kinds):
+        """その種別のリンク（表示中＝ok/unchecked）がある団体の数。"""
+        n = 0
+        for code, by_kind in self.links.items():
+            if any(r["status"] in ("ok", "unchecked") and r["url"]
+                   for k in kinds for r in by_kind.get(k, [])):
+                n += 1
+        return n
+
+    def _items_body(self):
+        """「収録している情報」ページの本文。掲載数はデータから数える。"""
+        c = self._count_kind
+        fmt = lambda n: f"{n:,}団体"  # noqa: E731
+        n_cards = {}
+        for k in ("manhole", "dam"):
+            n_cards[k] = sum(1 for rs in self.cards.values() for r in rs if r["kind"] == k)
+        items = [
+            ("公式サイト", "各自治体の公式ウェブサイトのトップページ。", fmt(c("official")), "/item/official/"),
+            ("例規集", "条例・規則などを調べられる例規集。", fmt(c("reiki")), "/item/reiki/"),
+            ("議会会議録", "議会の会議録検索システム。システムが無い自治体は、その旨を表示しています。",
+             fmt(c("gikai")), "/item/gikai/"),
+            ("広報誌", "広報誌のバックナンバー・電子版。", fmt(c("kouhou")), "/item/kouhou/"),
+            ("パブリックコメント", "計画や条例案などへの意見募集（パブリックコメント）のページ。", fmt(c("pubcomment")), None),
+            ("入札・契約", "入札・契約の情報のページ。", fmt(c("nyusatsu")), None),
+            ("職員採用", "職員の採用情報のページ。", fmt(c("saiyo")), None),
+            ("統計", "人口・統計書など、自治体の統計のページ。", fmt(c("toukei")), None),
+            ("総合計画", "自治体の最上位の計画である総合計画のページ。", fmt(c("sougou_keikaku")), None),
+            ("DX推進計画", "DX推進計画（デジタル化の計画）のページ。", fmt(c("dx_keikaku")), None),
+            ("公式SNS", "X・LINE・Facebook・Instagram・YouTube の公式アカウント。",
+             f"X {c('sns_x'):,}／LINE {c('sns_line'):,}／Facebook {c('sns_facebook'):,}／"
+             f"Instagram {c('sns_instagram'):,}／YouTube {c('sns_youtube'):,}団体", "/item/sns/"),
+            ("人口・世帯数・面積", "住民基本台帳による人口・世帯数と、全国都道府県市区町村別面積調による面積。", "全団体", None),
+            ("隣接自治体", "陸続きで接する自治体と、人口・面積・各種リンクを並べた比較表。", "全市区町村", "/item/neighbors/"),
+            ("類似団体区分・決算カード・財政指標", "総務省の類似団体区分、決算カード・類似団体比較カード、主要財政指標。",
+             "全市区町村・都道府県", "/item/similar/"),
+            ("自治体DXの取組状況", "デジタル庁「自治体DXの取組に関するダッシュボード」の13項目。", "全市区町村・都道府県", None),
+            ("ご当地カード", "マンホールカード・ダムカードの配布場所・配布時間・在庫状況。",
+             f"マンホールカード {n_cards['manhole']:,}種／ダムカード {n_cards['dam']:,}種", "/card/"),
+        ]
+        out = ["<p>1団体ごとに、次の情報を掲載しています。掲載数は、いま表示しているリンク・データのある団体の数です。</p>"]
+        for label, desc, num, link in items:
+            more = f'　<a href="{link}">一覧を見る</a>' if link else ""
+            out.append(f"<h2>{label}</h2><p>{desc}掲載数：{num}{more}</p>")
+        out.append("<p>リンク先は毎日確認し、各リンクに最終確認日を表示しています。"
+                   "掲載のない項目は「掲載準備中です」と表示し、順次追加しています。</p>")
+        return "\n".join(out)
 
     def build_item_similar(self):
         """#8 /item/similar/: 同規模の自治体と比べる方法の案内と、類似団体区分の一覧。"""
@@ -971,6 +1017,18 @@ class Builder:
         for path, (title, body) in pages.items():
             self.render("static.html", path, title, body=body,
                         crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": title}])
+        # お知らせの詳細ページ（/about/news/年月日-時分/）
+        for n in NEWS:
+            text = n["text"].replace("{muni_count}", f"{self.muni_count:,}")
+            body = (f'<p class="muted">{_jp_date(n["date"])} {n["time"]}　{n["cat"]}</p>'
+                    + n["body"].replace("{muni_count}", f"{self.muni_count:,}")
+                    + f'<p class="more"><a class="pill" style="display:inline-flex" href="{n["link"][0]}">'
+                      f'{n["link"][1]}<span class="go">›</span></a></p>'
+                    + '<p><a href="/about/news/">お知らせの一覧へ</a></p>')
+            title = text.split("。")[0]
+            self.render("static.html", n["path"], title, body=body,
+                        crumbs=[{"label": SITE_SHORT, "path": "/"},
+                                {"label": "お知らせ", "path": "/about/news/"}, {"label": title}])
 
     def _news_body(self):
         """お知らせ（NEWS）の一覧。新しい順。"""
@@ -979,7 +1037,7 @@ class Builder:
         for n in NEWS:
             text = n["text"].replace("{muni_count}", f"{self.muni_count:,}")
             rows.append(f'<li>{_jp_date(n["date"])}　{_h.escape(n["cat"])}：'
-                        f'<a href="{n["path"]}">{_h.escape(text)}</a></li>')
+                        f'<a href="{n["path"]}">{_h.escape(text)}</a></li>')  # 詳細ページへ
         return "<ul>\n" + "\n".join(rows) + "\n</ul>\n"
 
     def _contact_body(self):
@@ -1044,9 +1102,11 @@ class Builder:
                 continue
             urls.append((SITE_URL + e["path"], e.get("updated_at", "")[:10] or TODAY))
         for extra in ["/", "/all/", "/type/", "/item/", "/card/", "/card/manhole/",
-                      "/card/dam/", "/about/", "/about/sources/", "/about/updates/",
+                      "/card/dam/", "/about/", "/about/sources/", "/about/updates/", "/about/news/",
                       "/privacy/", "/contact/"]:
             urls.append((SITE_URL + extra, TODAY))
+        for n in NEWS:
+            urls.append((SITE_URL + n["path"], n["date"]))
         for b in self.nav_blocks():
             urls.append((SITE_URL + f"/area/{b['slug']}/", TODAY))
         for k in ITEM_META:
@@ -1212,19 +1272,56 @@ SOURCES_BODY = """
 # 新機能・新しい情報を追加したときだけ書く（毎日のリンク確認などの定常作業は書かない）。
 # date は実装を公開した日。text の {muni_count} は市区町村数に置き換わる。
 NEWS = [
-    {"date": "2026-10-28", "cat": "新機能", "path": "/about/",
-     "text": "入札・契約、職員採用、統計、総合計画、DX推進計画のページへのリンクと、自治体DXの取組状況を掲載しました"},
-    {"date": "2026-10-28", "cat": "新機能", "path": "/about/",
-     "text": "パブリックコメント（意見募集）のページへのリンクを掲載しました"},
-    {"date": "2026-10-24", "cat": "新機能", "path": "/item/similar/",
-     "text": "類似団体区分と決算カードを掲載しました。人口規模などが近い自治体を探して比べられます"},
-    {"date": "2026-10-23", "cat": "新機能", "path": "/compare/",
-     "text": "自治体をえらんで比べる機能と、財政指標の掲載を始めました"},
-    {"date": "2026-10-22", "cat": "新機能", "path": "/all/",
-     "text": "全国の市区町村の一覧と、隣接自治体の比較表を追加しました"},
-    {"date": "2026-10-21", "cat": "お知らせ", "path": "/about/",
-     "text": "サイトを公開しました。全国{muni_count}市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへのリンクを掲載しています"},
+    {"slug": "20261028-1834", "cat": "新機能",
+     "text": "入札・契約、職員採用、統計、総合計画、DX推進計画のページへのリンクを掲載しました",
+     "body": "<p>各自治体のページの「行政・法務の情報」に、入札・契約、職員採用、統計、総合計画、DX推進計画のページへのリンクを加えました。"
+             "例規集や広報誌と同じカードで表示し、リンク先は毎日確認して最終確認日を表示します。</p>"
+             "<h2>掲載した数（公開時点）</h2><ul><li>入札・契約：1,100団体</li><li>職員採用：1,022団体</li>"
+             "<li>統計：727団体</li><li>総合計画：569団体</li><li>DX推進計画：35団体</li></ul>"
+             "<p>掲載のない自治体は「掲載準備中です」と表示しています。各自治体のページを確認しながら、順次追加していきます。</p>",
+     "link": ("/item/", "収録している情報")},
+    {"slug": "20261028-1518", "cat": "新機能",
+     "text": "自治体DXの取組状況を掲載しました",
+     "body": "<p>全国の市区町村と都道府県のページに「自治体DXの取組状況」を加えました。"
+             "デジタル庁「自治体DXの取組に関するダッシュボード」のデータをもとに、次の13項目を表示します。</p>"
+             "<ul><li>DXの推進体制：CIOの任命、CIO補佐官等の任命、全体方針の策定、全庁的な体制構築、外部人材の活用、職員育成の取組、全職員対象の研修</li>"
+             "<li>業務のDX：AIの導入、RPAの導入、テレワークの導入</li>"
+             "<li>住民サービスのDX：マイナンバーカード保有率、子育て・介護26手続のオンライン化、よく使う32手続のオンライン化</li></ul>"
+             "<p>調査時点は項目により異なります。くわしくはデジタル庁のデータの定義をご覧ください。</p>",
+     "link": ("/item/", "収録している情報")},
+    {"slug": "20261028-1419", "cat": "新機能",
+     "text": "パブリックコメント（意見募集）のページへのリンクを掲載しました",
+     "body": "<p>1,179団体（公開時点）のパブリックコメント（意見募集）のページへのリンクを、各自治体のページの「行政・法務の情報」に加えました。"
+             "例規集や広報誌と同じカードで表示し、リンク先は毎日確認して最終確認日を表示します。</p>"
+             "<p>掲載のない自治体は、各自治体のページを確認しながら順次追加していきます。</p>",
+     "link": ("/item/", "収録している情報")},
+    {"slug": "20261024-2321", "cat": "新機能",
+     "text": "類似団体区分と決算カードを掲載しました。人口規模などが近い自治体を探して比べられます",
+     "body": "<p>総務省の類似団体区分（人口規模と産業構造による区分）を各自治体のページに掲載し、同じ区分の自治体を一覧できるようにしました。"
+             "議会での説明や資料づくりで、規模の近い自治体と比べるときに使えます。</p>"
+             "<p>あわせて、各自治体のページから総務省の決算カード・類似団体比較カード（PDF）を開けるようにしました。</p>",
+     "link": ("/item/similar/", "同規模の自治体で比べる")},
+    {"slug": "20261023-1558", "cat": "新機能",
+     "text": "自治体をえらんで比べる機能と、財政指標の掲載を始めました",
+     "body": "<p>好きな自治体を選んで、人口・面積・財政指標を並べて比べられるページを加えました。</p>"
+             "<p>あわせて、各自治体のページに総務省「主要財政指標一覧」の財政指標（財政力指数・経常収支比率・実質公債費比率・将来負担比率・ラスパイレス指数）を掲載しました。</p>",
+     "link": ("/compare/", "自治体をえらんで比べる")},
+    {"slug": "20261022-2008", "cat": "新機能",
+     "text": "全国の市区町村の一覧と、隣接自治体の比較表を追加しました",
+     "body": "<p>全国の市区町村を一覧できるページを加えました。都道府県や五十音で探せます。</p>"
+             "<p>あわせて、各自治体の「隣接自治体」のページで、隣のまちの人口・面積と各種リンクを表で比べられるようにしました。</p>",
+     "link": ("/all/", "全国の市区町村")},
+    {"slug": "20261021-1851", "cat": "お知らせ",
+     "text": "サイトを公開しました。全国{muni_count}市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへのリンクを掲載しています",
+     "body": "<p>47都道府県自治体リンク（TDF47）を公開しました。全国{muni_count}市区町村と47都道府県・47広域連合について、"
+             "公式サイト・例規集・議会会議録・広報誌・公式SNSへのリンクを、人口・面積・隣接自治体とあわせて掲載しています。</p>"
+             "<p>マンホールカード・ダムカードも都道府県別に一覧できます。</p>",
+     "link": ("/about/", "このサイトについて")},
 ]
+for _n in NEWS:
+    _n["date"] = f"{_n['slug'][:4]}-{_n['slug'][4:6]}-{_n['slug'][6:8]}"
+    _n["time"] = f"{int(_n['slug'][9:11])}時{_n['slug'][11:13]}分"
+    _n["path"] = f"/about/news/{_n['slug']}/"
 
 
 def _jp_date(d: str) -> str:
