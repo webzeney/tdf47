@@ -36,6 +36,7 @@ jobs:
       - name: リンクを検証（古い順に limit 件）
         env:
           TZ: Asia/Tokyo
+          TDF47_RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 時間切れなどは国内の窓口（/_recheck/）で確認し直す
         run: python3 src/probe.py --limit ${{ github.event.inputs.limit || '2500' }}
 
       - name: DBの変更をコミット

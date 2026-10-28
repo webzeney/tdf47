@@ -366,6 +366,73 @@ def test_prune_keeps_real_probes_behind_robots_rows():
         shutil.rmtree(d)
 
 
+def test_needs_recheck():
+    n = probe.needs_recheck
+    assert n(None, "URLError: <urlopen error timed out>")
+    assert n(None, "URLError: <urlopen error [Errno 111] Connection refused>")
+    assert n(None, "RemoteDisconnected: Remote end closed connection without response")
+    assert not n(404, "HTTPError 404")
+    assert not n(503, "HTTPError 503")
+    assert not n(None, "URLError: <urlopen error [Errno -2] Name or service not known>")
+    assert not n(200, None)
+
+
+def _run_with_recheck(p, d, url_result, recheck_result, now):
+    saved = probe.recheck_domestic
+    calls = []
+
+    def fake(url):
+        calls.append(url)
+        return recheck_result(url) if callable(recheck_result) else recheck_result
+    probe.recheck_domestic = fake
+    try:
+        _run_once(p, d, url_result, now)
+    finally:
+        probe.recheck_domestic = saved
+    return calls
+
+
+def test_domestic_recheck_alive_and_fallback():
+    d, p = _copy_db()
+    try:
+        lid, url = _prepare_target(p, "unchecked")
+        alive = lambda u: (200, u, "国内", None, False)  # noqa: E731
+        calls = _run_with_recheck(p, d, TIMEOUT_RES, alive, "2099-01-01T00:00:00")
+        assert calls == [url]
+        assert _status(p, lid) == "ok"           # 国内から見られた → 確認済み
+        conn = db.connect(p)
+        assert conn.execute("SELECT last_checked FROM link WHERE id=?", (lid,)).fetchone()[0] == "2099-01-01"
+        conn.close()
+        # 窓口が使えない（None）→ 今までどおり（成功のあとの1回目の時間切れなのでそのまま）
+        _run_with_recheck(p, d, TIMEOUT_RES, None, "2099-01-02T00:00:00")
+        assert _status(p, lid) == "ok"
+        # 404 はサーバーが答えているので国内からは確認し直さない
+        calls = _run_with_recheck(p, d, NOTFOUND_RES, alive, "2099-01-03T00:00:00")
+        assert calls == [] and _status(p, lid) == "dead"
+    finally:
+        shutil.rmtree(d)
+
+
+def test_domestic_recheck_timeout_twice_and_robots():
+    d, p = _copy_db()
+    try:
+        lid, url = _prepare_target(p, "ok")
+        dto = lambda u: (None, u, None, "国内から: timed out (x)", False)  # noqa: E731
+        _run_with_recheck(p, d, TIMEOUT_RES, dto, "2099-01-01T00:00:00")
+        assert _status(p, lid) == "ok"
+        _run_with_recheck(p, d, TIMEOUT_RES, dto, "2099-01-02T00:00:00")
+        assert _status(p, lid) == "dead"         # 国内からも2回続けて時間切れ
+        rb = lambda u: (None, u, None, None, True)  # noqa: E731
+        _run_with_recheck(p, d, TIMEOUT_RES, rb, "2099-01-03T00:00:00")
+        conn = db.connect(p)
+        last = conn.execute("SELECT error FROM probe WHERE link_id=? ORDER BY checked_at DESC LIMIT 1",
+                            (lid,)).fetchone()[0]
+        conn.close()
+        assert last == probe.ROBOTS_ERR and _status(p, lid) == "dead"   # 状態は変えない
+    finally:
+        shutil.rmtree(d)
+
+
 if __name__ == "__main__":
     n = 0
     for k, v in list(globals().items()):

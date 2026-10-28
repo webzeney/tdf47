@@ -263,6 +263,15 @@ def _fetch(url: str, context=None, max_bytes: int = 200_000):
 # 時間切れ・接続拒否などになったリンクだけを、この窓口に国内から確認し直してもらう（2026-10-28）。
 RECHECK_URL = os.environ.get("TDF47_RECHECK_URL") or "https://tdf47.com/_recheck/index.php"
 RECHECK_TIMEOUT = 90
+RECHECK_MAX_PER_RUN = 60  # 1回の確認で国内から確認し直す上限（1件あたり最大90秒待つため、全体の時間を抑える）
+# 国内から確認し直す失敗（海外からの接続を断っているサーバーで起きるもの）。
+RECHECK_ERR = ("timed out", "Connection refused", "Connection reset", "RemoteDisconnected",
+               "No route to host", "Network is unreachable")
+
+
+def needs_recheck(status, err) -> bool:
+    """国内から確認し直す対象か（応答が無い失敗のみ。404 などサーバーが答えたものは対象外）。"""
+    return status is None and bool(err) and any(k in err for k in RECHECK_ERR)
 
 
 def recheck_domestic(url: str):
@@ -393,6 +402,7 @@ def main():
     changed_rows = []
     n_robots = 0
     n_sns = 0  # SNSの掲載照合をした公式サイトの数
+    n_recheck = n_recheck_ok = 0  # 国内から確認し直した数・そのうち生存を確認できた数
     for i, l in enumerate(links, 1):
         url = l["url"]
         if not allowed_by_robots(url):
@@ -406,6 +416,24 @@ def main():
             status, final_url, title, err, html = fetch_page(url, max_bytes=600_000)
         else:
             status, final_url, title, err, html = fetch_page(url)
+        if needs_recheck(status, err) and n_recheck < RECHECK_MAX_PER_RUN:
+            time.sleep(DELAY_SEC)
+            rc = recheck_domestic(url)
+            if rc is not None:
+                n_recheck += 1
+                if rc[4]:
+                    # 国内から読んだ robots.txt では確認を断られた：確認しない（上の robots と同じ扱い）
+                    conn.execute(
+                        "INSERT INTO probe (link_id,checked_at,http_status,final_url,page_title,changed,error) "
+                        "VALUES (?,?,NULL,NULL,NULL,0,?)", (l["id"], NOW, ROBOTS_ERR))
+                    n_robots += 1
+                    time.sleep(DELAY_SEC)
+                    continue
+                # 国内からの結果で判定する（SNSの掲載照合は本文を受け取らないので行わない）
+                status, final_url, title, err = rc[:4]
+                html = ""
+                if is_alive(status, err):
+                    n_recheck_ok += 1
         prev = last_probe(conn, l["id"])
         changed = 0
         if prev:
@@ -429,7 +457,7 @@ def main():
         if alive:
             conn.execute("UPDATE link SET status=?, last_checked=? WHERE id=?",
                          (new_status, NOW[:10], l["id"]))
-            if l["kind_code"] == "official":
+            if l["kind_code"] == "official" and html:
                 sns_review = check_official_listing(conn, l["entity_code"], l["entity_name"], final_url, html)
                 changed_rows.extend(sns_review)
                 n_sns += 1
@@ -463,7 +491,8 @@ def main():
         w.writerows(changed_rows)
     conn.close()
     print(f"完了。確認 {len(links) - n_robots} 件 / robots.txt で不許可 {n_robots} 件 / "
-          f"SNSの掲載照合 {n_sns} 団体。要レビュー {len(changed_rows)} 行 → {REVIEW_CSV}")
+          f"SNSの掲載照合 {n_sns} 団体 / 国内から再確認 {n_recheck} 件（うち生存 {n_recheck_ok} 件）。"
+          f"要レビュー {len(changed_rows)} 行 → {REVIEW_CSV}")
 
 
 if __name__ == "__main__":
