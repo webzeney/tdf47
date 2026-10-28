@@ -19,9 +19,9 @@ const TIMEOUT = 15;
 const MAX_BYTES = 200000;
 const MAX_REDIRECTS = 10;
 const DELAY_US = 1200000;
-const DEADLINE_SEC = 70;
+const DEADLINE_SEC = 70;  // 依頼側（probe.py）は90秒で待つのをやめる。その前に必ず応答する
 const TOO_MANY_REDIRECTS = '国内から: HTTPError（リダイレクトが多すぎる）';
-const REFUSED = '窓口で確認を断った: ';  // この文言で始まるエラーは「確認できなかった」として 422 で返す（判定に使わない）  // 依頼側（probe.py）は90秒で待つのをやめる。その前に必ず応答する
+const REFUSED = '窓口で確認を断った: ';  // この文言で始まるエラーは「確認できなかった」として 422 で返す（判定に使わない）
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
