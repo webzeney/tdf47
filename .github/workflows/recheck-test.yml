@@ -30,7 +30,10 @@ jobs:
           sys.path.insert(0, "src")
           import probe
           for u in os.environ["URLS"].split():
+              a, b = probe.fetch(u), probe.recheck_domestic(u)
               print("URL:", u)
-              print("  GitHub（海外）から:", probe.fetch(u))
-              print("  国内から          :", probe.recheck_domestic(u))
+              print("  GitHub（海外）から:", a)
+              print("  国内から          :", b)
+              # 結果を注記（annotation）にも出す（実行ログを開かなくても確認できるように）
+              print(f"::notice title={u}::海外から {a[0]} {a[3]} ／ 国内から {b[0] if b else None} {b[3] if b else '窓口を使えなかった'}")
           PY
