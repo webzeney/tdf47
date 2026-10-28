@@ -59,7 +59,7 @@
               {% else %}
                 {% if r.url %}<a class="exl out" href="{{ r.url }}" target="_blank" rel="noopener">{{ col_label }}を開く<span class="ext">↗</span></a>{% if r.state == 'seeded' %} <span class="tag-unc">未確認</span>{% endif %}
                 {% elif r.state == 'none' %}<span class="muted">該当なし</span>
-                {% else %}<span class="muted">未収集</span>{% endif %}
+                {% else %}<span class="muted">未掲載</span>{% endif %}
               {% endif %}
             </td>
             <td class="lc">{% if r.last_checked %}{{ r.last_checked }}{% else %}—{% endif %}</td>

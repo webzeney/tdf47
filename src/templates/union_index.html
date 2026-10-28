@@ -3,7 +3,7 @@
 {% block content %}
 <div class="inner">
   <nav class="crumb" aria-label="現在地">
-    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>広域連合
+    <a href="/">{{ site_short }}</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>広域連合
   </nav>
   <div class="phead">
     <div class="phead-top"><div class="ttl"><div class="h1row"><div class="nameblock"><h1>{{ pref.name }}の広域連合</h1></div></div></div></div>

@@ -48,7 +48,7 @@
 {% block content %}
 <div class="inner">
   <nav class="crumb" aria-label="現在地">
-    <a href="/">TDF47</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>{{ e.name }}
+    <a href="/">{{ site_short }}</a><span>›</span>{% if block %}<a href="/area/{{ block.slug }}/">{{ block.label }}</a><span>›</span>{% endif %}<a href="{{ pref.path }}">{{ pref.name }}</a><span>›</span>{{ e.name }}
   </nav>
 
   <div class="phead">
@@ -288,7 +288,7 @@
       {% if fiscal and (fiscal.ruiji or fiscal.card) %}<li>類似団体区分・決算カード — 総務省「市町村決算カード」「類似団体比較カード」</li>{% endif %}
       <li>郡名 — 日本郵便 郵便番号データ</li>
     </ul>
-    <p>リンク先の内容はTDF47が作成したものではありません。情報が古い・リンクが切れているなどお気づきの点は <a href="/contact/">こちらからご報告</a> ください。</p>
+    <p>リンク先の内容は47都道府県自治体リンク（TDF47）が作成したものではありません。情報が古い・リンクが切れているなどお気づきの点は <a href="/contact/">こちらからご報告</a> ください。</p>
   </div>
 </div>
 {% endblock %}

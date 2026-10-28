@@ -14,7 +14,7 @@
   <span class="b">
     <span class="nm">{{ l.title or item.label }}{% if item.chip %} <span class="chip ext">{{ item.chip }}</span>{% endif %}</span>
     <span class="url">{{ l.disp }}</span>
-    <span class="meta"><span>{{ item.label }}</span>{% if l.auto_na and not l.last_checked %}<span title="提供元が自動確認を許可していません">自動確認の対象外</span>{% else %}<span>{% if l.last_checked %}最終確認 {{ l.last_checked }}{% else %}最終確認はこれから{% endif %}</span>{% endif %}</span>
+    <span class="meta"><span>{{ item.label }}</span>{% if l.auto_na and not l.last_checked %}<span title="提供元の方針により、確認日は表示していません">確認日の表示なし</span>{% else %}<span>{% if l.last_checked %}最終確認 {{ l.last_checked }}{% else %}最終確認はこれから{% endif %}</span>{% endif %}</span>
   </span>
   <span class="go">↗</span>
 </a>
@@ -27,7 +27,7 @@
 {% else %}
 <span class="lrow off">
   <span class="ic">{{ kicon(item.kind) }}</span>
-  <span class="b"><span class="nm">{{ item.label }}</span><span class="meta"><span>リンクを収集中です</span></span></span>
+  <span class="b"><span class="nm">{{ item.label }}</span><span class="meta"><span>掲載準備中です</span></span></span>
   <span class="go">–</span>
 </span>
 {% endif %}

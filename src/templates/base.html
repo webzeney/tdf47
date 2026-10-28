@@ -141,11 +141,11 @@
     <div class="navitem">
       <button class="navbtn" type="button" aria-expanded="false" aria-controls="sm5">
         <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.6"/></svg></span>
-        TDF47について<span class="ar">›</span>
+        47都道府県自治体リンク（TDF47）について<span class="ar">›</span>
       </button>
       <div class="submenu" id="sm5" hidden>
         <button class="close" type="button" data-close aria-label="閉じる">✕</button>
-        <h3><span class="ci"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.6"/></svg></span>TDF47について</h3>
+        <h3><span class="ci"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.6"/></svg></span>47都道府県自治体リンク（TDF47）について</h3>
         <ul>
           <li><a href="/about/">このサイトについて</a></li>
           <li><a href="/about/sources/">データの出典</a></li>
@@ -176,7 +176,7 @@
   <p class="side-note">
     収録 {{ stat_teams|format_num }}団体<br>
     リンク {{ stat_links|format_num }}件<br>
-    {% if stat_last_checked %}最終確認 {{ stat_last_checked }}{% else %}リンク収集中{% endif %}
+    {% if stat_last_checked %}最終確認 {{ stat_last_checked }}{% else %}掲載準備中{% endif %}
   </p>
 </nav>
 
@@ -187,7 +187,7 @@
     <div class="inner foot foot-1col">
       <div>
         <h4>おことわり</h4>
-        <p>TDF47 は、全国{{ muni_count|format_num }}市区町村（ほか北方領土の{{ hoppo_count }}村）の公式サイト・例規集・議会会議録・広報誌・公式SNSへの<strong>自治体リンク集</strong>です。掲載情報は自動で収集しており、最新でない場合があります。リンク切れを見つけた際はご報告ください。各リンクには最終確認日を表示しています。</p>
+        <p>47都道府県自治体リンク（TDF47）は、全国{{ muni_count|format_num }}市区町村（ほか北方領土の{{ hoppo_count }}村）の公式サイト・例規集・議会会議録・広報誌・公式SNSへの<strong>自治体リンク集</strong>です。掲載情報は最新でない場合があります。リンク切れを見つけた際はご報告ください。各リンクには最終確認日を表示しています。</p>
       </div>
     </div>
     <div class="inner footbar">

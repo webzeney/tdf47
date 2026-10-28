@@ -29,11 +29,12 @@ DIST = os.path.join(ROOT, "dist")
 TPL = os.path.join(SRC, "templates")
 STATIC = os.path.join(ROOT, "static")
 
-SITE_NAME = "TDF47"
+SITE_NAME = "47都道府県自治体リンク（TDF47）"
+SITE_SHORT = "47都道府県自治体リンク"  # パンくずの先頭など、短く出す場所の名称
 # 空文字で渡ってきても既定を使う（GitHub Variables未設定でもOK）
 SITE_URL = os.environ.get("TDF47_SITE_URL") or "https://tdf47.com"
 SITE_DESC = ("全国1,741市区町村を網羅した自治体リンク集。例規集・議会会議録・広報誌・公式サイト・"
-             "公式SNSへのリンクを、隣接自治体ごとにまとめて掲載。自治体のリンクを探すならTDF47。")
+             "公式SNSへのリンクを、隣接自治体ごとにまとめて掲載。自治体のリンクを探すなら47都道府県自治体リンク（TDF47）。")
 # 公開前に設定（環境変数で注入）。空ならタグ/リンクは出力しない。
 GA4_ID = os.environ.get("TDF47_GA4_ID") or "G-834NJY78FW"  # TDF47 の GA4 測定ID
 CONTACT_URL = (os.environ.get("TDF47_CONTACT_URL")
@@ -70,7 +71,7 @@ BLOCKS = [
 
 ITEM_META = {
     "official": ("公式サイト", "各市区町村の公式ウェブサイトのトップページ。"),
-    "reiki": ("例規集", "条例・規則などの例規集（RILG等を初回の種まきに使用）。"),
+    "reiki": ("例規集", "条例・規則などの例規集。"),
     "gikai": ("議会会議録", "議会の会議録検索システム。"),
     "kouhou": ("広報誌", "広報誌のバックナンバー・電子版。"),
     "sns": ("公式SNS", "X・LINE・Facebook・Instagram・YouTube などの公式アカウント。"),
@@ -163,6 +164,7 @@ def esc_env():
         autoescape=select_autoescape(["html", "xml"]),
         trim_blocks=True, lstrip_blocks=True,
     )
+    env.filters["jp_date"] = lambda d: _jp_date(d)
     env.filters["format_num"] = lambda n: f"{n:,}" if isinstance(n, (int, float)) else n
     return env
 
@@ -301,7 +303,7 @@ class Builder:
 
     def base_ctx(self, path, page_title, **extra):
         ctx = dict(
-            site_name=SITE_NAME, site_url=SITE_URL, site_desc=SITE_DESC, year=YEAR,
+            site_name=SITE_NAME, site_short=SITE_SHORT, site_url=SITE_URL, site_desc=SITE_DESC, year=YEAR,
             path=path, current_path=path, page_title=page_title,
             crumbs=extra.pop("crumbs", None), muni_count=self.muni_count, hoppo_count=len(HOPPO),
             ga4_id=GA4_ID, contact_url=CONTACT_URL, asset_ver=ASSET_VER,
@@ -450,13 +452,13 @@ class Builder:
         return pp
 
     def build_top(self):
-        self.render("top.html", "/", "全国自治体リンク集",
-                    og_title="TDF47 — 全国自治体リンク集",
+        self.render("top.html", "/", "全国1,741市区町村の自治体リンク（例規集・議会会議録・広報誌）",
+                    og_title=SITE_NAME, news=NEWS[:3],
                     page_desc=SITE_DESC, pp=self._pref_short_paths())
 
     def build_areas(self):
         for b in self.nav_blocks():
-            crumbs = [{"label": "TDF47", "path": "/"}, {"label": b["label"] + "地方"}]
+            crumbs = [{"label": SITE_SHORT, "path": "/"}, {"label": b["label"] + "地方"}]
             self.render("area.html", f"/area/{b['slug']}/", f"{b['label']}地方",
                         block=b, crumbs=crumbs)
 
@@ -515,7 +517,7 @@ class Builder:
                                for k, lab in self.ADMIN_KINDS],
                         fiscal=self._fiscal(p),
                         entity_code=p["code"], pref_code=p["code"],
-                        og_title=f"{p['name']} ｜ TDF47",
+                        og_title=f"{p['name']} ｜ {SITE_NAME}",
                         page_desc=f"{p['name']}の市区町村一覧と、各自治体の公式サイト・例規集・広報誌・SNSへのリンク。")
 
     ADMIN_KINDS = [("reiki", "例規集"), ("gikai", "議会会議録"), ("kouhou", "広報誌")]
@@ -611,7 +613,7 @@ class Builder:
                 base_pop=f"{c['population']:,}人" if c.get("population") else "",
                 base_area=f"{c['area_km2']:g}km²" if c.get("area_km2") else "",
                 entity_code=c["code"], pref_code=pref["code"],
-                og_title=f"{c['name']} ｜ TDF47",
+                og_title=f"{c['name']} ｜ {SITE_NAME}",
                 page_desc=f"{pref['name']}{c['name']}の自治体リンク集。公式サイト・例規集・議会会議録・広報誌・公式SNSへのリンクと、隣接自治体・人口・面積などの基本データ。",
             )
             self.render("muni.html", c["path"], f"{c['name']}の自治体リンク（例規集・議会会議録・広報誌）",
@@ -640,7 +642,7 @@ class Builder:
                                    for k, lab in [("reiki", "例規集")]],
                             members=members, n_members=len(members),
                             entity_code=u["code"], pref_code=p["code"],
-                            og_title=f"{u['name']} ｜ TDF47")
+                            og_title=f"{u['name']} ｜ {SITE_NAME}")
 
     def build_types(self):
         # index
@@ -649,13 +651,13 @@ class Builder:
             links += '<li><a href="/type/ruiji/">類似団体区分（人口と産業構造によるグループ）</a></li>'
         self.render("static.html", "/type/", "区分から探す",
                     body=f"<p>市区町村を区分から探せます。</p><ul class='plain-links'>{links}</ul>",
-                    crumbs=[{"label": "TDF47", "path": "/"}, {"label": "区分から探す"}])
+                    crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": "区分から探す"}])
         for key, (label, desc) in TYPE_META.items():
             groups = self._type_groups(key)
             total = sum(len(g["items"]) for g in groups)
             self.render("type.html", f"/type/{key}/", label, type_label=label,
                         type_desc=desc, groups=groups, total=total,
-                        crumbs=[{"label": "TDF47", "path": "/"},
+                        crumbs=[{"label": SITE_SHORT, "path": "/"},
                                 {"label": "区分", "path": "/type/"}, {"label": label}])
         self.build_ruiji()
 
@@ -687,7 +689,7 @@ class Builder:
         if not pages:
             return
         fy = self._ruiji_year()
-        crumbs_base = [{"label": "TDF47", "path": "/"}, {"label": "区分", "path": "/type/"}]
+        crumbs_base = [{"label": SITE_SHORT, "path": "/"}, {"label": "区分", "path": "/type/"}]
         src_note = (f"{fy}の市町村決算カード（総務省）の「市町村類型」による。"
                     f"区分の定義は総務省「類似団体別職員数の状況」による。")
 
@@ -832,7 +834,7 @@ class Builder:
         self.render("static.html", "/item/", "収録している情報",
                     body=f"<p>各市区町村について収録している情報を、種別ごとに全国横断で一覧できます。</p>"
                          f"<ul class='plain-links'>{links}</ul>",
-                    crumbs=[{"label": "TDF47", "path": "/"}, {"label": "収録している情報"}])
+                    crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": "収録している情報"}])
         pref_opts = [{"name": p["name"], "slug": p["slug"]} for p in self.prefs]
         for key, (label, desc) in ITEM_META.items():
             rows, stats = self._item_rows(key)
@@ -841,7 +843,7 @@ class Builder:
                         col_label=self.ITEM_COL.get(key, label),
                         rows=rows, stats=stats, pref_opts=pref_opts,
                         page_desc=f"全国{len(rows)}市区町村の{label}へのリンクを一覧できる自治体リンク集。{desc}",
-                        crumbs=[{"label": "TDF47", "path": "/"},
+                        crumbs=[{"label": SITE_SHORT, "path": "/"},
                                 {"label": "収録情報", "path": "/item/"}, {"label": label}])
 
     def build_item_similar(self):
@@ -856,7 +858,7 @@ class Builder:
                 if n:
                     items.insert(0, f"<li><a href='{path}'>{raw}</a>（{n}団体）</li>")
         body = ("<p>議会の答弁や財政課への説明では、近隣の自治体だけでなく<strong>人口や産業構造が同じくらいの自治体</strong>"
-                "と比べる場面が多くあります。TDF47では、総務省の<strong>類似団体区分</strong>を使って同規模の自治体を探せます。</p>"
+                "と比べる場面が多くあります。47都道府県自治体リンク（TDF47）では、総務省の<strong>類似団体区分</strong>を使って同規模の自治体を探せます。</p>"
                 "<h2>比べ方</h2><ul>"
                 "<li><strong>各自治体のページ</strong>の「となり・同規模と比べる」で「同規模」タブを開くと、同じ類似団体区分のうち"
                 "人口が近い自治体を、人口・面積の表で比べられます（表はコピーしてExcelに貼り付けできます）。</li>"
@@ -870,7 +872,7 @@ class Builder:
                 f"<a href='/type/ruiji/'>区分の説明</a></p>")
         self.render("static.html", "/item/similar/", "同規模の自治体で比べる", body=body,
                     page_desc="総務省の類似団体区分を使って、人口や産業構造が同じくらいの自治体を探し、比べられます。",
-                    crumbs=[{"label": "TDF47", "path": "/"},
+                    crumbs=[{"label": SITE_SHORT, "path": "/"},
                             {"label": "収録情報", "path": "/item/"}, {"label": "同規模の自治体で比べる"}])
 
     def build_cards(self):
@@ -878,7 +880,7 @@ class Builder:
                     body="<p>ご当地カードを収録しています。</p><ul class='plain-links'>"
                          "<li><a href='/card/manhole/'>マンホールカード</a></li>"
                          "<li><a href='/card/dam/'>ダムカード</a></li></ul>",
-                    crumbs=[{"label": "TDF47", "path": "/"}, {"label": "ご当地カード"}])
+                    crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": "ご当地カード"}])
         meta = {"manhole": ("マンホールカード", "全国のマンホールカードの配布場所・在庫状況を都道府県別に掲載しています。画像はGKP（下水道広報プラットホーム）への利用照会が済むまで掲載しません。"),
                 "dam": ("ダムカード", "全国のダムカードの配布場所・配布時間を都道府県別に掲載しています。")}
         for kind, (label, desc) in meta.items():
@@ -899,7 +901,7 @@ class Builder:
                     n = sum(len(ks) for _e, ks in items)
                     pref_list.append({"name": p["name"], "path": f"/card/{kind}/{p['slug']}/",
                                       "count": n})
-            crumbs = [{"label": "TDF47", "path": "/"},
+            crumbs = [{"label": SITE_SHORT, "path": "/"},
                       {"label": "ご当地カード", "path": "/card/"}, {"label": label}]
             self.render("card_index.html", f"/card/{kind}/", label,
                         card_label=label, kind=kind, by_pref=pref_list, card_desc=desc,
@@ -926,20 +928,30 @@ class Builder:
                           "slug": c["slug"], "pref_name": pref["name"],
                           "type_label": c["type_label"]})
         self.render("all.html", "/all/", "全国の市区町村", items=items,
-                    crumbs=[{"label": "TDF47", "path": "/"}, {"label": "全国の市区町村"}])
+                    crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": "全国の市区町村"}])
 
     def build_static(self):
         pages = {
             "/about/": ("このサイトについて", ABOUT_BODY),
             "/about/sources/": ("出典", SOURCES_BODY),
-            "/about/updates/": ("更新履歴", UPDATES_BODY),
-            "/about/news/": ("お知らせ", "<p>お知らせはまだありません。</p>"),
+            "/about/updates/": ("更新履歴", self._news_body()),
+            "/about/news/": ("お知らせ", self._news_body()),
             "/privacy/": ("プライバシーポリシー", PRIVACY_BODY),
             "/contact/": ("お問い合わせ", self._contact_body()),
         }
         for path, (title, body) in pages.items():
             self.render("static.html", path, title, body=body,
-                        crumbs=[{"label": "TDF47", "path": "/"}, {"label": title}])
+                        crumbs=[{"label": SITE_SHORT, "path": "/"}, {"label": title}])
+
+    def _news_body(self):
+        """お知らせ（NEWS）の一覧。新しい順。"""
+        import html as _h
+        rows = []
+        for n in NEWS:
+            text = n["text"].replace("{muni_count}", f"{self.muni_count:,}")
+            rows.append(f'<li>{_jp_date(n["date"])}　{_h.escape(n["cat"])}：'
+                        f'<a href="{n["path"]}">{_h.escape(text)}</a></li>')
+        return "<ul>\n" + "\n".join(rows) + "\n</ul>\n"
 
     def _contact_body(self):
         if CONTACT_URL:
@@ -993,7 +1005,7 @@ class Builder:
         fys = sorted({d["year"] for d in self.fiscal.values()}, key=fy_num)
         self.render("compare.html", "/compare/", "自治体をえらんで比べる",
                     fiscal_year=fys[-1] if fys else "", ruiji_year=self._ruiji_year(),
-                    og_title="自治体をえらんで比べる ｜ TDF47",
+                    og_title=f"自治体をえらんで比べる ｜ {SITE_NAME}",
                     page_desc="全国の市区町村・都道府県を最大5つえらんで、人口・面積・財政指標を一覧で比較できます。")
 
     def build_sitemap(self):
@@ -1126,7 +1138,7 @@ ErrorDocument 404 /404.html
 
 # ── 固定ページ本文 ──
 ABOUT_BODY = """
-<p>TDF47 は、全国1,741市区町村を網羅した<strong>自治体リンク集</strong>です。各自治体の例規集・議会会議録・広報誌・公式サイト・公式SNSへのリンクを、虫食いなく一か所に集めています。「自治体のリンクを探すならここ」を目指しています。</p>
+<p>47都道府県自治体リンク（TDF47）は、全国1,741市区町村を網羅した<strong>自治体リンク集</strong>です。各自治体の例規集・議会会議録・広報誌・公式サイト・公式SNSへのリンクを、虫食いなく一か所に集めています。「自治体のリンクを探すならここ」を目指しています。</p>
 
 <h2>このサイトでできること</h2>
 <ul>
@@ -1142,7 +1154,7 @@ ABOUT_BODY = """
 <h2>他の自治体リンク集との違い</h2>
 <ul>
 <li><strong>隣接自治体への導線</strong>を中核に置いています。地図とデータで近隣の自治体へすぐ辿れます。</li>
-<li>リンクが最後に生きていた<strong>「最終確認日」</strong>を団体ごとに表示します。日次の死活監視で鮮度を保ちます。</li>
+<li>リンクが最後に生きていた<strong>「最終確認日」</strong>を団体ごとに表示します。リンク先は定期的に確認しています。</li>
 <li>スマートフォンでも使える、軽くて速い静的サイトです。</li>
 </ul>
 
@@ -1153,7 +1165,7 @@ ABOUT_BODY = """
 <p>総務省の全国地方公共団体コードをはじめとする一次データと、全国の自治体リンク集を出典としています。くわしくは<a href="/about/sources/">データの出典</a>をご覧ください。</p>
 """
 SOURCES_BODY = """
-<p>本サイトは以下の一次データ・リンク集を出典としています。全国リンク集は初回の種まきに使用し、以後は自前で死活監視・維持します。</p>
+<p>掲載情報は、以下の一次データ・リンク集をもとにしています。</p>
 <ul>
 <li>総務省 全国地方公共団体コード／一部事務組合等コード</li>
 <li>e-Stat（人口・世帯）／国土地理院 全国都道府県市区町村別面積調</li>
@@ -1167,11 +1179,25 @@ SOURCES_BODY = """
 </ul>
 <p>特に uub.jp は個人が長年かけて収集された成果です。敬意を表し、相互リンクを申し出る方針です。</p>
 """
-UPDATES_BODY = """
-<ul>
-<li>サイトを公開しました（初版）。団体マスタ・ページ構成を整備。リンクの収集・死活監視を順次反映します。</li>
-</ul>
-"""
+# トップページ「更新のお知らせ」と更新履歴ページの中身（新しい順）。
+# 新機能・新しい情報を追加したときだけ書く（毎日のリンク確認などの定常作業は書かない）。
+# date は実装を公開した日。text の {muni_count} は市区町村数に置き換わる。
+NEWS = [
+    {"date": "2026-10-24", "cat": "新機能", "path": "/item/similar/",
+     "text": "類似団体区分と決算カードを掲載しました。人口規模などが近い自治体を探して比べられます"},
+    {"date": "2026-10-23", "cat": "新機能", "path": "/compare/",
+     "text": "自治体をえらんで比べる機能と、財政指標の掲載を始めました"},
+    {"date": "2026-10-22", "cat": "新機能", "path": "/all/",
+     "text": "全国の市区町村の一覧と、隣接自治体の比較表を追加しました"},
+    {"date": "2026-10-21", "cat": "お知らせ", "path": "/about/",
+     "text": "サイトを公開しました。全国{muni_count}市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへのリンクを掲載しています"},
+]
+
+
+def _jp_date(d: str) -> str:
+    y, m, dd = d.split("-")
+    return f"{int(y)}年{int(m)}月{int(dd)}日"
+
 PRIVACY_BODY = """
 <p>本サイトはアクセス解析に Google アナリティクス（GA4）を利用します。GA4 は Cookie を使用し、個人を特定しない形で利用状況を収集します。</p>
 <p>収集した情報は、サイトの改善と利用状況の把握のために使用します。ブラウザの設定で Cookie を無効にすることで収集を拒否できます。</p>

@@ -2,7 +2,7 @@
 {% block css %}top{% endblock %}
 {% block content %}
 
-<h1 class="sr-only">全国自治体リンク集 TDF47｜全国1,741市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへの自治体リンク</h1>
+<h1 class="sr-only">47都道府県自治体リンク（TDF47）｜全国1,741市区町村の公式サイト・例規集・議会会議録・広報誌・公式SNSへの自治体リンク</h1>
 <div class="hero">
   <img class="heroimg" src="/assets/img/top-hero.webp?v={{ asset_ver }}" alt="全国の自治体情報を地図とデータでつなぐイメージ">
   <p class="tagline">全国の自治体リンクを、<br class="tbr">ひとつの場所から</p>
@@ -150,9 +150,8 @@
   </div>
   <div class="panel news">
     <ul>
-      <li><a class="nrow" href="/about/updates/"><span class="body"><span class="cat">お知らせ</span><span class="ttl">サイトを公開しました。全国{{ muni_count|format_num }}市区町村の公式サイト・例規集・広報誌・SNSへのリンクを収録しています</span></span><span class="go">›</span></a></li>
-      <li><a class="nrow" href="/about/updates/"><span class="body"><span class="cat">データ更新</span><span class="ttl">団体マスタ（総務省 全国地方公共団体コード）を整備しました</span></span><span class="go">›</span></a></li>
-      <li><a class="nrow" href="/about/sources/"><span class="body"><span class="cat">お知らせ</span><span class="ttl">リンクの生存確認（最終確認日の付与）を順次進めています</span></span><span class="go">›</span></a></li>
+      {% for n in news %}<li><a class="nrow" href="{{ n.path }}"><span class="body"><span class="cat">{{ n.date|jp_date }}　{{ n.cat }}</span><span class="ttl">{{ n.text|replace("{muni_count}", muni_count|format_num) }}</span></span><span class="go">›</span></a></li>
+      {% endfor %}
     </ul>
   </div>
 </div>
@@ -165,7 +164,7 @@
     <div class="band-top">
       <div>
         <p class="kicker">例規集も、議会会議録も、広報誌も。<br>隣のまちが何をしているか、すぐに分かる。</p>
-        <h2>TDF47 について</h2>
+        <h2>47都道府県自治体リンク（TDF47）について</h2>
       </div>
     </div>
     <div class="two">
@@ -197,7 +196,7 @@
     <div class="datastats">
       <div class="statrow"><em>収録団体</em><b>{{ stat_teams|format_num }}</b><i>団体</i></div>
       <div class="statrow"><em>リンク</em><b>{{ stat_links|format_num }}</b><i>件</i></div>
-      <div class="statrow"><em>最終確認</em><b>{% if stat_last_checked %}{{ stat_last_checked }}{% else %}収集中{% endif %}</b></div>
+      <div class="statrow"><em>最終確認</em><b>{% if stat_last_checked %}{{ stat_last_checked }}{% else %}掲載準備中{% endif %}</b></div>
     </div>
     <div class="datasrc">
       <p class="datasrc-ttl">データ元</p>
