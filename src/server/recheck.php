@@ -19,7 +19,9 @@ const TIMEOUT = 15;
 const MAX_BYTES = 200000;
 const MAX_REDIRECTS = 10;
 const DELAY_US = 1200000;
-const DEADLINE_SEC = 70;  // 依頼側（probe.py）は90秒で待つのをやめる。その前に必ず応答する
+const DEADLINE_SEC = 70;
+const TOO_MANY_REDIRECTS = '国内から: HTTPError（リダイレクトが多すぎる）';
+const REFUSED = '窓口で確認を断った: ';  // この文言で始まるエラーは「確認できなかった」として 422 で返す（判定に使わない）  // 依頼側（probe.py）は90秒で待つのをやめる。その前に必ず応答する
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -57,6 +59,9 @@ function ip_is_public(string $ip): bool
     }
     if (strlen($bin) === 16 && substr($bin, 0, 12) === str_repeat("\0", 10) . "\xff\xff") {
         $bin = substr($bin, 12);  // IPv4 射影アドレス（::ffff:a.b.c.d）は IPv4 として調べる
+    }
+    if (strlen($bin) === 16 && (ord($bin[0]) & 0xe0) !== 0x20) {
+        return false;  // IPv6 はインターネットで使われる範囲（2000::/3）だけ
     }
     $deny = strlen($bin) === 4
         ? ['0.0.0.0/8', '10.0.0.0/8', '100.64.0.0/10', '127.0.0.0/8', '169.254.0.0/16', '172.16.0.0/12',
@@ -96,7 +101,8 @@ function host_name_ok(string $host): bool
     if (strlen($host) > 253 || preg_match('/(^|\.)localhost\.?$/', $host)) {
         return false;
     }
-    return (bool)preg_match('/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?\.?$/', $host);
+    // 末尾のドット（example.jp.）も受け付けない（接続先の固定が効かなくなるため）
+    return (bool)preg_match('/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$/', $host);
 }
 
 // 名前を引き、すべて外部のアドレスなら接続に使うアドレスを返す。[エラー文, アドレス]
@@ -147,7 +153,7 @@ function check_url(string $url): array
     if (!host_name_ok($host)) {
         return ['ホスト名の形が不正（アドレスの直指定は不可）', null];
     }
-    return resolve_public(rtrim($host, '.'));
+    return resolve_public($host);
 }
 
 function pin_for(string $url, string $ip): array
@@ -155,7 +161,7 @@ function pin_for(string $url, string $ip): array
     $p = parse_url($url);
     $port = isset($p['port']) ? (int)$p['port'] : (strtolower($p['scheme']) === 'https' ? 443 : 80);
     $addr = strpos($ip, ':') !== false ? '[' . $ip . ']' : $ip;
-    return [rtrim(strtolower($p['host']), '.') . ':' . $port . ':' . $addr];
+    return [strtolower($p['host']) . ':' . $port . ':' . $addr];
 }
 
 // ---- 取得 ----
@@ -175,6 +181,8 @@ function curl_error_text(int $no, string $msg): string
             return "国内から: Connection reset ($msg)";
         case CURLE_GOT_NOTHING:
             return "国内から: RemoteDisconnected ($msg)";
+        case CURLE_URL_MALFORMAT:
+            return REFUSED . "URLの形式が不正 ($msg)";
         default:
             if (stripos($msg, 'SSL') !== false || stripos($msg, 'certificate') !== false) {
                 return "国内から: SSL ($msg)";
@@ -233,7 +241,7 @@ function fetch_once(string $url, string $ip, int $max_bytes): array
         return [null, $headers, '', curl_error_text($no, $msg)];
     }
     if ($primary !== '' && @inet_pton($primary) !== @inet_pton($ip)) {
-        return [null, [], '', '国内から: 接続先が確認したアドレスと違う'];  // 念のための二重確認
+        return [null, [], '', REFUSED . '接続先が確認したアドレスと違う'];  // 念のための二重確認
     }
     return [$status ?: null, $headers, substr($body, 0, $max_bytes), null];
 }
@@ -312,7 +320,8 @@ function fetch_follow(string $url, string $ip, int $max_bytes): array
             $next = resolve_url($cur, $headers['location']);
             [$bad, $nip] = check_url($next);
             if ($bad !== null) {
-                $e = strpos($bad, '国内から:') === 0 ? $bad : "国内から: リダイレクト先を確認しない（$bad）";
+                // 名前を引けない以外（内部アドレス・アドレス直指定など）は、窓口として確認を断る（判定には使わない）
+                $e = strpos($bad, '国内から:') === 0 ? $bad : REFUSED . "リダイレクト先を確認しない（{$bad}）";
                 return [null, $next, [], '', $e, $ip];
             }
             $cur = $next;
@@ -321,7 +330,7 @@ function fetch_follow(string $url, string $ip, int $max_bytes): array
         }
         return [$status, $cur, $headers, $body, null, $ip];
     }
-    return [null, $cur, [], '', '国内から: HTTPError（リダイレクトが多すぎる）', $ip];
+    return [null, $cur, [], '', TOO_MANY_REDIRECTS, $ip];
 }
 
 // robots.txt（Python 3.12 の urllib.robotparser と同じ判定）。
@@ -331,6 +340,9 @@ function robots_allows(string $url, string $ip): bool
     $p = parse_url($url);
     $base = strtolower($p['scheme']) . '://' . $p['host'] . (isset($p['port']) ? ':' . $p['port'] : '');
     [$status, , , $body, $err] = fetch_follow($base . '/robots.txt', $ip, 500000);
+    if ($err === TOO_MANY_REDIRECTS) {
+        return false;  // Python では HTTPError（3xx）になり、どれにも当たらないので不許可
+    }
     if ($err !== null || $status === null) {
         return true;
     }
@@ -340,8 +352,11 @@ function robots_allows(string $url, string $ip): bool
     if ($status >= 400 && $status < 500) {
         return true;
     }
-    if ($status !== 200) {
+    if ($status < 200 || $status >= 300) {
         return false;
+    }
+    if (function_exists('mb_check_encoding') && !mb_check_encoding($body, 'UTF-8')) {
+        return true;  // Python では UTF-8 として読めず例外になり、probe.py は許可扱いにする
     }
     // 解析（robotparser.parse と同じ状態遷移。空行でグループが終わる）
     $entries = [];
@@ -405,7 +420,7 @@ function robots_allows(string $url, string $ip): bool
     }
     $allowance = function (array $e) use ($path): bool {
         foreach ($e['rules'] as [$allow, $rule]) {
-            if ($rule === '*' || $rule === '' || strpos($path, $rule) === 0) {
+            if ($rule === '' || strpos($path, $rule) === 0) {  // Python では「*」は %2A になり何にも当たらない
                 return $allow;
             }
         }
@@ -489,6 +504,9 @@ try {
     usleep(DELAY_US);
 
     [$status, $final, $headers, $body, $err] = fetch_follow($url, $ip, MAX_BYTES);
+    if ($err !== null && strpos($err, REFUSED) === 0) {
+        reply(422, ['error' => $err]);
+    }
     if ($err !== null) {
         reply(200, ['status' => null, 'final_url' => $url, 'title' => null, 'error' => $err, 'robots_blocked' => false]);
     }

@@ -127,9 +127,9 @@ def main():
         c, r = _post(p_local, {"url": base + "/redirect-nolocation"})
         ok(r["status"] == 301 and r["error"] == "HTTPError 301", f"3xx no location {r}")
         c, r = _post(p_local, {"url": base + "/to-internal"})
-        ok(r["status"] is None and "リダイレクト先" in (r["error"] or ""), f"redirect to internal {r}")
+        ok(c == 422 and "リダイレクト先" in (r["error"] or ""), f"redirect to internal {c} {r}")
         c, r = _post(p_local, {"url": base + "/to-ip"})
-        ok(r["status"] is None and "リダイレクト先" in (r["error"] or ""), f"redirect to ip {r}")
+        ok(c == 422 and "リダイレクト先" in (r["error"] or ""), f"redirect to ip {c} {r}")
         c, r = _post(p_local, {"url": f"http://localhost:{_free_port()}/x"})
         ok(r["status"] is None and "国内から:" in (r["error"] or ""), f"refused {r}")
 
@@ -146,7 +146,8 @@ def main():
         for u in ["http://127.0.0.1/", "http://foo.localhost/", "http://localhost/", "http://0x7f000001/",
                   "http://%31%32%37.0.0.1/", "http://[::1]/", "http://2130706433/", "http://127.1/",
                   "file:///etc/passwd", "gopher://example.com/", "http://user:pw@example.com/",
-                  "http://example.com:8080/", f"http://localhost:{site_port}/page.html"]:
+                  "http://example.com:8080/", f"http://localhost:{site_port}/page.html",
+                  "http://example.jp./", "http://foo.localhost./", "http://[::ffff:127.0.0.1]/"]:
             c, r = _post(p_prod, {"url": u})
             ok(c == 400 or (r.get("status") is None and r.get("error", "").startswith("国内から:")), (u, c, r))
         print(f"OK {n} checks")
