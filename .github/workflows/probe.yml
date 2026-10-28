@@ -72,6 +72,7 @@ jobs:
           TDF47_SITE_URL: ${{ vars.SITE_URL }}
           TDF47_GA4_ID: ${{ vars.GA4_ID }}
           TDF47_CONTACT_URL: ${{ vars.CONTACT_URL }}
+          TDF47_RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 国内からの再確認窓口の合言葉（ハッシュだけを配信）
         run: python3 src/build.py
 
       - name: 配信先パスを正規化（末尾スラッシュ必須）

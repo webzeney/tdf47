@@ -1026,7 +1026,7 @@ class Builder:
         return len(urls)
 
     def build_robots(self):
-        txt = (f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
+        txt = (f"User-agent: *\nDisallow: /_recheck/\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
         self.write_file("robots.txt", txt)
 
     def build_htaccess(self):
@@ -1071,6 +1071,26 @@ ErrorDocument 404 /404.html
 """
         self.write_file(".htaccess", txt)
 
+    def build_recheck(self):
+        """国内からの再確認窓口（src/server/recheck.php）を /_recheck/ に置く。
+        合言葉は GitHub の秘密情報 RECHECK_TOKEN（環境変数 TDF47_RECHECK_TOKEN）から、ハッシュだけを config.php に書く。
+        合言葉が無いとき（手元での生成など）は config.php を作らない＝窓口は「未設定」で応答して何もしない。"""
+        import hashlib
+        d = os.path.join(DIST, "_recheck")
+        os.makedirs(d, exist_ok=True)
+        shutil.copyfile(os.path.join(SRC, "server", "recheck.php"), os.path.join(d, "index.php"))
+        token = os.environ.get("TDF47_RECHECK_TOKEN", "")
+        if token:
+            h = hashlib.sha256(token.encode("utf-8")).hexdigest()
+            with open(os.path.join(d, "config.php"), "w", encoding="utf-8") as f:
+                f.write(f"<?php\nreturn '{h}';\n")
+        with open(os.path.join(d, ".htaccess"), "w", encoding="utf-8") as f:
+            f.write("DirectoryIndex index.php\n"
+                    "<Files \"config.php\">\n"
+                    "  <IfModule mod_authz_core.c>\n    Require all denied\n  </IfModule>\n"
+                    "  <IfModule !mod_authz_core.c>\n    Order allow,deny\n    Deny from all\n  </IfModule>\n"
+                    "</Files>\n")
+
     def copy_static(self):
         dest = os.path.join(DIST, "assets")
         if os.path.exists(dest):
@@ -1097,6 +1117,7 @@ ErrorDocument 404 /404.html
         n_sitemap = self.build_sitemap()
         self.build_robots()
         self.build_htaccess()
+        self.build_recheck()
         self.copy_static()
         self.conn.close()
         print(f"生成完了: {self.n} ページ ＋ sitemap({n_sitemap} URL)・robots・search-index・404")

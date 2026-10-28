@@ -258,6 +258,36 @@ def _fetch(url: str, context=None, max_bytes: int = 200_000):
         return None, url, None, f"{type(e).__name__}: {e}", ""
 
 
+# 国内からの再確認窓口（tdf47.com のサーバー上の src/server/recheck.php）。
+# 毎日の確認は GitHub（海外）で動くため、海外からの接続を断っている自治体サイトは毎回「時間切れ」になる。
+# 時間切れ・接続拒否などになったリンクだけを、この窓口に国内から確認し直してもらう（2026-10-28）。
+RECHECK_URL = os.environ.get("TDF47_RECHECK_URL") or "https://tdf47.com/_recheck/index.php"
+RECHECK_TIMEOUT = 90
+
+
+def recheck_domestic(url: str):
+    """国内から確認し直した結果 (http_status, final_url, title, error, robots_blocked)。
+    窓口が使えない（合言葉が無い・応答が無い・形式が違う）ときは None（呼び出し側は今までどおりに判定する）。"""
+    import json
+    token = os.environ.get("TDF47_RECHECK_TOKEN", "")
+    if not token:
+        return None
+    req = urllib.request.Request(
+        RECHECK_URL, data=json.dumps({"url": url}).encode("utf-8"), method="POST",
+        headers={"User-Agent": UA, "Content-Type": "application/json", "X-TDF47-Token": token})
+    try:
+        with urllib.request.urlopen(req, timeout=RECHECK_TIMEOUT) as resp:
+            d = json.loads(resp.read(100_000).decode("utf-8"))
+    except Exception as e:
+        print(f"  国内からの再確認に失敗（今までどおり判定）: {type(e).__name__}: {e}")
+        return None
+    if not isinstance(d, dict) or "robots_blocked" not in d:
+        return None
+    st = d.get("status")
+    return (st if isinstance(st, int) else None, d.get("final_url") or url, d.get("title"),
+            d.get("error"), bool(d.get("robots_blocked")))
+
+
 def last_probe(conn, link_id):
     row = conn.execute(
         "SELECT http_status,final_url,page_title,error FROM probe "
