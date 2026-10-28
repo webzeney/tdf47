@@ -264,6 +264,7 @@ def _fetch(url: str, context=None, max_bytes: int = 200_000):
 RECHECK_URL = os.environ.get("TDF47_RECHECK_URL") or "https://tdf47.com/_recheck/index.php"
 RECHECK_TIMEOUT = 90
 RECHECK_MAX_PER_RUN = 60  # 1回の確認で国内から確認し直す上限（1件あたり最大90秒待つため、全体の時間を抑える）
+RECHECK_GIVE_UP = 3       # 窓口が続けてこの回数使えなかったら、その回は国内からの確認をやめる
 # 国内から確認し直す失敗（海外からの接続を断っているサーバーで起きるもの）。
 RECHECK_ERR = ("timed out", "Connection refused", "Connection reset", "RemoteDisconnected",
                "No route to host", "Network is unreachable")
@@ -403,6 +404,7 @@ def main():
     n_robots = 0
     n_sns = 0  # SNSの掲載照合をした公式サイトの数
     n_recheck = n_recheck_ok = 0  # 国内から確認し直した数・そのうち生存を確認できた数
+    n_recheck_try = n_recheck_fail_streak = 0  # 窓口に頼んだ数（上限の計算用）・窓口が続けて使えなかった数
     for i, l in enumerate(links, 1):
         url = l["url"]
         if not allowed_by_robots(url):
@@ -416,9 +418,16 @@ def main():
             status, final_url, title, err, html = fetch_page(url, max_bytes=600_000)
         else:
             status, final_url, title, err, html = fetch_page(url)
-        if needs_recheck(status, err) and n_recheck < RECHECK_MAX_PER_RUN:
+        if (needs_recheck(status, err) and n_recheck_try < RECHECK_MAX_PER_RUN
+                and n_recheck_fail_streak < RECHECK_GIVE_UP):
             time.sleep(DELAY_SEC)
+            n_recheck_try += 1
             rc = recheck_domestic(url)
+            n_recheck_fail_streak = 0 if rc is not None else n_recheck_fail_streak + 1
+            if rc is not None and rc[0] is None and rc[3] and not rc[4] and not is_transient(None, rc[3]):
+                # 国内からは「名前を引けない・SSL・その他の通信エラー」：窓口側の事情のこともあるので判定に使わず、
+                # 海外からの結果（時間切れなど＝1回目は猶予）で判定する
+                rc = None
             if rc is not None:
                 n_recheck += 1
                 if rc[4]:

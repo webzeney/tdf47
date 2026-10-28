@@ -433,6 +433,57 @@ def test_domestic_recheck_timeout_twice_and_robots():
         shutil.rmtree(d)
 
 
+def test_domestic_non_transient_error_falls_back():
+    d, p = _copy_db()
+    try:
+        lid, url = _prepare_target(p, "ok")
+        dns = lambda u: (None, u, None, "国内から: Name or service not known（名前を引けない）", False)  # noqa: E731
+        _run_with_recheck(p, d, TIMEOUT_RES, dns, "2099-01-01T00:00:00")
+        assert _status(p, lid) == "ok"           # 海外からの時間切れ（1回目）で判定＝そのまま
+        conn = db.connect(p)
+        last = conn.execute("SELECT error FROM probe WHERE link_id=? ORDER BY checked_at DESC LIMIT 1",
+                            (lid,)).fetchone()[0]
+        conn.close()
+        assert "timed out" in last
+        nf = lambda u: (404, u, None, "HTTPError 404", False)  # noqa: E731
+        _run_with_recheck(p, d, TIMEOUT_RES, nf, "2099-01-02T00:00:00")
+        assert _status(p, lid) == "dead"         # 国内からはサーバーが「無い」と答えた
+    finally:
+        shutil.rmtree(d)
+
+
+def test_recheck_gives_up_after_consecutive_unavailable():
+    d, p = _copy_db()
+    saved = (db.DB_PATH, probe.fetch_page, probe.allowed_by_robots, probe.DELAY_SEC,
+             probe.REVIEW_CSV, probe.NOW, sys.argv, probe.recheck_domestic)
+    orig_connect = db.connect
+    try:
+        conn = db.connect(p)
+        ids = [r[0] for r in conn.execute("SELECT id FROM link WHERE status='ok' AND url LIKE 'https://%' "
+                                          "AND url NOT LIKE '%d1-law.com%' AND url NOT LIKE '%legal-square.com%' "
+                                          "LIMIT 6")]
+        conn.execute(f"UPDATE link SET status='none' WHERE id NOT IN ({','.join(map(str, ids))})")
+        conn.commit()
+        conn.close()
+        calls = []
+        probe.recheck_domestic = lambda u: calls.append(u)  # いつも None（窓口が使えない）
+        db.DB_PATH = p
+        probe.fetch_page = lambda url, max_bytes=200_000: TIMEOUT_RES(url)
+        probe.allowed_by_robots = lambda u: True
+        probe.DELAY_SEC = 0
+        probe.REVIEW_CSV = os.path.join(d, "review.csv")
+        probe.NOW = "2099-01-01T00:00:00"
+        sys.argv = ["probe.py", "--limit", "0"]
+        db.connect = lambda path=p: orig_connect(path)
+        probe.main()
+        assert len(calls) == probe.RECHECK_GIVE_UP
+    finally:
+        db.connect = orig_connect
+        (db.DB_PATH, probe.fetch_page, probe.allowed_by_robots, probe.DELAY_SEC,
+         probe.REVIEW_CSV, probe.NOW, sys.argv, probe.recheck_domestic) = saved
+        shutil.rmtree(d)
+
+
 if __name__ == "__main__":
     n = 0
     for k, v in list(globals().items()):
