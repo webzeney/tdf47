@@ -51,21 +51,23 @@ HOPPO = {"016951", "016969", "016977", "016985", "016993", "017001"}
 KINDS = {
     "nyusatsu": {"label": "入札・契約",
                  "words": ["入札・契約", "入札契約", "入札・調達", "入札情報", "契約情報", "入札", "調達情報"],
-                 "exclude": ["結果のお知らせ", "公告", "令和", "平成", "年度"]},
+                 "exclude": ["結果のお知らせ", "公告", "令和", "平成", "年度", "委員会", "議事", "監視"]},
     "saiyo": {"label": "職員採用",
               "words": ["職員採用", "職員募集", "採用情報", "職員の採用", "採用試験"],
-              "exclude": ["令和", "年度", "会計年度任用職員の募集", "保育士", "看護"]},
+              "exclude": ["令和", "年度", "会計年度", "任期付", "保育士", "看護", "組合", "協力隊", "教員"]},
     "toukei": {"label": "統計",
                "words": ["統計情報", "統計データ", "統計書", "統計", "数字で見る", "データで見る"],
                "exclude": ["人口動態統計月報", "令和", "平成"]},
     "sougou_keikaku": {"label": "総合計画",
                        "words": ["総合計画", "総合振興計画", "総合発展計画", "まちづくり計画"],
-                       "exclude": ["実施計画の", "審議会", "パブリックコメント"]},
+                       "exclude": ["実施計画の", "審議会", "パブリックコメント", "素案", "（案）", "意見", "福祉", "下水道",
+                                   "交通", "防災", "環境", "教育", "観光", "都市計画", "緑", "住宅", "保健", "医療",
+                                   "森林", "農業", "水道", "子ども", "子育て", "障害", "介護", "健康"]},
     "dx_keikaku": {"label": "DX推進計画",
                    "words": ["DX推進計画", "ＤＸ推進計画", "デジタル化推進計画", "DX推進方針", "ＤＸ推進方針",
                              "デジタル・トランスフォーメーション推進計画", "デジタル変革", "情報化推進計画",
                              "DX推進", "ＤＸ推進"],
-                   "exclude": []},
+                   "exclude": ["採用", "募集", "人材", "研修", "セミナー", "補助", "支援"]},
 }
 SITEMAP_WORDS = ["サイトマップ", "サイト・マップ", "site map", "sitemap"]
 SITEMAP_PATHS = ["/sitemap.html", "/sitemap/", "/site_map.html", "/sitemap/index.html", "/site/sitemap.html"]
@@ -163,6 +165,7 @@ def anchors(page_url: str, text: str):
         if href.startswith(("javascript:", "mailto:", "tel:", "#")):
             continue
         u = urldefrag(urljoin(page_url, href.strip()))[0]
+        u = re.sub(r"[?&]utm_[a-z]+=[^&]*", "", u).rstrip("?&")
         if u.startswith(("http://", "https://")):
             out.append((t, u))
     return out
@@ -175,6 +178,10 @@ def score(kind: str, text: str, url: str, site: str, depth: int) -> int:
         return 0
     if any(x in text for x in k["exclude"]):
         return 0
+    if kind in ("dx_keikaku", "sougou_keikaku") and re.search(r"(課|室|係|部|センター)$", text):
+        return 0  # 担当課のページは計画そのものではない
+    if re.search(r"[?&](keyword|q|search)=|/search[/?]", url, re.I):
+        return 0  # サイト内検索の結果ページは使わない
     s = 0
     for i, w in enumerate(k["words"]):
         if w.lower() in text.lower():
