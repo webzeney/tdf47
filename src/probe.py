@@ -275,8 +275,13 @@ def recheck_domestic(url: str):
     req = urllib.request.Request(
         RECHECK_URL, data=json.dumps({"url": url}).encode("utf-8"), method="POST",
         headers={"User-Agent": UA, "Content-Type": "application/json", "X-TDF47-Token": token})
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, *a, **k):
+            return None  # 合言葉を別の場所へ送らないよう、リダイレクトはたどらない
+
     try:
-        with urllib.request.urlopen(req, timeout=RECHECK_TIMEOUT) as resp:
+        opener = urllib.request.build_opener(_NoRedirect)
+        with opener.open(req, timeout=RECHECK_TIMEOUT) as resp:
             d = json.loads(resp.read(100_000).decode("utf-8"))
     except Exception as e:
         print(f"  国内からの再確認に失敗（今までどおり判定）: {type(e).__name__}: {e}")
