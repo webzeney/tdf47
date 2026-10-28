@@ -120,3 +120,13 @@ CREATE TABLE IF NOT EXISTS fiscal (
   PRIMARY KEY (entity_code, fiscal_year, metric)
 );
 CREATE INDEX IF NOT EXISTS idx_fiscal_entity ON fiscal(entity_code);
+
+-- 自治体DXの取組状況（デジタル庁「自治体DXの取組に関するダッシュボード」のデータテーブル）
+CREATE TABLE IF NOT EXISTS dx_status (
+  entity_code TEXT NOT NULL REFERENCES entity(code),
+  metric      TEXT NOT NULL,       -- cio | cio_hosa | houshin | taisei | gaibu | ikusei | kenshu | ai | rpa | telework | mynumber | online26 | online32
+  value_text  TEXT NOT NULL,       -- 実施 | 未実施 | 調査無し | 72%
+  source_url  TEXT NOT NULL,
+  updated_at  TEXT,
+  PRIMARY KEY (entity_code, metric)
+);

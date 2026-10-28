@@ -224,6 +224,11 @@ class Builder:
             newest[g] = max(newest.get(g, 0), fy_num(r["fiscal_year"]))
         self.fiscal = {}
         self.ruiji = {}
+        # 自治体DXの取組状況（デジタル庁）。テーブルが無い・空のときは表示しない。
+        self.dx = {}
+        if cur.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dx_status'").fetchone():
+            for r in cur.execute("SELECT entity_code,metric,value_text FROM dx_status"):
+                self.dx.setdefault(r["entity_code"], {})[r["metric"]] = r["value_text"]
         for r in frows:
             is_r = r["metric"] in RUIJI_METRICS
             if fy_num(r["fiscal_year"]) != newest[(r["entity_code"], is_r)]:
@@ -515,7 +520,7 @@ class Builder:
                         groups=groups, unions=us,
                         admin=[{"kind": k, "label": lab, "link": self.link_for(p["code"], k)}
                                for k, lab in self.ADMIN_KINDS],
-                        fiscal=self._fiscal(p),
+                        fiscal=self._fiscal(p), dx=self._dx(p),
                         entity_code=p["code"], pref_code=p["code"],
                         og_title=f"{p['name']} ｜ {SITE_NAME}",
                         page_desc=f"{p['name']}の市区町村一覧と、各自治体の公式サイト・例規集・広報誌・SNSへのリンク。")
@@ -524,8 +529,7 @@ class Builder:
                    ("pubcomment", "パブリックコメント")]
     V2_KINDS = [("nyusatsu", "入札・契約"),
                 ("saiyo", "職員採用"), ("toukei", "統計"),
-                ("sougou_keikaku", "総合計画"), ("dx_keikaku", "DX推進計画"),
-                ("dx_torikumi", "自治体DXの取組状況")]
+                ("sougou_keikaku", "総合計画"), ("dx_keikaku", "DX推進計画")]
     SNS_KINDS = [("sns_x", "X", "x"), ("sns_line", "LINE", "line"),
                  ("sns_youtube", "YouTube", "yt"), ("sns_facebook", "Facebook", "fb"),
                  ("sns_instagram", "Instagram", "ig")]
@@ -577,6 +581,31 @@ class Builder:
         return dict({"year": f["year"] if f else "", "source": f["source"] if f else "", "rows": items},
                     **extra)
 
+    # 自治体DXの取組状況の表示順・ラベル（デジタル庁「自治体DXの取組に関するダッシュボード」）
+    DX_META = [
+        ("cio", "CIOの任命"), ("cio_hosa", "CIO補佐官等の任命"), ("houshin", "全体方針の策定"),
+        ("taisei", "全庁的な体制構築"), ("gaibu", "外部人材の活用"), ("ikusei", "職員育成の取組"),
+        ("kenshu", "全職員対象の研修"), ("ai", "AIの導入"), ("rpa", "RPAの導入"),
+        ("telework", "テレワークの導入"), ("mynumber", "マイナンバーカード保有率"),
+        ("online26", "子育て・介護26手続のオンライン化"), ("online32", "よく使う32手続のオンライン化"),
+    ]
+
+    def _dx(self, e):
+        """自治体DXの取組状況セクション用（データのある指標だけ）。"""
+        d = self.dx.get(e["code"])
+        if not d:
+            return None
+        rows = []
+        for key, label in self.DX_META:
+            v = d.get(key)
+            if not v:
+                continue
+            if v.endswith("%"):
+                rows.append({"label": label, "value": v[:-1], "unit": "%"})
+            else:
+                rows.append({"label": label, "value": "調査なし" if v == "調査無し" else v, "unit": ""})
+        return rows or None
+
     def _office(self, e):
         if e.get("office_addr") or e.get("office_tel") or e.get("office_zip"):
             return {"zip": e.get("office_zip"), "addr": e.get("office_addr"),
@@ -607,8 +636,8 @@ class Builder:
                 e=c, pref=pref, block=block, code5=c["code"][:5],
                 official=self.link_for(c["code"], "official"),
                 office=self._office(c), facts=self._facts(c, len(neighbors)),
-                fiscal=self._fiscal(c),
-                admin=admin, v2=self.V2_KINDS, sns=sns, wards=wards,
+                fiscal=self._fiscal(c), dx=self._dx(c),
+                admin=admin, v2=self.V2_KINDS + ([] if self._dx(c) else [("dx_torikumi", "自治体DXの取組状況")]), sns=sns, wards=wards,
                 neighbors=neighbors, similar=similar, similar_meta=self.similar_meta(c["code"]),
                 cards=self.cards.get(c["code"]),
                 base_pop=f"{c['population']:,}人" if c.get("population") else "",

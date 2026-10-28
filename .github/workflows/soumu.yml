@@ -43,6 +43,12 @@ jobs:
           python3 src/ingest/13_fiscal.py
           python3 src/ingest/14_ruiji.py
 
+      - name: 自治体DXの取組状況を取り込む（デジタル庁のダッシュボードのデータ表）
+        continue-on-error: true   # 失敗しても財政データの更新は止めない（DXの表は前回のまま）
+        env:
+          TZ: Asia/Tokyo
+        run: python3 src/ingest/17_dx.py
+
       - name: 内容が変わったか確認
         id: diff
         run: |
@@ -52,10 +58,15 @@ jobs:
           old = tempfile.mktemp()
           with open(old, "wb") as f:
               f.write(subprocess.run(["git", "show", "HEAD:db/tdf47.sqlite"], capture_output=True, check=True).stdout)
-          q = "SELECT entity_code,fiscal_year,metric,value,value_text,source_url FROM fiscal ORDER BY 1,2,3"
-          a = sqlite3.connect(old).execute(q).fetchall()
-          b = sqlite3.connect("db/tdf47.sqlite").execute(q).fetchall()
-          print(f"changed={'true' if a != b else 'false'}")
+          qs = ["SELECT entity_code,fiscal_year,metric,value,value_text,source_url FROM fiscal ORDER BY 1,2,3",
+                "SELECT entity_code,metric,value_text,source_url FROM dx_status ORDER BY 1,2"]
+          def rows(path, q):
+              try:
+                  return sqlite3.connect(path).execute(q).fetchall()
+              except sqlite3.OperationalError:
+                  return None   # 表がまだ無い（初回）
+          changed = any(rows(old, q) != rows("db/tdf47.sqlite", q) for q in qs)
+          print(f"changed={'true' if changed else 'false'}")
           os.remove(old)
           EOF
 
@@ -65,7 +76,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add db/tdf47.sqlite
-          git commit -m "soumu: 決算カード・類似団体区分・主要財政指標を更新 ($(date +%F))"
+          git commit -m "soumu: 決算カード・類似団体区分・主要財政指標・自治体DXの取組状況を更新 ($(date +%F))"
           git pull --rebase
           git push
 

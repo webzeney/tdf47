@@ -165,6 +165,24 @@
 </div>
 {% endif %}
 
+{% if dx %}
+<div class="inner sec" style="padding-top:6px">
+  <div class="sec-title"><h2>自治体DXの取組状況</h2></div>
+  <div class="panel">
+    <div class="cmp-head">
+      <p class="cmp-lead">DXの推進体制、業務のDX、住民サービスのDXの取組状況です。</p>
+      <button class="copybtn" type="button" data-target="dx">表をコピー</button>
+    </div>
+    <div class="phead-data" style="border-top:0;padding-top:0" data-copy="dx" data-copy-head="{{ e.name }}（自治体DXの取組状況）">
+      {% for it in dx %}
+      <div class="dstat"><span>{{ it.label }}</span><b>{{ it.value }}</b><i>{{ it.unit }}</i></div>
+      {% endfor %}
+    </div>
+    <p class="asof">デジタル庁「自治体DXの取組に関するダッシュボード」より。調査時点は指標により異なります。<a href="https://www.digital.go.jp/resources/govdashboard/local-government-dx/description" target="_blank" rel="noopener">出典・データの定義（デジタル庁）</a></p>
+  </div>
+</div>
+{% endif %}
+
 {% if wards %}
 <div class="inner sec" style="padding-top:6px">
   <div class="sec-title"><h2>行政区</h2></div>
