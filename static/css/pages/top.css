@@ -599,7 +599,7 @@ color:#fff;box-shadow:0 2px 6px rgba(31,41,51,.18)}
  .jp{position:static;display:block;width:100%;max-width:330px;height:auto;margin:0 auto}
  .mblocks{position:static;display:grid;
   grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:18px 14px;margin-top:22px}
- .mblock{position:static;left:auto;top:auto;width:auto;order:var(--o)}
+ .mblock{position:static;left:auto;top:auto;width:auto;order:calc(8 - var(--o))}
  .mbname{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;
   color:var(--brown2);letter-spacing:.04em;margin-bottom:7px}
  .mbname::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
