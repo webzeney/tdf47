@@ -17,6 +17,7 @@ dist/
 # レポート（必要に応じて個別に追加）。月次見直し用CSVは git 管理する（GitHub Actions で作られて消えないように）
 reports/*
 !reports/monthly-review-*.csv
+!reports/link-candidates-*.csv
 
 # Python
 __pycache__/
