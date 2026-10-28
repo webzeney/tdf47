@@ -34,9 +34,15 @@ jobs:
         run: pip install openpyxl jinja2
 
       - name: 総務省の最新年度を解決して取得
-        run: python3 src/ingest/fetch_soumu.py
+        id: fetch
+        continue-on-error: true   # 失敗しても自治体DXの取り込みは行う（財政データは前回のまま）
+        run: |
+          set -o pipefail
+          # 失敗したときは最後の数行を注記（annotation）に出す（実行ログを開かなくても原因が分かるように）
+          python3 src/ingest/fetch_soumu.py 2>&1 | tee fetch.log || { tail -n 5 fetch.log | sed 's/^/::error::/'; exit 1; }
 
       - name: 取り込み（主要財政指標・類似団体区分・決算カード）
+        if: steps.fetch.outcome == 'success'
         env:
           TZ: Asia/Tokyo
         run: |
@@ -47,7 +53,9 @@ jobs:
         continue-on-error: true   # 失敗しても財政データの更新は止めない（DXの表は前回のまま）
         env:
           TZ: Asia/Tokyo
-        run: python3 src/ingest/17_dx.py
+        run: |
+          set -o pipefail
+          python3 src/ingest/17_dx.py 2>&1 | tee dx.log || { tail -n 5 dx.log | sed 's/^/::error::/'; exit 1; }
 
       - name: 内容が変わったか確認
         id: diff
