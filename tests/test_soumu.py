@@ -103,6 +103,19 @@ def test_read_workbook():
     assert got[0]["type"] == "政令指定都市"
 
 
+def test_link_text_with_image_alt():
+    """リンクの中に画像（alt="EXCEL"）があっても見つけられる（2026-10-28：令和6年度のページで確認）。"""
+    html = ('<a href="/main_content/001044528.xlsx">全都道府県の主要財政指標<img src="x.gif" alt="EXCEL"></a>'
+            '<a href="/main_content/001044529.xlsx">全市町村の主要財政指標<img alt="EXCEL" src="y"></a>'
+            '<a href="/z.xlsx">市町村主要財政指標の都道府県別平均<img alt="EXCEL"></a>')
+    p = fetch.parse(html)
+    base = "https://www.soumu.go.jp/menu_seisaku/toukei/02zaisei07_04000135.html"
+    assert fetch.first_link(p, r"^全市町村の主要財政指標(?:EXCEL|Excel|エクセル)?$", base)[1] == \
+        "https://www.soumu.go.jp/main_content/001044529.xlsx"
+    assert fetch.first_link(p, r"^全都道府県の主要財政指標(?:EXCEL|Excel|エクセル)?$", base)[1] == \
+        "https://www.soumu.go.jp/main_content/001044528.xlsx"
+
+
 if __name__ == "__main__":
     n = 0
     for k, v in list(globals().items()):

@@ -127,6 +127,7 @@ def absurl(href: str, base: str) -> str:
 
 
 def first_link(p: _Links, pattern: str, base: str) -> tuple[str, str]:
+    """リンク文字列（中の画像の alt を含む。例「全市町村の主要財政指標EXCEL」）が pattern に合う最初のリンク。"""
     for text, href, _ in p.links:
         if re.search(pattern, text):
             return text, absurl(href, base)
@@ -196,8 +197,8 @@ def resolve() -> dict:
     shi_idx = parse(decode_html(_get(SHIHYO_INDEX)))
     shi_text, shi_page = first_link(shi_idx, r"年度主要財政指標一覧", SHIHYO_INDEX)
     shi = parse(decode_html(_get(shi_page)))
-    _, shichoson = first_link(shi, r"^全市町村の主要財政指標$", shi_page)
-    _, todofuken = first_link(shi, r"^全都道府県の主要財政指標$", shi_page)
+    _, shichoson = first_link(shi, r"^全市町村の主要財政指標(?:EXCEL|Excel|エクセル)?$", shi_page)
+    _, todofuken = first_link(shi, r"^全都道府県の主要財政指標(?:EXCEL|Excel|エクセル)?$", shi_page)
 
     if len(card) != 47:
         raise RuntimeError(f"決算カードの都道府県数が47ではありません: {len(card)}")
