@@ -28,12 +28,12 @@ LINK_KINDS = [
     ("sns_youtube", "YouTube", "sns", "v1.0", 90, "youtube"),
     # v2.0（CMS判別エンジン実装後）。v1.0では「準備中」表示。
     ("pubcomment", "パブリックコメント", "admin", "v1.0", 100, "comment"),
-    ("nyusatsu", "入札・調達", "admin", "v2.0", 110, "doc"),
-    ("saiyo", "職員採用", "admin", "v2.0", 120, "person"),
-    ("toukei", "統計", "admin", "v2.0", 130, "chart"),
+    ("nyusatsu", "入札・調達", "admin", "v1.0", 110, "doc"),
+    ("saiyo", "職員採用", "admin", "v1.0", 120, "person"),
+    ("toukei", "統計", "admin", "v1.0", 130, "chart"),
     # 2026-10-22 追加（職員の「計画をつくる」作業向け。全国一覧がないため v2.0 の探索で取得）
-    ("sougou_keikaku", "総合計画", "admin", "v2.0", 140, "doc"),
-    ("dx_keikaku", "DX推進計画", "admin", "v2.0", 150, "doc"),
+    ("sougou_keikaku", "総合計画", "admin", "v1.0", 140, "doc"),
+    ("dx_keikaku", "DX推進計画", "admin", "v1.0", 150, "doc"),
     ("dx_torikumi", "自治体DXの取組状況", "admin", "v2.0", 160, "chart"),
     # ご当地カード
     ("card_manhole", "マンホールカード", "card", "v1.0", 200, "manhole"),
