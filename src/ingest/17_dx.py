@@ -127,8 +127,8 @@ def parse(rows, entities, label):
             continue  # 都道府県の CSV には無い指標がある
         for i, ent in enumerate(entities):
             v = r[i + 2].strip() if i + 2 < len(r) else ""
-            if not v:
-                continue
+            if not v or v in ("%", "-", "－"):
+                continue  # 値なし（「%」だけのセルは回答なし）
             if not VALID.match(v):
                 sys.exit(f"{label}: 想定外の値「{v}」（{ent['name']}・{csv_label}）")
             out[(ent["code"], key)] = v
