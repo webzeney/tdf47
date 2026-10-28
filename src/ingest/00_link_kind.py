@@ -27,7 +27,7 @@ LINK_KINDS = [
     ("sns_instagram", "Instagram", "sns", "v1.0", 80, "instagram"),
     ("sns_youtube", "YouTube", "sns", "v1.0", 90, "youtube"),
     # v2.0（CMS判別エンジン実装後）。v1.0では「準備中」表示。
-    ("pubcomment", "パブリックコメント", "admin", "v2.0", 100, "comment"),
+    ("pubcomment", "パブリックコメント", "admin", "v1.0", 100, "comment"),
     ("nyusatsu", "入札・調達", "admin", "v2.0", 110, "doc"),
     ("saiyo", "職員採用", "admin", "v2.0", 120, "person"),
     ("toukei", "統計", "admin", "v2.0", 130, "chart"),
