@@ -1,0 +1,54 @@
+entity_code,kind_code,url,memo
+141313,kouhou,https://www.city.kawasaki.jp/kawasaki/category/120-1-12-0-0-0-0-0-0-0.html,確認
+141321,kouhou,https://www.city.kawasaki.jp/saiwai/category/104-1-1-0-0-0-0-0-0-0.html,確認
+141330,kouhou,https://www.city.kawasaki.jp/nakahara/category/101-1-1-1-0-0-0-0-0-0.html,確認
+141348,kouhou,https://www.city.kawasaki.jp/takatsu/category/115-1-4-0-0-0-0-0-0-0.html,確認
+141364,kouhou,https://www.city.kawasaki.jp/miyamae/category/126-1-3-0-0-0-0-0-0-0.html,確認
+141372,kouhou,https://www.city.kawasaki.jp/asao/category/128-1-9-0-0-0-0-0-0-0.html,確認
+151017,kouhou,https://www.city.niigata.lg.jp/kita/kohoshi/tayori/index.html,確認
+151025,kouhou,https://www.city.niigata.lg.jp/higashi/kohoshi/kudayori/index.html,確認
+151033,kouhou,https://www.city.niigata.lg.jp/chuo/kohoshi/index2011/index.html,確認
+151041,kouhou,https://www.city.niigata.lg.jp/konan/kohoshi/kuyakusho/index.html,確認
+151050,kouhou,https://www.city.niigata.lg.jp/akiha/kohoshi/kouhou/index.html,確認
+151068,kouhou,https://www.city.niigata.lg.jp/minami/kohoshi/minamikaze/index.html,確認
+151076,kouhou,https://www.city.niigata.lg.jp/nishi/kohoshi/pr/index.html,確認
+151084,kouhou,https://www.city.niigata.lg.jp/nishikan/kohoshi/kouhou/index.html,確認
+401013,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/moji.html,確認
+401064,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/kokurakita.html,確認
+401072,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/kokuraminami.html,確認
+401030,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/wakamatsu.html,確認
+401081,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/yahatahigashi.html,確認
+401099,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/yahatanishi.html,確認
+401056,kouhou,https://www.city.kitakyushu.lg.jp/page/dayori/tobata.html,確認
+141526,kouhou,https://www.city.sagamihara.kanagawa.jp/chuoku/1030208.html,確認
+281093,kouhou,https://www.city.kobe.lg.jp/f96104/kuyakusho/kitaku/kekaku/kouhou-kita/backnumber.html,確認
+011096,kouhou,https://www.city.sapporo.jp/teine/kurashi/kouhou/menu.html,確認
+341002,ward_x,https://www.city.hiroshima.lg.jp/akiku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/asakitaku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/asaminamiku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/higashiku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/minamiku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/nakaku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/nishiku/index.html,探索
+341002,ward_x,https://www.city.hiroshima.lg.jp/saekiku/index.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/chuo/default.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/higashi/default.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/nishi/default.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/minami/default.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/kita/default.html,探索
+431001,ward_x,https://www.city.kumamoto.jp/chuo/list00134.html,探索
+221309,ward_x,https://www.city.hamamatsu.shizuoka.jp/ward/chuo/index.html,探索
+271004,ward_x,https://www.city.osaka.lg.jp/kita/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/fukushima/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/konohana/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/nishi/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/minato/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/naniwa/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/nishiyodogawa/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/yodogawa/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/higashiyodogawa/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/higashinari/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/ikuno/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/higashisumiyoshi/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/hirano/, 探索
+271004,ward_x,https://www.city.osaka.lg.jp/nishinari/, 探索
