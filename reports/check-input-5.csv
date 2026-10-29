@@ -1,0 +1,47 @@
+entity_code,kind_code,url,memo
+073644,reiki,https://www1.g-reiki.net/vill.hinoemata/reiki_menu.html,g-reiki版の例規集。公式サイト上にはリンクなし
+131091,reiki,https://www.city.shinagawa.tokyo.jp/reiki/reiki_menu.html,区公式「例規集」ページから「品川区例規集」としてリンクされている現行URL（リン
+032018,kouhou,https://www.city.morioka.iwate.jp/shisei/1021559/1021610/kohomorioka/index.html,広報もりおかトップ（年別ページの親）。取得はサイト側エラーで未確認
+062022,kouhou,https://www.city.yonezawa.yamagata.jp/soshiki/2/hisyo/2_1/index.html,広報よねざわの一覧（年別ページの親）
+063614,kouhou,https://www.town.kaneyama.yamagata.jp/kurashi/chosei/kohokaneyama/index.html,広報かねやまトップ。令和8年～平成28年の各年へのリンクあり
+113433,kouhou,https://www.town.ogawa.saitama.jp/gyosei/gyoseijoho/koho_kocho/2/2/index.html,広報おがわ一覧。年度別リンク（令和8年度が最新）
+113654,kouhou,https://www.town.ogano.lg.jp/chousei-jouhou/kouchou-kouhou-toukei/kouhou-ogano/,広報おがのトップ。バックナンバーへのリンクあり（取得時の最新号表示が古かったので
+114081,kouhou,https://www.town.yorii.saitama.jp/site/kouhou-yorii/,広報よりいトップ。最新号は令和8年10月号
+194221,kouhou,http://www.vill.doshi.lg.jp/kouhou/,広報どうしの現年度ページ（過年度は koho_rXX.php）。取得はサイト側エ
+202126,kouhou,https://www.city.omachi.nagano.jp/shisei/koho/koho,広報おおまち一覧。令和8年度～平成25年度の年度別リンクあり
+203831,kouhou,https://www.town.minowa.lg.jp/soshiki/minowa_miryoku/gyomu/4/1/4/index.html,広報みのわ一覧。年別リンク（2026年が最新）
+204153,kouhou,https://www.vill.takagi.lg.jp/category/bunya/koho/johoshi/,情報誌たかぎ一覧。最新号2026年11月号
+205419,kouhou,https://www.town.obuse.nagano.jp/administration/media/choho-obuse/etsuran/,町報おぶせの閲覧・ダウンロード一覧。最新号令和8年10月号
+223018,kouhou,https://www.town.higashiizu.lg.jp/soshiki/kikaku_cyoseika/2/6/index.html,広報ひがしいず一覧。2021～2026年の年別リンク
+243418,kouhou,https://www2.town.komono.mie.jp/site/koho/,広報こものトップ（www2ドメイン）。最新号令和8年10月号
+283011,kouhou,https://www.town.inagawa.lg.jp/soshiki/1004/gyomu/5/3/3/index.html,広報いながわ一覧。平成12年以前～令和8年の年別リンク
+285854,kouhou,https://www.town.mikata-kami.lg.jp/gyouseijouhou/koho-kocho/3/1/index.html,広報ふるさと香美トップ（バックナンバー・今年度へのリンク）。2026年3月サイト
+302091,kouhou,https://www.city.iwade.lg.jp/site/koho/,広報いわでトップ（年別の号一覧あり）。旧 /kouhou/index.html 
+314013,kouhou,https://www.town.nichinan.lg.jp/soshikikarasagasu/machimiraisouzouka/koho/1/index.html,広報にちなん発行号別バックナンバー。2026年版が最新
+324418,kouhou,https://www.town.shimane-kawamoto.lg.jp/gyosei/town_administration/public_relations/kouhoukawamoto/,広報かわもと一覧。取得はサイト側エラー。旧 /category/kouhouka
+342157,kouhou,https://www.city.etajima.hiroshima.jp/cms/categories/show/29,広報えたじまカテゴリ一覧。取得はサーバーエラー。別に「広報えたじま 一覧」記事 
+353434,kouhou,https://www.town.tabuse.lg.jp/site/koho/,広報たぶせトップ。年別一覧あり
+423831,kouhou,https://www.town.ojika.lg.jp/soshiki/mirai/5/129.html,おぢか新聞（広報紙）。今年の号とバックナンバーへのリンクあり
+431001,kouhou,https://www.city.kumamoto.jp/list04484.html,市政だより一覧。リンク元ページは取得確認済み
+462063,kouhou,https://www.city.akune.lg.jp/shiseijoho/15/koho/kohoakune/index.html,広報あくね一覧。令和8年まで年別リンク
+472123,kouhou,https://www.city.tomigusuku.lg.jp/soshiki/15/1002/gyomuannai/4/4_1/2/1399.html,広報とみぐすくのページ。取得はサーバーエラー
+473031,kouhou,https://www.vill.higashi.okinawa.jp/soshikikarasagasu/somuzaiseika/3/1/index.html,広報ひがし一覧。最新号No.146、年度別バックナンバーあり（公式サイト htt
+473545,kouhou,https://www.vill.zamami.okinawa.jp/kouhoushi/,広報誌一覧。最新号令和8年9月号
+271161,kouhou,https://www.city.osaka.lg.jp/ikuno/page/0000024048.html,生野区広報紙「広報いくの」（最新号・年度別バックナンバー）
+271276,kouhou,https://www.city.osaka.lg.jp/kita/category/3077-5-0-0-0-0-0-0-0-0.html,北区広報紙「わがまち北区」（各号一覧。令和7年5月号以前は別バックナンバーページ
+281051,kouhou,https://www.city.kobe.lg.jp/e90232/kuyakusho/hyogoku/shoukai/kouhoushi/index.html,広報紙「兵庫区」（区民版は広報紙KOBE11面掲載の案内と電子書籍リンクのみ・号
+281069,kouhou,https://www.city.kobe.lg.jp/h53961/kuyakusho/nagataku/jyouhou/kouhoushi.html,広報ながた（長田区版11面・最新号と年別バックナンバー）
+281085,kouhou,https://www.city.kobe.lg.jp/j39681/kuyakusho/tarumiku/shoukai/kouhoushi/index.html,広報紙KOBE（垂水区民版）最新号と過去1年分
+281107,kouhou,https://www.city.kobe.lg.jp/d49614/kuyakusho/chuoku/keikaku/kouhoushi/page_1.html,区民広報紙「中央」（取得失敗のため内容未確認）
+341011,kouhou,https://www.city.hiroshima.lg.jp/nakaku/shoukai/1027566/index.html,広報紙「区報なか」（最新号ほかへのリンク）
+341037,kouhou,https://www.city.hiroshima.lg.jp/minamiku/shoukai/1027625/index.html,広報紙「南区だより」
+341045,kouhou,https://www.city.hiroshima.lg.jp/nishiku/shoukai/1027671/index.html,広報紙「西区民だより」（区の紹介ページからのリンク）
+341053,kouhou,https://www.city.hiroshima.lg.jp/asaminamiku/shoukai/1027702/index.html,広報紙「区報あさみなみ」
+341070,kouhou,https://www.city.hiroshima.lg.jp/akiku/shoukai/1027767/index.html,広報紙「区報あき」
+341088,kouhou,https://www.city.hiroshima.lg.jp/saekiku/shoukai/1027808/1027813/index.html,広報紙「佐伯区だより」
+401315,kouhou,https://www.city.fukuoka.lg.jp/higashiku/k-shinko/annai-oshirase/shiseidayori.html,ふくおか市政だより東区版（最新号・年度別バックナンバー）
+401323,kouhou,https://www.city.fukuoka.lg.jp/hakataku/t-shinko/shisei/shiseidayori_hakataku.html,福岡市政だより博多区版（最新号・年度別バックナンバー）
+401331,kouhou,https://www.city.fukuoka.lg.jp/chuo/ch-torikumi/shiseidayori.html,福岡市政だより中央区版（年度別PDF）
+401340,kouhou,https://www.city.fukuoka.lg.jp/minami/mi-kuseijouhou/shiseidayori.html,市政だより南区版（年度別）
+401358,kouhou,https://www.city.fukuoka.lg.jp/nishiku/c-shinko/kusei/siseidayori-nisiku/siseidayori.html,市政だより西区版（最新号・年度別バックナンバー）
+401366,kouhou,https://www.city.fukuoka.lg.jp/jonan/kuseijouhou-kunaishisetsu/siseidayori_2.html,市政だより城南区版（最新号・年度別バックナンバー）
