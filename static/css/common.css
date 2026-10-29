@@ -259,3 +259,9 @@ footer .footbar{font-size:13px}
 .cx-more a:hover{text-decoration:underline}
 .cx-more .go{width:20px;height:20px;border-radius:50%;background:var(--yellow-l);color:var(--yellow);
   display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+
+/* ── Fix: ロゴをサイト名（全国の地方自治体の色々なリンクを集めてみた件）の2行表示に ── */
+.side .brand b{font-size:14.5px;line-height:1.55;letter-spacing:.02em;text-align:center}
+@media (max-width:980px){
+  .side .brand b{font-size:14px;line-height:1.4;letter-spacing:.02em;text-align:left}
+}
