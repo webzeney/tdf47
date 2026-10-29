@@ -26,6 +26,10 @@ on:
         description: 'all のときの件数（0=最後まで）'
         required: false
         default: '400'
+      kinds:
+        description: '探す項目（カンマ区切り。空欄＝入札・契約〜DX推進計画の5項目。kouhou / reiki も指定できる）'
+        required: false
+        default: ''
 
 concurrency:
   group: tdf47-probe   # DBやreportsのコミットが衝突しないよう、日次の確認と同じグループで直列にする
@@ -54,13 +58,16 @@ jobs:
           CODES: ${{ github.event.inputs.codes }}
           OFFSET: ${{ github.event.inputs.offset }}
           LIMIT: ${{ github.event.inputs.limit }}
+          KINDS: ${{ github.event.inputs.kinds }}
         run: |
+          K=""
+          [ -n "$KINDS" ] && K="--kinds $KINDS"
           OUT="reports/link-candidates-$(date +%Y%m%d-%H%M).csv"
           echo "OUT=$OUT" >> "$GITHUB_ENV"
           case "$MODE" in
-            sample) python3 src/crawl_links.py --sample "$N" --out "$OUT" ;;
-            codes)  python3 src/crawl_links.py --codes "$CODES" --out "$OUT" ;;
-            all)    python3 src/crawl_links.py --all --offset "$OFFSET" --limit "$LIMIT" --out "$OUT" ;;
+            sample) python3 src/crawl_links.py --sample "$N" --out "$OUT" $K ;;
+            codes)  python3 src/crawl_links.py --codes "$CODES" --out "$OUT" $K ;;
+            all)    python3 src/crawl_links.py --all --offset "$OFFSET" --limit "$LIMIT" --out "$OUT" $K ;;
             *) echo "::error::mode は sample / codes / all"; exit 1 ;;
           esac
 

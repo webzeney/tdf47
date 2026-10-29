@@ -69,6 +69,16 @@ KINDS = {
                              "DX推進", "ＤＸ推進"],
                    "exclude": ["採用", "募集", "人材", "研修", "セミナー", "補助", "支援"]},
 }
+# --kinds で指定したときだけ探す項目（全国の一覧から入れた URL が切れていた・無かった団体の再調査用）
+EXTRA_KINDS = {
+    "kouhou": {"label": "広報誌",
+               "words": ["広報誌", "広報紙", "広報誌・広報紙", "市報", "町報", "村報", "県報", "広報"],
+               "exclude": ["令和", "平成", "年度", "月号", "号", "広聴", "報道", "記者", "課", "係", "室",
+                           "お問い合わせ", "広告", "ラジオ", "テレビ", "動画", "SNS", "メール", "アプリ", "議会"]},
+    "reiki": {"label": "例規集",
+              "words": ["例規集", "例規類集", "例規", "条例・規則", "条例集", "条例・規則等"],
+              "exclude": ["改正", "制定", "パブリック", "意見", "公布", "議会"]},
+}
 SITEMAP_WORDS = ["サイトマップ", "サイト・マップ", "site map", "sitemap"]
 SITEMAP_PATHS = ["/sitemap.html", "/sitemap/", "/site_map.html", "/sitemap/index.html", "/site/sitemap.html"]
 HUB_WORDS = ["市政情報", "町政情報", "村政情報", "区政情報", "県政情報", "道政情報", "府政情報", "都政情報",
@@ -174,6 +184,8 @@ def anchors(page_url: str, text: str):
 def score(kind: str, text: str, url: str, site: str, depth: int) -> int:
     """リンクの確度（0 は対象外）。言葉の強さ＋同じサイト内＋一覧ページらしさ。"""
     k = KINDS[kind]
+    if kind in EXTRA_KINDS and not same_site(url, site) and kind == "kouhou":
+        return 0  # 広報誌は公式サイト内のページだけ（電子書籍サービスなどは除く）
     if not text or len(text) > 40:
         return 0
     if any(x in text for x in k["exclude"]):
@@ -287,7 +299,16 @@ def main():
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--out", default=OUT_CSV)
+    ap.add_argument("--kinds", help="探す項目（カンマ区切り）。既定は入札・契約〜DX推進計画の5項目。kouhou / reiki も指定できる")
     args = ap.parse_args()
+    if args.kinds:
+        allk = {**KINDS, **EXTRA_KINDS}
+        want = [k for k in args.kinds.split(",") if k]
+        bad = [k for k in want if k not in allk]
+        if bad:
+            ap.error(f"不明な項目: {bad}")
+        KINDS.clear()
+        KINDS.update({k: allk[k] for k in want})
     if not (args.codes or args.sample or args.all):
         ap.error("--codes / --sample / --all のどれかを指定")
     conn = db.connect()

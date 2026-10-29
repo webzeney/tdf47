@@ -18,6 +18,7 @@ dist/
 reports/*
 !reports/monthly-review-*.csv
 !reports/link-candidates-*.csv
+!reports/check-*.csv
 
 # Python
 __pycache__/

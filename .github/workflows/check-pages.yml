@@ -1,0 +1,52 @@
+name: 候補ページを開いて確かめる（手動）
+
+# 人手で探したリンクの候補（reports/check-input.csv）を開き、表示できるか・題名・関係するリンクを
+# reports/check-result-<日付>.csv にコミットする（DBは変えない。取り込みは manual_links.csv で別途）。
+# ★手元のPCでは実行しない。GitHubのクラウドで実行する。robots.txt を守り、同じサイトへは1.2秒以上あける。
+on:
+  workflow_dispatch:
+    inputs:
+      input:
+        description: '入力CSV（entity_code,kind_code,url,memo）'
+        required: true
+        default: 'reports/check-input.csv'
+      words:
+        description: '拾うリンクの言葉（カンマ区切り）'
+        required: false
+        default: '広報,区版,だより,例規,バックナンバー'
+
+concurrency:
+  group: tdf47-probe
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 候補ページを開く
+        env:
+          TZ: Asia/Tokyo
+          IN: ${{ github.event.inputs.input }}
+          WORDS: ${{ github.event.inputs.words }}
+        run: |
+          OUT="reports/check-result-$(date +%Y%m%d-%H%M).csv"
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+          python3 src/check_pages.py "$IN" --out "$OUT" --words "$WORDS"
+
+      - name: 結果をコミット
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "$OUT"
+          git commit -m "check: 候補ページの確認結果 ($(date +%F))" && git pull --rebase && git push

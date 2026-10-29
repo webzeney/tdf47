@@ -70,3 +70,94 @@ entity_code,kind_code,url,evidence,checked_on,note
 345458,kouhou,https://www.jinsekigun.jp/town/formation/seisaku/06/jinsekikougen/,https://www.jinsekigun.jp/town/,2026-10-27,行政サイトの「過去の広報紙」リンク先。見出し「広報神石高原」
 404489,kouhou,https://vill.toho-info.com/40000/41300/index.html,https://vill.toho-info.com/0000/index.html,2026-10-27,公式トップ（0000/index.html）の広報リンク先。見出し「広報『東峰』」
 298514,reiki,https://nara-kouiki.jp/reiki_int/reiki_menu.html,https://nara-kouiki.jp/rule.html,2026-10-27,一度の時間切れでリンク切れ判定。ブラウザで表示を確認（Reiki-Base）
+014524,kouhou,https://www.town.takasu.hokkaido.jp/site/kouhou/,https://www.town.takasu.hokkaido.jp/site/kouhou/,2026-10-29,広報誌あったかす（広報たかす）トップ。最新号と年度別バックナンバーへのリンクあり。旧URLはサイトリニューアルで切れていた
+014575,kouhou,https://www.town.hokkaido-kamikawa.lg.jp/category/gyosei/index.html#c06_02s0,https://www.town.hokkaido-kamikawa.lg.jp/section/chiikimiryoku/index.html,2026-10-29,行政情報カテゴリ内の「広報かみかわ」欄（年別ページ2021～2026へのリンク）。単独の一覧ページがなく、公式サイト自身がこのアンカーで広報かみかわへリンクしている
+015431,kouhou,https://www.town.bihoro.hokkaido.jp/site/kouhou/,https://www.town.bihoro.hokkaido.jp/site/kouhou/,2026-10-29,広報びほろトップ。新着号と年度別バックナンバー一覧あり。旧URLは旧CMSのページで切れていた
+015814,kouhou,https://www.town.atsuma.lg.jp/site/kouhouatsuma/,https://www.town.atsuma.lg.jp/site/kouhouatsuma/,2026-10-29,広報あつまトップ。新着号と年別バックナンバー一覧あり。旧URLは旧サイトのパスで切れていた
+016411,kouhou,https://www.town.taiki.hokkaido.jp/soshiki/kikakushokoka/2/2/3/429.html,https://www.town.taiki.hokkaido.jp/soshiki/kikakushokoka/2/2/3/429.html,2026-10-29,広報たいきインデックス。今年度の号と年度別一覧（令和3～7年度）へのリンクあり
+016438,kouhou,https://www.town.makubetsu.lg.jp/chosei/about_makubetsu/back_number/,https://www.town.makubetsu.lg.jp/chosei/about_makubetsu/back_number/2026/585.html,2026-10-29,広報まくべつ一覧（年別）。公式の各号ページのパンくずにある一覧ページ。ツールの制約で一覧ページ自体は直接取得できず、要目視確認
+032026,kouhou,https://www.city.miyako.iwate.jp/gyosei/gyoseijoho/koho_kocho/1/1/index.html,https://www.city.miyako.iwate.jp/gyosei/gyoseijoho/koho_kocho/1/1/index.html,2026-10-29,広報みやこトップ。最新号と年度別バックナンバー（平成29～令和8年度）へのリンクあり
+032034,kouhou,https://www.city.ofunato.iwate.jp/genre/category/administration/shiseiunei/pr/koho,https://www.city.ofunato.iwate.jp/genre/category/administration/shiseiunei/pr/koho,2026-10-29,広報おおふなとカテゴリページ。各号の掲載記事と年別一覧（平成29～令和7年）あり
+032077,kouhou,https://www.city.kuji.lg.jp/soshiki/chiikizukurishinko/1/3/4/index.html,https://www.city.kuji.lg.jp/soshiki/chiikizukurishinko/1/3/4/4/5182.html,2026-10-29,広報くじトップ。最新号とバックナンバー一覧へのリンクあり。旧URLは旧ドメイン（city.kuji.iwate.jp）で切れていた
+032166,kouhou,https://www.city.takizawa.iwate.jp/about-takizawa/joho-hasshin/koutyou-kouhou/kouhou-denshiban,https://www.city.takizawa.iwate.jp/about-takizawa/joho-hasshin/koutyou-kouhou/kouhou-denshiban,2026-10-29,広報たきざわ電子版。最新号と年別バックナンバーへのリンクあり
+044016,kouhou,https://www.town.miyagi-matsushima.lg.jp/site/kouhou/list31-57.html,https://www.town.miyagi-matsushima.lg.jp/,2026-10-29,広報まつしまバックナンバー一覧。公式トップの「バックナンバー」リンク先。ツールの制約で一覧ページ自体は直接取得できず、要目視確認
+044245,kouhou,https://www.village.ohira.miyagi.jp/7/5/1/index.html,https://www.village.ohira.miyagi.jp/7/5/1/2023.html,2026-10-29,広報おおひらトップ。年度別一覧（令和5～8年度）あり
+046060,kouhou,https://www.town.minamisanriku.miyagi.jp/soshiki/1002/7/4/index.html,https://www.town.minamisanriku.miyagi.jp/soshiki/1002/7/4/2149.html,2026-10-29,広報南さんりくトップ。最新号と年別バックナンバー（平成17年～令和8年）あり。旧URLは旧CMSのページで切れていた
+153079,kouhou,https://www.town.seiro.niigata.jp/7/5/1/1034.html,https://www.town.seiro.niigata.jp/7/5/1/1034.html,2026-10-29,広報せいろう一覧（直近1年分の一般号・お知らせ号、以前はアーカイブズへ）
+162027,kouhou,https://www.city.takaoka.toyama.jp/soshiki/kohohasshinka/2/7/3/1/1/13503.html,https://www.city.takaoka.toyama.jp/soshiki/kohohasshinka/2/7/3/1/1/13503.html,2026-10-29,広報紙「たかおか市民と市政」ページ（当年分PDF＋年別バックナンバーへのリンク）
+162108,kouhou,https://www.city.nanto.toyama.jp/soshiki/seisakusuishin/5/2_1/index.html,https://www.city.nanto.toyama.jp/soshiki/seisakusuishin/5/2_1/index.html,2026-10-29,広報なんと一覧（令和8年各号＋平成16年以降の年別一覧。担当課が政策推進課に移りURL変更）
+163236,kouhou,https://www.town.tateyama.toyama.jp/soshikikarasagasu/kikakuseisakuka/kikakukohogakari/6/1/index.html,https://www.town.tateyama.toyama.jp/soshikikarasagasu/kikakuseisakuka/kikakukohogakari/6/1/ko-ho-reiwa7/11005.html,2026-10-29,広報たてやま年別一覧（平成22年～令和8年）
+172031,kouhou,https://www.city.komatsu.lg.jp/soshiki/1006/koho/kouhoukomatsu/index.html,https://www.city.komatsu.lg.jp/soshiki/1006/koho/kouhoukomatsu/2/r7/index.html,2026-10-29,広報こまつトップ（最新号＋平成27年度以降の年度別バックナンバー）
+172111,kouhou,https://www.city.nomi.lg.jp/shisei/kohokocho/kohonomi/,https://www.city.nomi.ishikawa.jp/www/genre/1750644196345/index.html,2026-10-29,広報のみトップ（最新号・バックナンバーへのリンク）。旧ドメインcity.nomi.ishikawa.jpから新ドメインcity.nomi.lg.jpへ移行（旧URLはリダイレクト）
+173614,kouhou,https://www.town.tsubata.lg.jp/page/1247.html,https://www.town.tsubata.lg.jp/page/1247.html,2026-10-29,広報つばた（今月号＋2010年4月号以降のバックナンバー）
+173843,kouhou,https://www.town.shika.lg.jp/life/7/25/97/,https://www.town.shika.lg.jp/life/7/25/97/,2026-10-29,広報カテゴリ一覧（広報しか2008年～2026年の年別ページを掲載）
+174637,kouhou,https://www.town.noto.lg.jp/chosei/koho-kocho/2/2/index.html,https://www.town.noto.lg.jp/chosei/koho-kocho/2/2/22/4109.html,2026-10-29,広報のと年別一覧（平成17年～令和8年）
+192023,kouhou,https://www.city.fujiyoshida.yamanashi.jp/life/6/28/128/,https://www.city.fujiyoshida.yamanashi.jp/life/6/28/,2026-10-29,広報ふじよしだ一覧（令和6～8年度の年度別ページ）
+192104,kouhou,https://www.city.kai.yamanashi.jp/page/1759.html,https://www.city.kai.yamanashi.jp/page/14378.html,2026-10-29,広報誌年別一覧（広報甲斐 2004年～2026年）
+193658,kouhou,https://www.town.minobu.lg.jp/site/kohominobu/,https://www.town.minobu.lg.jp/site/kohominobu/6363.html,2026-10-29,広報みのぶ総合ページ（2023年～2026年の年別バックナンバー、音声版）
+194247,kouhou,https://www.vill.oshino.lg.jp/site/koho/,https://www.vill.oshino.lg.jp/site/koho/,2026-10-29,広報おしの紹介ページ（各号は電子書籍Oshino eBooksへのリンクから閲覧。ページ上に号別一覧はなし）
+194433,kouhou,https://www.vill.tabayama.yamanashi.jp/kouho/2026-0828-1045-1.html,https://www.vill.tabayama.yamanashi.jp/,2026-10-29,広報たばやまバックナンバー一覧（第99号～第198号）。公式トップの「広報一覧へ」リンク先。URLが日付形式のため将来変更の可能性あり
+244414,kouhou,https://www.town.taki.mie.jp/life/soshiki/somu/koho/1_1/index.html,https://www.town.taki.mie.jp/life/soshiki/somu/koho/1/663.html,2026-10-29,広報たきバックナンバー（2007〜2026年の年別一覧）。担当が総務課に移管
+244422,kouhou,https://www.town.meiwa.mie.jp/gyosei_joho/koho/koho_meiwa/index.html,https://www.town.meiwa.mie.jp/,2026-10-29,広報めいわバックナンバー（2005〜2026年の年別一覧）。トップページの「バックナンバー」リンク
+245437,kouhou,https://www.town.mie-kihoku.lg.jp/kouhou/,https://www.town.mie-kihoku.lg.jp/info/,2026-10-29,広報きほく一覧（平成20年度〜令和8年度の年度別）
+263443,kouhou,https://www.town.ujitawara.kyoto.jp/gyoseijoho/koho_kocho/kohoujitawara/index.html,https://www.town.ujitawara.kyoto.jp/gyoseijoho/koho_kocho/index.html,2026-10-29,広報うじたわら「町民の窓」トップ（年度別ページ・バックナンバーへの入口）
+263656,kouhou,https://www.town.wazuka.lg.jp/mokuteki/koho_kocho/3914.html,https://www.town.wazuka.lg.jp/mokuteki/koho_kocho/index.html,2026-10-29,広報誌れんけい・まちからのお知らせバックナンバー（令和8年分は別ページ4675.html）
+272329,kouhou,https://www.city.hannan.lg.jp/kakuka/mirai/mkatsu/baitai/kouhou_top/index.html,https://www.city.hannan.lg.jp/kakuka/mirai/mkatsu/baitai/kouhou_top/kouhou_ichiran/10164.html,2026-10-29,広報はんなんトップ（一覧表へのリンクあり）。担当がまちの活力創造課に移管
+363685,kouhou,https://www.town.tokushima-naka.lg.jp/soshiki/1002/koho/1/index.html,https://www.town.tokushima-naka.lg.jp/soshiki/1002/koho/1/index.html,2026-10-29,広報なか バックナンバー（年度別一覧）
+372064,kouhou,https://www.city.sanuki.lg.jp/shisei/koho-promotion/kohosanuki/index.html,https://www.city.sanuki.lg.jp/shisei/koho-promotion/kohosanuki/5002.html,2026-10-29,広報さぬき（年別一覧・新ドメイン）
+373869,kouhou,https://www.town.utazu.lg.jp/site/public-relations/,https://www.town.utazu.lg.jp/site/public-relations/5170.html,2026-10-29,広報うたづ（年度別一覧）
+374067,kouhou,https://www.town.manno.lg.jp/site/kouhonoheya/list65-78.html,https://www.town.manno.lg.jp/site/kouhonoheya/,2026-10-29,広報まんのう バックナンバー（年度別一覧）
+392103,kouhou,https://www.city.shimanto.lg.jp/soshiki/4/1286.html,https://www.city.shimanto.lg.jp/soshiki/4/1286.html,2026-10-29,広報しまんと（最新年分＋過去年別一覧）
+393037,kouhou,https://tanocho.jp/dl/?k=3,https://tanocho.jp/dl/?k=3,2026-10-29,広報たの 号一覧（年度切替）
+393631,kouhou,https://www.town.tosa.kochi.jp/dl/?k=3,https://www.town.tosa.kochi.jp/,2026-10-29,広報とさちょう 号一覧（トップのバックナンバーリンク先）
+394050,kouhou,https://www.town.yusuhara.lg.jp/dl/?k=3,https://www.town.yusuhara.lg.jp/dl/?k=3,2026-10-29,広報ゆすはら 号一覧（年度切替）
+394271,kouhou,https://www.vill.mihara.kochi.jp/dl/?k=3,https://www.vill.mihara.kochi.jp/dl/?k=3,2026-10-29,広報みはら 号一覧（年度切替）
+412015,kouhou,https://www.city.saga.lg.jp/shisei/koho-kocho/1/1/index.html,https://www.city.saga.lg.jp/shisei/koho-kocho/1/1/7738.html,2026-10-29,市報さが トップ（最新号・バックナンバーへのリンク）
+412023,kouhou,https://www.city.karatsu.lg.jp/life/8/48/250/,https://www.city.karatsu.lg.jp/page/52265.html,2026-10-29,市報からつ（最新号・年度別バックナンバー）
+412104,kouhou,https://www.city.kanzaki.saga.jp/main/30.html,https://www.city.kanzaki.saga.jp/main/30.html,2026-10-29,市報かんざき（最新号・年度別バックナンバー）
+422011,kouhou,https://www.city.nagasaki.lg.jp/site/koho/,https://www.city.nagasaki.lg.jp/site/koho/,2026-10-29,広報ながさき トップ（最新号・バックナンバー）
+422100,kouhou,https://www.city.iki.nagasaki.jp/soshiki/eng/koho/koho_iki/3141.html,https://www.city.iki.nagasaki.jp/soshiki/eng/koho/koho_iki/index.html,2026-10-29,広報いき バックナンバー（年別PDF一覧）
+473138,kouhou,https://www.vill.ginoza.okinawa.jp/soshiki/1002/1/66.html,https://www.vill.ginoza.okinawa.jp/soshiki/1002/1/66.html,2026-10-29,広報ぎのざの固定ページ（最新号を同URLで更新掲載、バックナンバーはマチイロアプリで閲覧）
+473294,kouhou,https://www.town.nishihara.okinawa.jp/site/kouhou/,https://www.town.nishihara.okinawa.jp/site/kouhou/,2026-10-29,広報にしはらサイトのトップ（最新号と年別バックナンバー一覧へのリンクあり）
+473502,kouhou,https://www.town.haebaru.lg.jp/site/kouhou-haebaru/,https://www.town.haebaru.lg.jp/site/kouhou-haebaru/,2026-10-29,広報はえばるサイトのトップ（最新号と年別バックナンバー一覧あり）
+011029,kouhou,https://www.city.sapporo.jp/kitaku/tetsuzuki/koho_senkyo/01_01.html,https://www.city.sapporo.jp/kitaku/tetsuzuki/koho_senkyo/01_01.html,2026-10-29,広報さっぽろ 北区版のページ（最新号掲載。過去号は市の広報さっぽろページ）
+011037,kouhou,https://www.city.sapporo.jp/higashi/annai/kouhousapporo/kouhousapporo_main.html,https://www.city.sapporo.jp/higashi/annai/kouhousapporo/kouhousapporo_reiwa8nenn.html,2026-10-29,広報さっぽろ東区民のページ（年度別バックナンバーあり）
+011045,kouhou,https://www.city.sapporo.jp/shiroishi/life/pr_tax_senkyo/koho/index.html,https://www.city.sapporo.jp/shiroishi/life/pr_tax_senkyo/koho/index.html,2026-10-29,広報さっぽろ 白石区版のページ（PDF一覧ページへのリンクあり）
+011088,kouhou,https://www.city.sapporo.jp/atsubetsu/joho/koho/index.html,https://www.city.sapporo.jp/atsubetsu/joho/koho/index.html,2026-10-29,広報さっぽろ 厚別区版のページ（最新号のみ掲載）
+141356,kouhou,https://www.city.kawasaki.jp/tama/category/107-1-2-0-0-0-0-0-0-0.html,https://www.city.kawasaki.jp/tama/category/107-1-2-0-0-0-0-0-0-0.html,2026-10-29,かわさき市政だより多摩区版のページ（令和2年4月号以降のバックナンバーあり）
+231011,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017555/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや千種区版（区版バックナンバー一覧）
+231029,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017559/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや東区版（区版バックナンバー一覧）
+231037,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017563/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや北区版（区版バックナンバー一覧）
+231045,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017567/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや西区版（区版バックナンバー一覧）
+231053,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017571/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや中村区版（区版バックナンバー一覧）
+231061,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017575/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや中区版（区版バックナンバー一覧）
+231070,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017579/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや昭和区版（区版バックナンバー一覧）
+231088,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017583/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや瑞穂区版（区版バックナンバー一覧）
+231096,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017587/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや熱田区版（区版バックナンバー一覧）
+231100,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017591/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや中川区版（区版バックナンバー一覧）
+231118,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017595/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや港区版（区版バックナンバー一覧）
+231126,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017599/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや南区版（区版バックナンバー一覧）
+231134,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017603/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや守山区版（区版バックナンバー一覧）
+231142,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017607/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや緑区版（区版バックナンバー一覧）
+231151,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017611/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや名東区版（区版バックナンバー一覧）
+231169,kouhou,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/1017615/index.html,https://www.city.nagoya.jp/shisei/kouhou/1017531/1017550/index.html,2026-10-29,過去の広報なごや天白区版（区版バックナンバー一覧）
+261017,kouhou,https://www.city.kyoto.lg.jp/kita/category/88-1-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/kita/category/88-1-0-0-0-0-0-0-0-0.html,2026-10-29,北区役所「市民しんぶん区版」（年度別北区版一覧）
+261025,kouhou,https://www.city.kyoto.lg.jp/kamigyo/category/94-1-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/kamigyo/category/94-1-0-0-0-0-0-0-0-0.html,2026-10-29,上京区役所「市民しんぶん区版」（上京区版各号一覧）
+261033,kouhou,https://www.city.kyoto.lg.jp/sakyo/category/100-41-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/sakyo/category/101-11-12-0-0-0-0-0-0-0.html,2026-10-29,左京区役所「市民しんぶん区版」（左京ボイス・年度別一覧）
+261041,kouhou,https://www.city.kyoto.lg.jp/nakagyo/category/106-1-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/nakagyo/category/106-1-0-0-0-0-0-0-0-0.html,2026-10-29,中京区役所「市民しんぶん区版」（中京しんぶん各号一覧）
+261050,kouhou,https://www.city.kyoto.lg.jp/higasiyama/category/112-24-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/higasiyama/index.html,2026-10-29,東山区役所「市民しんぶん区版」（こちら東山各号一覧）
+261068,kouhou,https://www.city.kyoto.lg.jp/shimogyo/category/124-4-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/shimogyo/category/124-4-0-0-0-0-0-0-0-0.html,2026-10-29,下京区役所「市民しんぶん区版」（下京のひびき各号一覧）
+261076,kouhou,https://www.city.kyoto.lg.jp/minami/page/0000054058.html,https://www.city.kyoto.lg.jp/minami/page/0000054058.html,2026-10-29,南区役所「市民しんぶん南区版」（年別バックナンバー索引）
+261084,kouhou,https://www.city.kyoto.lg.jp/ukyo/category/136-1-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/ukyo/category/136-1-0-0-0-0-0-0-0-0.html,2026-10-29,右京区役所「市民しんぶん区版」（右京区版各号一覧）
+261092,kouhou,https://www.city.kyoto.lg.jp/fushimi/category/150-26-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/fushimi/,2026-10-29,伏見区役所「市民しんぶん区版」（きらり伏見各号一覧）
+261106,kouhou,https://www.city.kyoto.lg.jp/yamasina/page/0000115439.html,https://www.city.kyoto.lg.jp/yamasina/category/118-25-0-0-0-0-0-0-0-0.html,2026-10-29,山科区役所「市民しんぶん山科区版」（最新号・年度別バックナンバー）
+261114,kouhou,https://www.city.kyoto.lg.jp/nisikyo/category/144-1-0-0-0-0-0-0-0-0.html,https://www.city.kyoto.lg.jp/nisikyo/category/144-1-0-0-0-0-0-0-0-0.html,2026-10-29,西京区役所「市民しんぶん区版」（西京区版各号一覧）
+271021,kouhou,https://www.city.osaka.lg.jp/miyakojima/category/4044-1-1-0-0-0-0-0-0-0.html,https://www.city.osaka.lg.jp/miyakojima/category/4044-1-1-0-0-0-0-0-0-0.html,2026-10-29,都島区広報誌「広報みやこじま」（各号一覧）
+271179,kouhou,https://www.city.osaka.lg.jp/asahi/category/3385-18-0-0-0-0-0-0-0-0.html,https://www.city.osaka.lg.jp/asahi/index.html,2026-10-29,旭区「広報紙」（各号一覧）
+271195,kouhou,https://www.city.osaka.lg.jp/abeno/category/3413-2-0-0-0-0-0-0-0-0.html,https://www.city.osaka.lg.jp/abeno/index.html,2026-10-29,阿倍野区の広報紙「広報あべの」・くらしの便利帳（入口ページ。号一覧は下層）
+271284,kouhou,https://www.city.osaka.lg.jp/chuo/page/0000015606.html,https://www.city.osaka.lg.jp/chuo/index.html,2026-10-29,中央区広報紙「広報ちゅうおう」（最新号・バックナンバー）
+271420,kouhou,https://www.city.sakai.lg.jp/naka/joho_naka/kohoshi.html,WebSearch結果（ページタイトル「中区広報「みどり」 - 堺市」）,2026-10-29,中区広報「みどり」バックナンバー一覧（2025年10月号〜）
+271446,kouhou,https://www.city.sakai.lg.jp/nishi/johohassin/kohoshi.html,WebSearch結果（ページタイトル「西区広報「nishinishi」 - 堺市」）,2026-10-29,西区広報「nishinishi」バックナンバー一覧（直近12号）
+271454,kouhou,https://www.city.sakai.lg.jp/minami/kusei_kukoho/kouhouminami/index.html,WebSearch結果（ページタイトル「南区広報紙「みなみ」 - 堺市」）,2026-10-29,南区広報紙「みなみ」年度別バックナンバー一覧（令和4年度〜）
+271462,kouhou,https://www.city.sakai.lg.jp/kita/kusei_kukoho/kohoshi/index.html,WebSearch結果（ページタイトル「北区広報紙 - 堺市」）,2026-10-29,北区広報紙 年別バックナンバー一覧（2022年〜）
+271471,kouhou,https://www.city.sakai.lg.jp/mihara/kuseijoho/kohomihara/index.html,https://www.city.sakai.lg.jp/mihara/kuseijoho/kohomihara/40023520231221150159239.html,2026-10-29,美原区広報紙 年別バックナンバー一覧（2023年〜）

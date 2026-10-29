@@ -629,7 +629,6 @@ class Builder:
             for w in self.wards_by_city.get(c["code"], []):
                 wards.append({"name": w["name"], "short_name": w["short_name"],
                               "slug": w["slug"],
-                              "reiki": self.link_for(w["code"], "reiki"),
                               "kouhou": self.link_for(w["code"], "kouhou")})
             ctx = dict(
                 e=c, pref=pref, block=block, code5=c["code"][:5],
