@@ -70,7 +70,7 @@ def main():
     ap.add_argument("input")
     ap.add_argument("--out", required=True)
     ap.add_argument("--words", default=DEFAULT_WORDS)
-    ap.add_argument("--max-links", type=int, default=30)
+    ap.add_argument("--max-links", type=int, default=80)
     args = ap.parse_args()
     words = [w for w in args.words.split(",") if w]
     with open(args.input, encoding="utf-8") as f:
