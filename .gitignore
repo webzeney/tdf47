@@ -19,6 +19,7 @@ reports/*
 !reports/monthly-review-*.csv
 !reports/link-candidates-*.csv
 !reports/check-*.csv
+!reports/missing-candidates-*.csv
 
 # Python
 __pycache__/

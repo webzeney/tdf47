@@ -82,10 +82,27 @@ def host_matches(url: str, suffixes=INCONCLUSIVE_HOSTS) -> bool:
 INCOMPLETE_CHAIN_ERR = "unable to get local issuer certificate"
 
 
+# 2026年中は、サーバーの 500 エラーと一時的な名前解決の失敗をリンク切れにしない（判定できない扱い）。
+# （2026-10-30 いすずさんの指示。年末に扱いを見直す。日付を過ぎると自動で元の扱いに戻る）
+HOLD_UNTIL = "2027-01-01"
+HOLD_HTTP = {500}
+HOLD_ERR = ("Temporary failure in name resolution",)
+
+
+def _on_hold(status, err) -> bool:
+    if datetime.date.today().isoformat() >= HOLD_UNTIL:
+        return False
+    if status in HOLD_HTTP:
+        return True
+    return bool(err) and status is None and any(k in err for k in HOLD_ERR)
+
+
 def is_inconclusive(url: str, status, err) -> bool:
-    """生死を判定できない応答か（証明書チェーン不完全・200以外の成功応答はすべてのホスト、
-    それ以外は INCONCLUSIVE_HOSTS のみ）。"""
+    """生死を判定できない応答か（証明書チェーン不完全・200以外の成功応答・HOLD 期間中の 500 と
+    一時的な名前解決の失敗はすべてのホスト、それ以外は INCONCLUSIVE_HOSTS のみ）。"""
     if err and status is None and INCOMPLETE_CHAIN_ERR in err:
+        return True
+    if _on_hold(status, err):
         return True
     # 200以外の成功応答（202 など）。ボット対策の確認画面などで返ることがあり、ページの有無は分からない
     # （2026-10-27 確認：茨城県後期高齢者医療広域連合・益子町・河内町で毎回 202）。
@@ -238,8 +255,22 @@ def fetch_page(url: str, max_bytes: int = 200_000):
     return res
 
 
+def to_ascii_url(url: str) -> str:
+    """日本語などを含む URL を、送れる形（パーセント符号化）にする。すでに符号化済みの部分はそのまま。
+    （2026-10-30：日本語を含む URL が送れずにリンク切れ扱いになっていたため）"""
+    from urllib.parse import quote, urlsplit, urlunsplit
+    if url.isascii():
+        return url
+    p = urlsplit(url)
+    host = p.hostname.encode("idna").decode("ascii") if p.hostname and not p.hostname.isascii() else (p.hostname or "")
+    netloc = host + (f":{p.port}" if p.port else "")
+    safe = "/:@!$&'()*+,;=%~-._"
+    return urlunsplit((p.scheme, netloc, quote(p.path, safe=safe), quote(p.query, safe=safe + "?"),
+                       quote(p.fragment, safe=safe)))
+
+
 def _fetch(url: str, context=None, max_bytes: int = 200_000):
-    req = urllib.request.Request(url, headers={"User-Agent": UA}, method="GET")
+    req = urllib.request.Request(to_ascii_url(url), headers={"User-Agent": UA}, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT, context=context) as resp:
             final_url = resp.geturl()

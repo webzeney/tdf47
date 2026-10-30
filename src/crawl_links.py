@@ -280,6 +280,8 @@ def targets(conn, args):
         uniq.append(r)
     if args.codes:
         want = set(args.codes.split(","))
+        if args.shards > 1:  # 月1回の探し直しで、並行して動かす組ごとに分ける
+            want = {c for c in want if int(c) % args.shards == args.shard}
         return [r for r in uniq if r["code"] in want]
     if args.sample:
         rnd = random.Random(20261028)
@@ -302,6 +304,8 @@ def main():
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--out", default=OUT_CSV)
+    ap.add_argument("--shards", type=int, default=1)
+    ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--kinds", help="探す項目（カンマ区切り）。既定は入札・契約〜DX推進計画の5項目。kouhou / reiki も指定できる")
     args = ap.parse_args()
     if args.kinds:

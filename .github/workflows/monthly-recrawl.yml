@@ -1,0 +1,98 @@
+name: 掲載できていない項目を月1回探し直す
+
+# 例規集・広報誌・パブリックコメント・入札・採用・統計・総合計画・DX推進計画のうち、
+# 表示中のリンクが無い項目を、各団体の公式サイトから探し直す（月1回）。
+# 見つかった候補は reports/missing-candidates-YYYYMM.csv にまとめる（自動では載せない。月1回の目視確認で確かめてから載せる）。
+# ★クロールは手元のPCでは行わない。GitHubのクラウドで実行する。robots.txt を守り、同じサイトへは1.2秒以上あける。
+on:
+  schedule:
+    - cron: '23 16 12 * *'   # 毎月12日 UTC 16:23 = JST 13日 1:23（日次のリンク確認の前に終わるように）
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      codes: ${{ steps.c.outputs.codes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - id: c
+        name: 掲載できていない項目がある団体
+        run: echo "codes=$(python3 src/missing_report.py --codes)" >> "$GITHUB_OUTPUT"
+
+  crawl:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 公式サイトから探す
+        env:
+          TZ: Asia/Tokyo
+          CODES: ${{ needs.plan.outputs.codes }}
+        run: |
+          python3 src/crawl_links.py --codes "$CODES" --shards 6 --shard ${{ matrix.shard }} \
+            --kinds reiki,kouhou,pubcomment,nyusatsu,saiyo,toukei,sougou_keikaku,dx_keikaku \
+            --out "part-${{ matrix.shard }}.csv"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: part-${{ matrix.shard }}
+          path: part-${{ matrix.shard }}.csv
+          if-no-files-found: ignore
+
+  report:
+    needs: crawl
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: tdf47-probe   # コミットが日次の確認とぶつからないように
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          path: parts
+      - name: 候補をまとめる
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          OUT="reports/link-candidates-$(date +%Y%m%d-%H%M)-monthly.csv"
+          python3 - "$OUT" parts/*/part-*.csv <<'PY'
+          import csv, sys
+          out, parts = sys.argv[1], sys.argv[2:]
+          rows, head = [], None
+          for p in parts:
+              with open(p, encoding="utf-8") as f:
+                  r = list(csv.reader(f))
+                  head = head or r[0]
+                  rows += r[1:]
+          with open(out, "w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerow(head or ["entity_code", "entity_name", "kind_code", "score", "url", "link_text", "found_on", "note"])
+              w.writerows(rows)
+          print(f"{len(rows)} 行 → {out}")
+          PY
+          python3 src/missing_report.py --report "$OUT"
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+      - name: 結果をコミット
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "$OUT" reports/missing-candidates-*.csv
+          git commit -m "monthly: 掲載できていない項目の探し直し ($(date +%F))" && git pull --rebase && git push
