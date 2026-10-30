@@ -173,10 +173,18 @@
       <p class="cmp-lead">DXの推進体制、業務のDX、住民サービスのDXの取組状況です。</p>
       <button class="copybtn" type="button" data-target="dx">表をコピー</button>
     </div>
-    <div class="phead-data" style="border-top:0;padding-top:0" data-copy="dx" data-copy-head="{{ e.name }}（自治体DXの取組状況）">
-      {% for it in dx %}
-      <div class="dstat"><span>{{ it.label }}</span><b>{{ it.value }}</b><i>{{ it.unit }}</i></div>
-      {% endfor %}
+    <div class="dxtbl-wrap">
+      <table class="dxtbl" data-copy="dx" data-copy-head="{{ e.name }}（自治体DXの取組状況）">
+        <thead><tr><th>項目</th><th class="v">状況</th></tr></thead>
+        {% for g in dx %}
+        <tbody>
+          <tr class="grp"><th colspan="2">{{ g.title }}</th></tr>
+          {% for it in g.rows %}
+          <tr><td>{{ it.label }}</td><td class="v">{{ it.value }}</td></tr>
+          {% endfor %}
+        </tbody>
+        {% endfor %}
+      </table>
     </div>
     <p class="asof">デジタル庁「自治体DXの取組に関するダッシュボード」より。調査時点は指標により異なります。<a href="https://www.digital.go.jp/resources/govdashboard/local-government-dx/description" target="_blank" rel="noopener">出典・データの定義（デジタル庁）</a></p>
   </div>
@@ -345,7 +353,13 @@
     btn.addEventListener('click',function(){
       var lines=[];
       var blk=document.querySelector('[data-copy="'+btn.dataset.target+'"]');
-      if(blk){
+      if(blk&&blk.tagName==='TABLE'){
+        // 自治体DXの取組状況（表）→「区分」の行と「項目[TAB]状況」の行
+        lines.push(['項目',blk.dataset.copyHead||''].join('\t'));
+        blk.querySelectorAll('tbody tr').forEach(function(tr){
+          lines.push([].slice.call(tr.children).map(function(c){return c.textContent.replace(/\s+/g,' ').trim();}).join('\t'));
+        });
+      }else if(blk){
         // 財政指標（dstat）→「指標名[TAB]値[TAB]単位」の行
         lines.push(['指標',blk.dataset.copyHead||'','単位'].join('\t'));
         blk.querySelectorAll('.dstat').forEach(function(d){

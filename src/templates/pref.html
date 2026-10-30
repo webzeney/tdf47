@@ -99,10 +99,18 @@
 <div class="inner sec" style="padding-top:6px">
   <div class="sec-title"><h2>自治体DXの取組状況</h2></div>
   <div class="panel">
-    <div class="phead-data" style="border-top:0;padding-top:0">
-      {% for it in dx %}
-      <div class="dstat"><span>{{ it.label }}</span><b>{{ it.value }}</b><i>{{ it.unit }}</i></div>
-      {% endfor %}
+    <div class="dxtbl-wrap">
+      <table class="dxtbl">
+        <thead><tr><th>項目</th><th class="v">状況</th></tr></thead>
+        {% for g in dx %}
+        <tbody>
+          <tr class="grp"><th colspan="2">{{ g.title }}</th></tr>
+          {% for it in g.rows %}
+          <tr><td>{{ it.label }}</td><td class="v">{{ it.value }}</td></tr>
+          {% endfor %}
+        </tbody>
+        {% endfor %}
+      </table>
     </div>
     <p class="asof">デジタル庁「自治体DXの取組に関するダッシュボード」より。調査時点は指標により異なります。<a href="https://www.digital.go.jp/resources/govdashboard/local-government-dx/description" target="_blank" rel="noopener">出典・データの定義（デジタル庁）</a></p>
   </div>

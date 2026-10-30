@@ -589,21 +589,27 @@ class Builder:
         ("online26", "子育て・介護26手続のオンライン化"), ("online32", "よく使う32手続のオンライン化"),
     ]
 
+    DX_GROUPS = [("DXの推進体制", ("cio", "cio_hosa", "houshin", "taisei", "gaibu", "ikusei", "kenshu")),
+                 ("業務のDX", ("ai", "rpa", "telework")),
+                 ("住民サービスのDX", ("mynumber", "online26", "online32"))]
+
     def _dx(self, e):
-        """自治体DXの取組状況セクション用（データのある指標だけ）。"""
+        """自治体DXの取組状況セクション用（区分ごとの表。データのある指標だけ）。"""
         d = self.dx.get(e["code"])
         if not d:
             return None
-        rows = []
-        for key, label in self.DX_META:
-            v = d.get(key)
-            if not v:
-                continue
-            if v.endswith("%"):
-                rows.append({"label": label, "value": v[:-1], "unit": "%"})
-            else:
-                rows.append({"label": label, "value": "調査なし" if v == "調査無し" else v, "unit": ""})
-        return rows or None
+        labels = dict(self.DX_META)
+        groups = []
+        for title, keys in self.DX_GROUPS:
+            rows = []
+            for key in keys:
+                v = d.get(key)
+                if not v:
+                    continue
+                rows.append({"label": labels[key], "value": "調査なし" if v == "調査無し" else v})
+            if rows:
+                groups.append({"title": title, "rows": rows})
+        return groups or None
 
     def _office(self, e):
         if e.get("office_addr") or e.get("office_tel") or e.get("office_zip"):

@@ -265,3 +265,17 @@ footer .footbar{font-size:13px}
 @media (max-width:980px){
   .side .brand b{font-size:14px;line-height:1.4;letter-spacing:.02em;text-align:left}
 }
+
+/* ── 自治体DXの取組状況：表組み（区分ごとに見出し行） ── */
+.dxtbl-wrap{margin-top:14px;border:1px solid var(--line,#e7ddcb);border-radius:10px;overflow:hidden}
+.dxtbl{width:100%;border-collapse:collapse;font-size:14px}
+.dxtbl th,.dxtbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line,#e7ddcb);vertical-align:middle}
+.dxtbl thead th{background:var(--cream2,#f3eee1);font-size:12.5px;font-weight:700;color:var(--brown2,#7a7259);letter-spacing:.04em}
+.dxtbl tr.grp th{background:var(--cream,#faf6ec);font-size:13px;font-weight:700;color:var(--brown,#382710)}
+.dxtbl td.v,.dxtbl th.v{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;width:9em}
+.dxtbl tbody:last-child tr:last-child td{border-bottom:0}
+@media (max-width:600px){
+  .dxtbl{font-size:13.5px}
+  .dxtbl th,.dxtbl td{padding:10px 12px}
+  .dxtbl td.v,.dxtbl th.v{width:auto}
+}
