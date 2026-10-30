@@ -6,7 +6,7 @@
 # 個々の自治体サイトのクロールではない（死活監視=probe.py は別。VPSで実行）。
 set -euo pipefail
 cd "$(dirname "$0")/../.."   # リポジトリルート
-UA="Mozilla/5.0 (TDF47-bot; +https://tdf47.com/; data ingest; contact: https://tdf47.com/contact/)"
+UA="Mozilla/5.0 (tdf47.com-bot; +https://tdf47.com/; data ingest; contact: https://tdf47.com/contact/)"
 
 get() { # url dest
   mkdir -p "$(dirname "$2")"

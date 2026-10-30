@@ -36,7 +36,7 @@ jobs:
       - name: リンクを検証（古い順に limit 件）
         env:
           TZ: Asia/Tokyo
-          TDF47_RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 時間切れなどは国内の窓口（/_recheck/）で確認し直す
+          RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 時間切れなどは国内の窓口（/_recheck/）で確認し直す
         run: python3 src/probe.py --limit ${{ github.event.inputs.limit || '2500' }}
 
       - name: DBの変更をコミット
@@ -70,10 +70,10 @@ jobs:
       - name: 静的サイトを生成
         env:
           TZ: Asia/Tokyo
-          TDF47_SITE_URL: ${{ vars.SITE_URL }}
-          TDF47_GA4_ID: ${{ vars.GA4_ID }}
-          TDF47_CONTACT_URL: ${{ vars.CONTACT_URL }}
-          TDF47_RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 国内からの再確認窓口の合言葉（ハッシュだけを配信）
+          SITE_URL: ${{ vars.SITE_URL }}
+          GA4_ID: ${{ vars.GA4_ID }}
+          CONTACT_URL: ${{ vars.CONTACT_URL }}
+          RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}   # 国内からの再確認窓口の合言葉（ハッシュだけを配信）
         run: python3 src/build.py
 
       - name: 配信先パスを正規化（末尾スラッシュ必須）

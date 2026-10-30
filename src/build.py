@@ -32,13 +32,13 @@ STATIC = os.path.join(ROOT, "static")
 SITE_NAME = "全国の地方自治体の色々なリンクを集めてみた件"
 SITE_SHORT = "全国の地方自治体の色々なリンクを集めてみた件TOP"  # パンくずの先頭など、短く出す場所の名称
 # 空文字で渡ってきても既定を使う（GitHub Variables未設定でもOK）
-SITE_URL = os.environ.get("TDF47_SITE_URL") or "https://tdf47.com"
+SITE_URL = os.environ.get("SITE_URL") or "https://tdf47.com"
 SITE_DESC = ("全国1,741市区町村を網羅した自治体リンク集。例規集・議会会議録・広報誌・公式サイト・"
              "公式SNSへのリンクを、隣接自治体ごとにまとめて掲載。自治体のリンクを探すなら全国の地方自治体の色々なリンクを集めてみた件。")
 # 公開前に設定（環境変数で注入）。空ならタグ/リンクは出力しない。
-GA4_ID = os.environ.get("TDF47_GA4_ID") or "G-834NJY78FW"  # TDF47 の GA4 測定ID
-CONTACT_URL = (os.environ.get("TDF47_CONTACT_URL")
-               or "https://docs.google.com/forms/d/e/1FAIpQLSflWRIOMfP_UGe-C958V-UTIQCJbbCYqa0nspRQiIxlvZNPpA/viewform")  # TDF47 お問い合わせフォーム
+GA4_ID = os.environ.get("GA4_ID") or "G-834NJY78FW"  # tdf47.com の GA4 測定ID
+CONTACT_URL = (os.environ.get("CONTACT_URL")
+               or "https://docs.google.com/forms/d/e/1FAIpQLSflWRIOMfP_UGe-C958V-UTIQCJbbCYqa0nspRQiIxlvZNPpA/viewform")  # tdf47.com お問い合わせフォーム
 TODAY = datetime.date.today().isoformat()
 YEAR = datetime.date.today().year
 # CSS/JS のキャッシュバスティング用。static/ の中身のハッシュ（中身が変わったときだけ変わる）。
@@ -1173,13 +1173,13 @@ ErrorDocument 404 /404.html
 
     def build_recheck(self):
         """国内からの再確認窓口（src/server/recheck.php）を /_recheck/ に置く。
-        合言葉は GitHub の秘密情報 RECHECK_TOKEN（環境変数 TDF47_RECHECK_TOKEN）から、ハッシュだけを config.php に書く。
+        合言葉は GitHub の秘密情報 RECHECK_TOKEN（環境変数 RECHECK_TOKEN）から、ハッシュだけを config.php に書く。
         合言葉が無いとき（手元での生成など）は config.php を作らない＝窓口は「未設定」で応答して何もしない。"""
         import hashlib
         d = os.path.join(DIST, "_recheck")
         os.makedirs(d, exist_ok=True)
         shutil.copyfile(os.path.join(SRC, "server", "recheck.php"), os.path.join(d, "index.php"))
-        token = os.environ.get("TDF47_RECHECK_TOKEN", "")
+        token = os.environ.get("RECHECK_TOKEN", "")
         if token:
             h = hashlib.sha256(token.encode("utf-8")).hexdigest()
             with open(os.path.join(d, "config.php"), "w", encoding="utf-8") as f:

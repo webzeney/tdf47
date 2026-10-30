@@ -1,9 +1,9 @@
 <?php
-// TDF47 国内からの再確認窓口（/_recheck/index.php として配信）。
+// tdf47.com 国内からの再確認窓口（/_recheck/index.php として配信）。
 // 毎日のリンク確認（GitHub＝海外）で「時間切れ・接続拒否」になったリンクを、国内のこのサーバーから確認し直す。
 // 海外からの接続を断っている自治体サイトを、リンク切れと誤判定しないため（2026-10-28）。
 //
-// 使い方: POST（本文 {"url": "https://..."}）、ヘッダー X-TDF47-Token に合言葉。1回1件。
+// 使い方: POST（本文 {"url": "https://..."}）、ヘッダー X-Recheck-Token に合言葉。1回1件。
 // 応答: {"status": 200|null, "final_url": "...", "title": "...", "error": null|"...", "robots_blocked": false}
 // 判定は確認プログラム（src/probe.py の _fetch と urllib.robotparser、Python 3.12）に合わせている。
 // 合言葉そのものはサーバーに置かない。配信時に GitHub の秘密情報から作ったハッシュを config.php に書き込む。
@@ -14,7 +14,7 @@ declare(strict_types=1);
 ini_set('display_errors', '0');
 error_reporting(0);
 
-const UA = 'TDF47-bot/1.0 (+https://tdf47.com/about/; link checker; contact: https://tdf47.com/contact/)';
+const UA = 'tdf47.com-bot/1.0 (+https://tdf47.com/about/; link checker; contact: https://tdf47.com/contact/)';
 const TIMEOUT = 15;
 const MAX_BYTES = 200000;
 const MAX_REDIRECTS = 10;
@@ -45,7 +45,7 @@ function remaining(): int
 function allow_local(): bool
 {
     // テスト専用（手元で localhost のテスト用サーバーに接続するため）。本番のサーバーでは設定しない。
-    return getenv('TDF47_RECHECK_ALLOW_LOCAL') === '1';
+    return getenv('RECHECK_ALLOW_LOCAL') === '1';
 }
 
 // ---- 接続先の確認（踏み台対策） ----
@@ -478,7 +478,7 @@ try {
     if ($hash === '') {
         reply(503, ['error' => '合言葉が設定されていない']);
     }
-    $token = (string)($_SERVER['HTTP_X_TDF47_TOKEN'] ?? '');
+    $token = (string)($_SERVER['HTTP_X_RECHECK_TOKEN'] ?? '');
     if ($token === '' || !hash_equals($hash, hash('sha256', $token))) {
         reply(403, ['error' => '合言葉が違う']);
     }

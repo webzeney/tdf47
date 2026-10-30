@@ -22,7 +22,7 @@ jobs:
 
       - name: GitHub（海外）から直接確認したときと、国内から確認したときを比べる
         env:
-          TDF47_RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}
+          RECHECK_TOKEN: ${{ secrets.RECHECK_TOKEN }}
           URLS: ${{ github.event.inputs.urls }}
         run: |
           python3 - <<'PY'

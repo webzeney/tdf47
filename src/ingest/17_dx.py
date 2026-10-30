@@ -36,7 +36,7 @@ sys.path.insert(0, SRC)
 import db  # noqa: E402
 
 PAGE = "https://www.digital.go.jp/resources/govdashboard/local-government-dx"
-UA = "TDF47-bot/1.0 (+https://tdf47.com/about/; open data fetcher; contact: https://tdf47.com/contact/)"
+UA = "tdf47.com-bot/1.0 (+https://tdf47.com/about/; open data fetcher; contact: https://tdf47.com/contact/)"
 NOW = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 # CSV の指標名 → metric キー（表示順もこの順）

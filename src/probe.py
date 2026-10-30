@@ -31,7 +31,7 @@ ROOT = os.path.dirname(SRC)
 sys.path.insert(0, SRC)
 import db  # noqa: E402
 
-UA = "TDF47-bot/1.0 (+https://tdf47.com/about/; link checker; contact: https://tdf47.com/contact/)"
+UA = "tdf47.com-bot/1.0 (+https://tdf47.com/about/; link checker; contact: https://tdf47.com/contact/)"
 DELAY_SEC = 1.2       # 1リクエスト1秒以上
 TIMEOUT = 20
 NOW = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
@@ -261,7 +261,7 @@ def _fetch(url: str, context=None, max_bytes: int = 200_000):
 # 国内からの再確認窓口（tdf47.com のサーバー上の src/server/recheck.php）。
 # 毎日の確認は GitHub（海外）で動くため、海外からの接続を断っている自治体サイトは毎回「時間切れ」になる。
 # 時間切れ・接続拒否などになったリンクだけを、この窓口に国内から確認し直してもらう（2026-10-28）。
-RECHECK_URL = os.environ.get("TDF47_RECHECK_URL") or "https://tdf47.com/_recheck/index.php"
+RECHECK_URL = os.environ.get("RECHECK_URL") or "https://tdf47.com/_recheck/index.php"
 RECHECK_TIMEOUT = 90
 RECHECK_MAX_PER_RUN = 60  # 1回の確認で国内から確認し直す上限（1件あたり最大90秒待つため、全体の時間を抑える）
 RECHECK_GIVE_UP = 3       # 窓口が続けてこの回数使えなかったら、その回は国内からの確認をやめる
@@ -279,12 +279,12 @@ def recheck_domestic(url: str):
     """国内から確認し直した結果 (http_status, final_url, title, error, robots_blocked)。
     窓口が使えない（合言葉が無い・応答が無い・形式が違う）ときは None（呼び出し側は今までどおりに判定する）。"""
     import json
-    token = os.environ.get("TDF47_RECHECK_TOKEN", "")
+    token = os.environ.get("RECHECK_TOKEN", "")
     if not token:
         return None
     req = urllib.request.Request(
         RECHECK_URL, data=json.dumps({"url": url}).encode("utf-8"), method="POST",
-        headers={"User-Agent": UA, "Content-Type": "application/json", "X-TDF47-Token": token})
+        headers={"User-Agent": UA, "Content-Type": "application/json", "X-Recheck-Token": token})
     class _NoRedirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, *a, **k):
             return None  # 合言葉を別の場所へ送らないよう、リダイレクトはたどらない

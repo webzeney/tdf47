@@ -72,7 +72,7 @@ class Site(http.server.BaseHTTPRequestHandler):
 def _post(port, payload, token=TOKEN):
     req = urllib.request.Request(f"http://127.0.0.1:{port}/index.php",
                                  data=json.dumps(payload).encode(), method="POST",
-                                 headers={"X-TDF47-Token": token})
+                                 headers={"X-Recheck-Token": token})
     try:
         with urllib.request.urlopen(req, timeout=120) as r:
             return r.status, json.loads(r.read())
@@ -94,10 +94,10 @@ def main():
         srv = http.server.ThreadingHTTPServer(("127.0.0.1", site_port), Site)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         p_local, p_prod = _free_port(), _free_port()
-        env = dict(os.environ, TDF47_RECHECK_ALLOW_LOCAL="1")
+        env = dict(os.environ, RECHECK_ALLOW_LOCAL="1")
         procs.append(subprocess.Popen(["php", "-S", f"127.0.0.1:{p_local}", "-t", d], env=env,
                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
-        env2 = {k: v for k, v in os.environ.items() if k != "TDF47_RECHECK_ALLOW_LOCAL"}
+        env2 = {k: v for k, v in os.environ.items() if k != "RECHECK_ALLOW_LOCAL"}
         procs.append(subprocess.Popen(["php", "-S", f"127.0.0.1:{p_prod}", "-t", d], env=env2,
                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
         time.sleep(1)

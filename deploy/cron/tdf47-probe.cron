@@ -1,4 +1,4 @@
-# TDF47 死活監視 cron（VPSに設置）。
+# tdf47.com 死活監視 cron（VPSに設置）。
 # 設置: sudo cp deploy/cron/tdf47-probe.cron /etc/cron.d/tdf47-probe
 #       （所有 root:root, 権限 644）
 #

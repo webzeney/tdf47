@@ -38,7 +38,7 @@ MANIFEST = os.path.join(OUT, "manifest.json")
 BASE = "https://www.soumu.go.jp"
 CARD_INDEX = BASE + "/iken/zaisei/card.html"
 SHIHYO_INDEX = BASE + "/iken/shihyo_ichiran.html"
-UA = "TDF47-bot/1.0 (+https://tdf47.com/about/; open data fetcher; contact: https://tdf47.com/contact/)"
+UA = "tdf47.com-bot/1.0 (+https://tdf47.com/about/; open data fetcher; contact: https://tdf47.com/contact/)"
 WAIT = 1.2
 
 PREF_NAMES = [
