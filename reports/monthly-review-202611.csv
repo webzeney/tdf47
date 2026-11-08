@@ -1305,3 +1305,54 @@ checked_at,entity_code,entity_name,kind,prev_status,new_status,link_id,url,http_
 2026-11-07T08:24:51,402141,豊前市,nyusatsu,dead,dead,17801,https://www.city.buzen.lg.jp/business/nyusatu/index.html,404,https://www.city.buzen.lg.jp/business/nyusatu/index.html,,HTTPError 404,0
 2026-11-07T08:24:51,402141,豊前市,saiyo,dead,dead,17802,https://www.city.buzen.lg.jp/sisei/saiyou/index.html,404,https://www.city.buzen.lg.jp/sisei/saiyou/index.html,,HTTPError 404,0
 2026-11-07T08:24:51,402281,朝倉市,saiyo,dead,dead,17834,https://www.city.asakura.lg.jp/soshiki/2/15647.html,404,https://www.city.asakura.lg.jp/soshiki/2/15647.html,,HTTPError 404,0
+2026-11-08T07:12:55,412091,嬉野市,nyusatsu,ok,dead,17937,https://www.city.ureshino.lg.jp/sangyo/nyusatsu.html,404,https://www.city.ureshino.lg.jp/sangyo/nyusatsu.html,,HTTPError 404,1
+2026-11-08T07:12:55,412091,嬉野市,saiyo,ok,dead,17938,https://www.city.ureshino.lg.jp/shisei/jinji.html,404,https://www.city.ureshino.lg.jp/shisei/jinji.html,,HTTPError 404,1
+2026-11-08T07:12:55,412091,嬉野市,sougou_keikaku,ok,dead,17939,https://www.city.ureshino.lg.jp/sangyo/nyusatsu/_24641/_28501.html,404,https://www.city.ureshino.lg.jp/sangyo/nyusatsu/_24641/_28501.html,,HTTPError 404,1
+2026-11-08T07:12:55,412091,嬉野市,toukei,ok,dead,17940,https://www.city.ureshino.lg.jp/shisei/tokei.html,404,https://www.city.ureshino.lg.jp/shisei/tokei.html,,HTTPError 404,1
+2026-11-08T07:12:55,413461,みやき町,dx_keikaku,ok,dead,17950,https://www.town.miyaki.lg.jp/chosei/torikumi/_2905/_5126.html,404,https://www.town.miyaki.lg.jp/chosei/torikumi/_2905/_5126.html,,HTTPError 404,1
+2026-11-08T07:12:55,413461,みやき町,nyusatsu,ok,dead,17951,https://www.town.miyaki.lg.jp/chosei/nyusatsu.html,404,https://www.town.miyaki.lg.jp/chosei/nyusatsu.html,,HTTPError 404,1
+2026-11-08T07:12:55,413461,みやき町,saiyo,ok,dead,17952,https://www.town.miyaki.lg.jp/chosei/saiyo.html,404,https://www.town.miyaki.lg.jp/chosei/saiyo.html,,HTTPError 404,1
+2026-11-08T07:12:55,413461,みやき町,sougou_keikaku,ok,dead,17953,https://www.town.miyaki.lg.jp/chosei/torikumi/_2905/_4476.html,404,https://www.town.miyaki.lg.jp/chosei/torikumi/_2905/_4476.html,,HTTPError 404,1
+2026-11-08T07:12:55,413461,みやき町,toukei,ok,dead,17954,https://www.town.miyaki.lg.jp/shokai/tokei.html,404,https://www.town.miyaki.lg.jp/shokai/tokei.html,,HTTPError 404,1
+2026-11-08T07:12:55,414255,白石町,nyusatsu,ok,dead,17966,https://www.town.shiroishi.lg.jp/chousei_machi/nyuusatsu.html,404,https://www.town.shiroishi.lg.jp/chousei_machi/nyuusatsu.html,,HTTPError 404,1
+2026-11-08T07:12:55,414255,白石町,saiyo,ok,dead,17967,https://www.town.shiroishi.lg.jp/chousei_machi/saiyou.html,404,https://www.town.shiroishi.lg.jp/chousei_machi/saiyou.html,,HTTPError 404,1
+2026-11-08T07:12:55,414255,白石町,sougou_keikaku,ok,dead,17968,https://www.town.shiroishi.lg.jp/chousei_machi/seisaku/_8434.html,404,https://www.town.shiroishi.lg.jp/chousei_machi/seisaku/_8434.html,,HTTPError 404,1
+2026-11-08T07:12:55,414255,白石町,toukei,ok,dead,17969,https://www.town.shiroishi.lg.jp/chousei_machi/shoukai/_1489.html,404,https://www.town.shiroishi.lg.jp/chousei_machi/shoukai/_1489.html,,HTTPError 404,1
+2026-11-08T07:12:55,414417,太良町,nyusatsu,ok,dead,17970,https://www.town.tara.lg.jp/machidukuri/_1668.html,404,https://www.town.tara.lg.jp/machidukuri/_1668.html,,HTTPError 404,1
+2026-11-08T07:12:55,414417,太良町,saiyo,ok,dead,17971,https://www.town.tara.lg.jp/chosei/_1723.html,404,https://www.town.tara.lg.jp/chosei/_1723.html,,HTTPError 404,1
+2026-11-08T07:12:55,414417,太良町,sougou_keikaku,ok,dead,17972,https://www.town.tara.lg.jp/chosei/_1676/_1021/_7778.html,404,https://www.town.tara.lg.jp/chosei/_1676/_1021/_7778.html,,HTTPError 404,1
+2026-11-08T07:12:55,414417,太良町,toukei,ok,dead,17973,https://www.town.tara.lg.jp/chosei/_2049.html,404,https://www.town.tara.lg.jp/chosei/_2049.html,,HTTPError 404,1
+2026-11-08T07:12:55,432067,玉名市,saiyo,ok,ok,18039,https://www.city.tamana.lg.jp/q/aview/1/1798.html,200,https://www.city.tamana.lg.jp/q/aview/1/1798.html,�������Ѿ���(����󼡻�η�̤�Ǻ�)�ö�̾��,,1
+2026-11-08T07:12:55,012211,名寄市,nyusatsu,unchecked,ok,18631,http://www.city.nayoro.lg.jp/biz/cat1/prkeql0000007m8l.html,200,http://www.city.nayoro.lg.jp/biz/cat1/prkeql0000007m8l.html,北海道名寄市｜事業者向け情報｜ 入札情報,,1
+2026-11-08T07:12:55,012211,名寄市,toukei,unchecked,ok,18632,http://www.city.nayoro.lg.jp/section/soumu/vdh2d1000000cwjl.html,200,http://www.city.nayoro.lg.jp/section/soumu/vdh2d1000000cwjl.html,北海道名寄市｜ 名寄市の統計,,1
+2026-11-08T07:12:55,012084,北見市,reiki,ok,dead,9,https://lg.joureikun.jp/kitami_city/reiki/,,https://lg.joureikun.jp/kitami_city/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,012157,美唄市,reiki,ok,dead,16,https://lg.joureikun.jp/bibai_city/reiki/,,https://lg.joureikun.jp/bibai_city/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,015555,遠軽町,reiki,ok,ok,131,http://engaru.jp/reiki/reiki_menu.html,200,https://engaru.jp/reiki/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,015610,興部町,reiki,ok,dead,134,https://public.joureikun.jp/okoppe_town/reiki/,,https://public.joureikun.jp/okoppe_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,043419,丸森町,reiki,ok,ok,277,http://www.town.marumori.miyagi.jp/reiki/reiki_menu.html,200,https://www.town.marumori.miyagi.jp/reiki/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,043613,亘理町,reiki,ok,ok,278,http://www.town.watari.miyagi.jp/reiki_int/reiki_menu.html,200,https://www.town.watari.miyagi.jp/reiki_int/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,044440,色麻町,reiki,ok,dead,286,http://public.joureikun.jp/shikama_town/reiki/,,http://public.joureikun.jp/shikama_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,053279,上小阿仁村,reiki,ok,dead,308,https://lg.joureikun.jp/kamikoani_vill/reiki/,,https://lg.joureikun.jp/kamikoani_vill/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,053660,井川町,reiki,ok,ok,314,http://www.town.ikawa.akita.jp/reiki/reiki_menu.html,200,https://www.town.ikawa.akita.jp/reiki/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,054631,羽後町,reiki,ok,ok,317,http://www.town.ugo.lg.jp/reiki/reiki_menu.html,200,http://www.town.ugo.lg.jp/reiki/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,074811,棚倉町,reiki,ok,ok,395,http://www.town.tanagura.fukushima.jp/reiki/reiki_taikei/r_taikei_06_03.html,200,http://www.town.tanagura.fukushima.jp/reiki/reiki_taikei/r_taikei_06_03.html,Reiki-Base インターネット版 体系目次検索,,1
+2026-11-08T07:12:55,075221,小野町,reiki,ok,dead,405,http://public.joureikun.jp/ono_town/reiki/,,http://public.joureikun.jp/ono_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,075434,富岡町,reiki,ok,dead,408,https://public.joureikun.jp/tomioka_town/reiki/,,https://public.joureikun.jp/tomioka_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,113654,小鹿野町,reiki,dead,dead,582,http://www.town.ogano.lg.jp/reiki_int/reiki_menu.html,404,http://www.town.ogano.lg.jp/reiki_int/reiki_menu.html,,HTTPError 404,0
+2026-11-08T07:12:55,142140,伊勢原市,reiki,ok,ok,726,http://www.city.isehara.kanagawa.jp/reiki_int/reiki_menu.html,504,http://www.city.isehara.kanagawa.jp/reiki_int/reiki_menu.html,,HTTPError 504,1
+2026-11-08T07:12:55,272159,寝屋川市,reiki,dead,dead,1174,http://www2.city.neyagawa.osaka.jp/reiki/reiki_menu.html,,http://www2.city.neyagawa.osaka.jp/reiki/reiki_menu.html,,URLError: <urlopen error [Errno 111] Connection refused>,0
+2026-11-08T07:12:55,293865,御杖村,reiki,ok,dead,1268,https://lg.joureikun.jp/mitsue_vill/reiki/,,https://lg.joureikun.jp/mitsue_vill/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,313297,八頭町,reiki,ok,dead,1316,https://public.joureikun.jp/yazu_town/reiki/,,https://public.joureikun.jp/yazu_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,314013,日南町,reiki,ok,dead,1325,http://lg.joureikun.jp/nichinan_town/,,http://lg.joureikun.jp/nichinan_town/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,322059,大田市,reiki,dead,dead,1334,http://www.iwamigin.jp/ohda/reiki/index.html,404,http://www.iwamigin.jp/ohda/reiki/index.html,,HTTPError 404,0
+2026-11-08T07:12:55,360007,徳島県,reiki,ok,ok,1424,https://reiki.pref.tokushima.lg.jp/reiki_menu.html,,https://reiki.pref.tokushima.lg.jp/reiki_menu.html,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>,1
+2026-11-08T07:12:55,372021,丸亀市,reiki,ok,dead,1451,https://lg.joureikun.jp/marugame_city/reiki/,,https://lg.joureikun.jp/marugame_city/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,393011,東洋町,reiki,ok,dead,1502,http://web.town.toyo.kochi.jp/joho/reiki_int/reiki_menu.html,,http://web.town.toyo.kochi.jp/joho/reiki_int/reiki_menu.html,,国内から: timed out (Connection timed out after 15002 milliseconds),0
+2026-11-08T07:12:55,403415,宇美町,reiki,ok,dead,1554,https://public.joureikun.jp/umi_town/reiki/,,https://public.joureikun.jp/umi_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,409561,福岡県後期高齢者医療広域連合,reiki,ok,ok,1584,http://www.fukuoka-kouki.jp/reiki_int/reiki_menu.html,200,https://www.fukuoka-kouki.jp/reiki_int/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,414255,白石町,reiki,ok,ok,1604,http://reiki.town.shiroishi.lg.jp/,200,http://reiki.town.shiroishi.lg.jp/,白石町ホームページのメンテナンス,,1
+2026-11-08T07:12:55,433683,長洲町,reiki,ok,dead,1648,http://public.joureikun.jp/nagasu_town/reiki/,,http://public.joureikun.jp/nagasu_town/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,434426,嘉島町,reiki,ok,dead,1659,http://www.town.kashima.kumamoto.jp/reiki/reiki_kana/r_50_to.html,,http://www.town.kashima.kumamoto.jp/reiki/reiki_kana/r_50_to.html,,国内から: timed out (Connection timed out after 15002 milliseconds),0
+2026-11-08T07:12:55,454303,椎葉村,reiki,ok,dead,1716,https://public.joureikun.jp/shiiba_vill/reiki/,,https://public.joureikun.jp/shiiba_vill/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
+2026-11-08T07:12:55,462101,指宿市,reiki,ok,ok,1728,http://www.city.ibusuki.lg.jp/reiki_int/reiki_menu.html,200,https://www.city.ibusuki.lg.jp/reiki_int/reiki_menu.html,Reiki-Base インターネット版,,1
+2026-11-08T07:12:55,473014,国頭村,reiki,ok,dead,1778,https://lg.joureikun.jp/kunigami_vill/reiki/,,https://lg.joureikun.jp/kunigami_vill/reiki/,,URLError: <urlopen error [Errno -2] Name or service not known>,1
