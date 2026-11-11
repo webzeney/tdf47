@@ -1659,3 +1659,76 @@ checked_at,entity_code,entity_name,kind,prev_status,new_status,link_id,url,http_
 2026-11-10T10:43:17,032034,大船渡市,kouhou,dead,dead,5950,https://www.city.ofunato.iwate.jp/site/koho/,404,https://www.city.ofunato.iwate.jp/site/koho/,,HTTPError 404,0
 2026-11-10T10:43:17,032077,久慈市,kouhou,dead,dead,5970,https://www.city.kuji.iwate.jp/shisei/koho/kohokuji/index.html,,https://www.city.kuji.iwate.jp/shisei/koho/kohokuji/index.html,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1011)>,0
 2026-11-10T10:43:17,032166,滝沢市,kouhou,dead,dead,6019,https://www.city.takizawa.iwate.jp/kouhou/,404,https://www.city.takizawa.iwate.jp/kouhou/,,HTTPError 404,0
+2026-11-11T08:38:37,372064,さぬき市,kouhou,dead,dead,6160,https://www.city.sanuki.kagawa.jp/life/prmagazine/prmagazine,,https://www.city.sanuki.kagawa.jp/life/prmagazine/prmagazine,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1011)>,0
+2026-11-11T08:38:37,373869,宇多津町,kouhou,dead,dead,6195,https://www.town.utazu.lg.jp/chosei/sonota/koho/,404,https://www.town.utazu.lg.jp/chosei/sonota/koho/,,HTTPError 404,0
+2026-11-11T08:38:37,374067,まんのう町,kouhou,dead,dead,6214,https://www.town.manno.lg.jp/chosei/koho_manno/,404,https://www.town.manno.lg.jp/chosei/koho_manno/,,HTTPError 404,0
+2026-11-11T08:38:37,462063,阿久根市,kouhou,dead,dead,6242,https://www.city.akune.lg.jp/shiseijoho/koho/kohoakune/,404,https://www.city.akune.lg.jp/shiseijoho/koho/kohoakune/,,HTTPError 404,0
+2026-11-11T08:38:37,465054,屋久島町,kouhou,dead,dead,6391,http://www.town.yakushima.kagoshima.jp/info-magazine/,404,http://www.town.yakushima.kagoshima.jp/info-magazine/,,HTTPError 404,0
+2026-11-11T08:38:37,465348,知名町,kouhou,dead,dead,6446,https://www.town.china.lg.jp/kikakushinkou/kurasu/chosejoho/koho-kocho/kohochina/,404,https://www.town.china.lg.jp/kikakushinkou/kurasu/chosejoho/koho-kocho/kohochina/,,HTTPError 404,0
+2026-11-11T08:38:37,142115,秦野市,kouhou,dead,dead,6535,https://www.city.hadano.kanagawa.jp/www/genre/1000000000680/,404,https://www.city.hadano.kanagawa.jp/www/genre/1000000000680/,,HTTPError 404,0
+2026-11-11T08:38:37,143839,真鶴町,sns_youtube,dead,dead,6644,https://www.youtube.com/@user-de9pp7ez3j,404,https://www.youtube.com/@user-de9pp7ez3j,,HTTPError 404,0
+2026-11-11T08:38:37,143839,真鶴町,kouhou,dead,dead,6646,https://www.town.manazuru.kanagawa.jp/soshiki/kikaku/senryakusuishin/publicrelations/,404,https://www.town.manazuru.kanagawa.jp/soshiki/kikaku/senryakusuishin/publicrelations/,,HTTPError 404,0
+2026-11-11T08:38:37,392103,四万十市,kouhou,dead,dead,6714,http://www.city.shimanto.lg.jp/gyosei/kouhou.html,404,http://www.city.shimanto.lg.jp/gyosei/kouhou.html,,HTTPError 404,0
+2026-11-11T08:38:37,393011,東洋町,official,dead,dead,6725,http://www.town.toyo.kochi.jp/,,http://www.town.toyo.kochi.jp/,,国内から: timed out (Connection timed out after 15001 milliseconds),0
+2026-11-11T08:38:37,393011,東洋町,kouhou,dead,dead,6727,http://www.town.toyo.kochi.jp/contents/a02b07.php,,http://www.town.toyo.kochi.jp/contents/a02b07.php,,国内から: timed out (Connection timed out after 15002 milliseconds),0
+2026-11-11T08:38:37,393037,田野町,kouhou,dead,dead,6733,https://tanocho.jp/magazine/,404,https://tanocho.jp/magazine/,,HTTPError 404,0
+2026-11-11T08:38:37,393631,土佐町,kouhou,dead,dead,6761,http://www.town.tosa.kochi.jp/publics/index/16/,404,http://www.town.tosa.kochi.jp/publics/index/16/,,HTTPError 404,0
+2026-11-11T08:38:37,394050,梼原町,kouhou,dead,dead,6787,http://www.town.yusuhara.kochi.jp/town/kouhou/,404,http://www.town.yusuhara.kochi.jp/town/kouhou/,,HTTPError 404,0
+2026-11-11T08:38:37,394271,三原村,kouhou,dead,dead,6811,http://www.vill.mihara.kochi.jp/kurasi/kouhou/,404,http://www.vill.mihara.kochi.jp/kurasi/kouhou/,,HTTPError 404,0
+2026-11-11T08:38:37,431001,熊本市,kouhou,dead,dead,6831,https://www.city.kumamoto.jp/hpkiji/pub/List.aspx?c_id=5&class_set_id=2&class_id=253,404,https://www.city.kumamoto.jp/hpkiji/pub/List.aspx?c_id=5&class_set_id=2&class_id=253,,HTTPError 404,0
+2026-11-11T08:38:37,433683,長洲町,kouhou,dead,dead,6923,https://www.town.nagasu.lg.jp/list00145.html,404,https://www.town.nagasu.lg.jp/list00145.html,,HTTPError 404,0
+2026-11-11T08:38:37,433691,和水町,kouhou,dead,dead,6930,https://www.town.nagomi.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=669,404,https://www.town.nagomi.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=669,,HTTPError 404,0
+2026-11-11T08:38:37,434248,小国町,kouhou,dead,dead,6948,https://www.town.kumamoto-oguni.lg.jp/q/list/215.html,404,https://www.town.kumamoto-oguni.lg.jp/q/list/215.html,,HTTPError 404,0
+2026-11-11T08:38:37,434281,高森町,kouhou,dead,dead,6959,https://www.town.takamori.kumamoto.jp/oyakudachi/koho/,,https://www.town.takamori.kumamoto.jp/oyakudachi/koho/,,URLError: <urlopen error [Errno -2] Name or service not known>,0
+2026-11-11T08:38:37,434825,芦北町,sns_youtube,dead,dead,7005,https://www.youtube.com/@user-vm2gb4ru6e,404,https://www.youtube.com/@user-vm2gb4ru6e,,HTTPError 404,0
+2026-11-11T08:38:37,435074,水上村,kouhou,dead,dead,7033,https://www.vill.mizukami.lg.jp/q/list/29.html,404,https://www.vill.mizukami.lg.jp/q/list/29.html,,HTTPError 404,0
+2026-11-11T08:38:37,435121,山江村,kouhou,dead,dead,7049,https://www.vill.yamae.lg.jp/pagetop/gyosei_unei/kikaku/3/3/2/,404,https://www.vill.yamae.lg.jp/pagetop/gyosei_unei/kikaku/3/3/2/,,HTTPError 404,0
+2026-11-11T08:38:37,435139,球磨村,kouhou,dead,dead,7056,https://www.kumamura.com/gyousei/kikaku/kouhou_kumamura/,404,https://www.kumamura.com/gyousei/kikaku/kouhou_kumamura/,,HTTPError 404,0
+2026-11-11T08:38:37,435147,あさぎり町,kouhou,dead,dead,7062,https://www.town.asagiri.lg.jp/q/list/66.html,404,https://www.town.asagiri.lg.jp/q/list/66.html,,HTTPError 404,0
+2026-11-11T08:38:37,262013,福知山市,sns_line,dead,dead,7085,https://page.line.me/fukuchiyama_city,404,https://page.line.me/fukuchiyama_city,,HTTPError 404,0
+2026-11-11T08:38:37,263443,宇治田原町,kouhou,dead,dead,7185,https://www.town.ujitawara.kyoto.jp/soshiki/somuka/koho_kocho/1/2149.html,404,https://www.town.ujitawara.kyoto.jp/soshiki/somuka/koho_kocho/1/2149.html,,HTTPError 404,0
+2026-11-11T08:38:37,263656,和束町,kouhou,dead,dead,7192,https://www.town.wazuka.lg.jp/choseijoho/koho_kocho/renkei/,404,https://www.town.wazuka.lg.jp/choseijoho/koho_kocho/renkei/,,HTTPError 404,0
+2026-11-11T08:38:37,242012,津市,kouhou,dead,dead,7233,https://www.info.city.tsu.mie.jp/www/genre/1100000000272/,404,https://www.info.city.tsu.mie.jp/www/genre/1100000000272/,,HTTPError 404,0
+2026-11-11T08:38:37,243035,木曽岬町,kouhou,dead,dead,7318,https://www.town.kisosaki.lg.jp/category_list.php?frmCd=5-3-0-0-0,404,https://www.town.kisosaki.lg.jp/category_list.php?frmCd=5-3-0-0-0,,HTTPError 404,0
+2026-11-11T08:38:37,243418,菰野町,kouhou,dead,dead,7330,https://www2.town.komono.mie.jp/www/contents/1679009951714/,404,https://www2.town.komono.mie.jp/www/contents/1679009951714/,,HTTPError 404,0
+2026-11-11T08:38:37,244414,多気町,kouhou,dead,dead,7342,https://www.town.taki.mie.jp/life/soshiki/kikakuchosei/koho/1/,404,https://www.town.taki.mie.jp/life/soshiki/kikakuchosei/koho/1/,,HTTPError 404,0
+2026-11-11T08:38:37,244422,明和町,kouhou,dead,dead,7349,https://www.town.meiwa.mie.jp/main/soshiki/soumu/senryaku01/koho_kocho/koho_meiwa/,404,https://www.town.meiwa.mie.jp/main/soshiki/soumu/senryaku01/koho_kocho/koho_meiwa/,,HTTPError 404,0
+2026-11-11T08:38:37,245437,紀北町,kouhou,dead,dead,7381,https://www.town.mie-kihoku.lg.jp/gyosei/koho/,404,https://www.town.mie-kihoku.lg.jp/gyosei/koho/,,HTTPError 404,0
+2026-11-11T08:38:37,042021,石巻市,sns_youtube,dead,dead,7404,https://www.youtube.com/@ishinomakikouhou?si=9FYqBSwp_vlgiozp,404,https://www.youtube.com/@ishinomakikouhou?si=9FYqBSwp_vlgiozp,,HTTPError 404,0
+2026-11-11T08:38:37,042145,東松島市,sns_youtube,dead,dead,7463,https://www.youtube.com/@user-to1cc8ui9p,404,https://www.youtube.com/@user-to1cc8ui9p,,HTTPError 404,0
+2026-11-11T08:38:37,043231,柴田町,sns_youtube,dead,dead,7508,https://www.youtube.com/@user-iv9tx4cy5d,404,https://www.youtube.com/@user-iv9tx4cy5d,,HTTPError 404,0
+2026-11-11T08:38:37,043613,亘理町,official,ok,ok,7521,https://www.town.watari.miyagi.jp/,200,https://www.town.watari.miyagi.jp/,わたりちょう - 宮城県亘理郡亘理町公式サイト,,1
+2026-11-11T08:38:37,043613,亘理町,kouhou,ok,ok,7526,https://www.town.watari.miyagi.jp/town/category/?category=284,200,https://www.town.watari.miyagi.jp/town/category/?category=284,広報わたり | 亘理町,,1
+2026-11-11T08:38:37,044016,松島町,kouhou,dead,dead,7539,"https://www.town.miyagi-matsushima.lg.jp/index.cfm/7,0,25,html",404,"https://www.town.miyagi-matsushima.lg.jp/index.cfm/7,0,25,html",,HTTPError 404,0
+2026-11-11T08:38:37,044211,大和町,sns_youtube,dead,dead,7556,https://www.youtube.com/@user-te7qq8li9u,404,https://www.youtube.com/@user-te7qq8li9u,,HTTPError 404,0
+2026-11-11T08:38:37,044245,大衡村,kouhou,dead,dead,7568,https://www.village.ohira.miyagi.jp/site/kouhouo-hira/,404,https://www.village.ohira.miyagi.jp/site/kouhouo-hira/,,HTTPError 404,0
+2026-11-11T08:38:37,046060,南三陸町,kouhou,dead,dead,7599,"https://www.town.minamisanriku.miyagi.jp/index.cfm/10,0,67,html",404,"https://www.town.minamisanriku.miyagi.jp/index.cfm/10,0,67,html",,HTTPError 404,0
+2026-11-11T08:38:37,202096,伊那市,kouhou,dead,dead,7801,https://www.inacity.jp/koho/kohoinashi/shihoina/,404,https://www.inacity.jp/koho/kohoinashi/shihoina/,,HTTPError 404,0
+2026-11-11T08:38:37,202126,大町市,kouhou,dead,dead,7821,https://www.city.omachi.nagano.jp/indexpage/indexpage050/indexpage054/index00001.html,410,https://www.city.omachi.nagano.jp/indexpage/indexpage050/indexpage054/index00001.html,,HTTPError 410,0
+2026-11-11T08:38:37,202177,佐久市,kouhou,dead,dead,7848,http://www.saku-library.com/book/list.php?type=1,,http://www.saku-library.com/book/list.php?type=1,,国内から: timed out (Connection timed out after 15002 milliseconds),0
+2026-11-11T08:38:37,203092,佐久穂町,kouhou,dead,dead,7889,https://www.town.sakuho.nagano.jp/oshirase/koho/koho/,404,https://www.town.sakuho.nagano.jp/oshirase/koho/koho/,,HTTPError 404,0
+2026-11-11T08:38:37,203211,軽井沢町,kouhou,dead,dead,7895,https://www.town.karuizawa.lg.jp/www/contents/1451287281730/index.html,404,https://www.town.karuizawa.lg.jp/www/contents/1451287281730/index.html,,HTTPError 404,0
+2026-11-11T08:38:37,203246,立科町,kouhou,dead,dead,7908,https://www.town.tateshina.nagano.jp/soshiki/kikaku/kikakujoho/koho/,404,https://www.town.tateshina.nagano.jp/soshiki/kikaku/kikakujoho/koho/,,HTTPError 404,0
+2026-11-11T08:38:37,203505,長和町,kouhou,dead,dead,7915,https://www.town.nagawa.nagano.jp/soshiki/johokoho/johokoho_koho/1/1/1/1/,404,https://www.town.nagawa.nagano.jp/soshiki/johokoho/johokoho_koho/1/1/1/1/,,HTTPError 404,0
+2026-11-11T08:38:37,203629,富士見町,kouhou,dead,ok,7922,https://www.town.fujimi.lg.jp/site/koho/,200,https://www.town.fujimi.lg.jp/site/koho/,広報ふじみ - 富士見町ホームページ,,1
+2026-11-11T08:38:37,203831,箕輪町,kouhou,dead,dead,7938,https://www.town.minowa.lg.jp/list/kouhominowa.html,404,https://www.town.minowa.lg.jp/list/kouhominowa.html,,HTTPError 404,0
+2026-11-11T08:38:37,203840,飯島町,kouhou,dead,dead,7943,https://www.town.iijima.lg.jp/iijimamachinojoho/gyoseijoho/kohoiijima/,404,https://www.town.iijima.lg.jp/iijimamachinojoho/gyoseijoho/kohoiijima/,,HTTPError 404,0
+2026-11-11T08:38:37,204137,天龍村,kouhou,dead,dead,8001,https://www.vill-tenryu.jp/category/notice/administrative/government_info/pr-hearing/pr-government_info/pr/,404,https://www.vill-tenryu.jp/category/notice/administrative/government_info/pr-hearing/pr-government_info/pr/,,HTTPError 404,0
+2026-11-11T08:38:37,204153,喬木村,kouhou,dead,dead,8010,https://www.vill.takagi.nagano.jp/category/bunya/koho/johoshi/,,https://www.vill.takagi.nagano.jp/category/bunya/koho/johoshi/,,URLError: <urlopen error [Errno -2] Name or service not known>,0
+2026-11-11T08:38:37,204528,筑北村,kouhou,dead,dead,8057,https://www.vill.chikuhoku.lg.jp/magazines/,404,https://www.vill.chikuhoku.lg.jp/magazines/,,HTTPError 404,0
+2026-11-11T08:38:37,204811,池田町,kouhou,dead,dead,8061,https://www.ikedamachi.net/category/2-5-2-0-0.html,404,https://www.ikedamachi.net/category/2-5-2-0-0.html,,HTTPError 404,0
+2026-11-11T08:38:37,204862,小谷村,kouhou,dead,dead,8073,https://www.vill.otari.nagano.jp/www/contents/1001000000020/,404,https://www.vill.otari.nagano.jp/www/contents/1001000000020/,,HTTPError 404,0
+2026-11-11T08:38:37,205214,坂城町,kouhou,dead,dead,8077,https://www.town.sakaki.nagano.jp/www/genre/1000100000006/,404,https://www.town.sakaki.nagano.jp/www/genre/1000100000006/,,HTTPError 404,0
+2026-11-11T08:38:37,205419,小布施町,kouhou,dead,dead,8082,https://www.town.obuse.nagano.jp/media/choho-obuse/,404,https://www.town.obuse.nagano.jp/media/choho-obuse/,,HTTPError 404,0
+2026-11-11T08:38:37,422011,長崎市,kouhou,dead,dead,8130,https://www.city.nagasaki.lg.jp/syokai/770000/771000/,404,https://www.city.nagasaki.lg.jp/syokai/770000/771000/,,HTTPError 404,0
+2026-11-11T08:38:37,422100,壱岐市,kouhou,dead,dead,8182,https://www.city.iki.nagasaki.jp/soshiki/somuka/koho_iki/,404,https://www.city.iki.nagasaki.jp/soshiki/somuka/koho_iki/,,HTTPError 404,0
+2026-11-11T08:38:37,422142,南島原市,kouhou,dead,dead,8206,https://www.city.minamishimabara.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=662,404,https://www.city.minamishimabara.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=662,,HTTPError 404,0
+2026-11-11T08:38:37,423238,波佐見町,kouhou,dead,dead,8235,https://www.town.hasami.lg.jp/machi/chousei/3/3911.html,404,https://www.town.hasami.lg.jp/machi/chousei/3/3911.html,,HTTPError 404,0
+2026-11-11T08:38:37,423831,小値賀町,kouhou,dead,dead,8240,https://www.town.ojika.lg.jp/soshiki/soumu/1/5/129.html,404,https://www.town.ojika.lg.jp/soshiki/soumu/1/5/129.html,,HTTPError 404,0
+2026-11-11T08:38:37,292125,宇陀市,kouhou,dead,dead,8329,https://www.city.uda.nara.jp/shisei/kouhou/kouhou/,,https://www.city.uda.nara.jp/shisei/kouhou/kouhou/,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1011)>,0
+2026-11-11T08:38:37,293229,山添村,kouhou,dead,dead,8331,http://www.vill.yamazoe.nara.jp/kohoyamazoe,404,http://www.vill.yamazoe.nara.jp/kohoyamazoe,,HTTPError 404,0
+2026-11-11T08:38:37,294250,王寺町,kouhou,dead,dead,8394,https://www.town.oji.nara.jp/kakuka/somu/seisakusuishin/gyomuannai/koho_kocho/koho/kohoshi/,404,https://www.town.oji.nara.jp/kakuka/somu/seisakusuishin/gyomuannai/koho_kocho/koho/kohoshi/,,HTTPError 404,0
+2026-11-11T08:38:37,294268,広陵町,kouhou,dead,dead,8399,https://www.town.koryo.nara.jp/contents_detail.php?frmId=3528,404,https://www.town.koryo.nara.jp/contents_detail.php?frmId=3528,,HTTPError 404,0
+2026-11-11T08:38:37,294411,吉野町,kouhou,dead,dead,8412,https://www.town.yoshino.nara.jp/about/koho/kohoshi/,404,https://www.town.yoshino.nara.jp/about/koho/kohoshi/,,HTTPError 404,0
+2026-11-11T08:38:37,152161,糸魚川市,kouhou,dead,dead,8545,https://www.city.itoigawa.lg.jp/2753.htm,404,https://www.city.itoigawa.lg.jp/2753.htm,,HTTPError 404,0
+2026-11-11T08:38:37,153079,聖籠町,kouhou,dead,dead,8600,https://www.town.seiro.niigata.jp/kouho/kouhou.html,404,https://www.town.seiro.niigata.jp/kouho/kouhou.html,,HTTPError 404,0
