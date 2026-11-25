@@ -2801,3 +2801,152 @@ checked_at,entity_code,entity_name,kind,prev_status,new_status,link_id,url,http_
 2026-11-24T13:02:02,014389,沼田町,sns_youtube,dead,dead,4771,https://www.youtube.com/@user-cy2lg2up5z,404,https://www.youtube.com/@user-cy2lg2up5z,,HTTPError 404,0
 2026-11-24T13:02:02,014524,鷹栖町,kouhou,dead,dead,4780,https://www.town.takasu.hokkaido.jp/gyosei/administration/category/?category=188,404,https://www.town.takasu.hokkaido.jp/gyosei/administration/category/?category=188,,HTTPError 404,0
 2026-11-24T13:02:02,014575,上川町,kouhou,dead,dead,4814,https://www.town.hokkaido-kamikawa.lg.jp/section/chiikimiryoku/public/,404,https://www.town.hokkaido-kamikawa.lg.jp/section/chiikimiryoku/public/,,HTTPError 404,0
+2026-11-25T11:43:14,015431,美幌町,kouhou,dead,dead,4966,http://www.town.bihoro.hokkaido.jp/docs/2012040300017/,404,http://www.town.bihoro.hokkaido.jp/docs/2012040300017/,,HTTPError 404,0
+2026-11-25T11:43:14,015440,津別町,sns_youtube,dead,dead,4969,https://www.youtube.com/@user-np2ov3qu8u,404,https://www.youtube.com/@user-np2ov3qu8u,,HTTPError 404,0
+2026-11-25T11:43:14,015784,白老町,sns_line,dead,dead,5047,https://page.line.me/747lujzn,404,https://page.line.me/747lujzn,,HTTPError 404,0
+2026-11-25T11:43:14,015814,厚真町,kouhou,dead,dead,5053,https://www.town.atsuma.lg.jp/office/politics/koho/koho_atsuma/,404,https://www.town.atsuma.lg.jp/office/politics/koho/koho_atsuma/,,HTTPError 404,0
+2026-11-25T11:43:14,016071,浦河町,kouhou,dead,ok,5091,https://www.town.urakawa.hokkaido.jp/gyosei/administration/?category=132,200,https://www.town.urakawa.hokkaido.jp/gyosei/administration/?category=132,広報うらかわ｜町内向け｜浦河町,,1
+2026-11-25T11:43:14,016411,大樹町,kouhou,dead,dead,5161,https://www.town.taiki.hokkaido.jp/soshiki/kikaku/kohou_tokei/kouhoutaiki.html,404,https://www.town.taiki.hokkaido.jp/soshiki/kikaku/kohou_tokei/kouhoutaiki.html,,HTTPError 404,0
+2026-11-25T11:43:14,016438,幕別町,kouhou,dead,dead,5174,https://www.town.makubetsu.lg.jp/chosei/kouhou/kouhoumakubetsu/,404,https://www.town.makubetsu.lg.jp/chosei/kouhou/kouhoumakubetsu/,,HTTPError 404,0
+2026-11-25T11:43:14,016683,白糠町,sns_youtube,dead,dead,5236,https://www.youtube.com/@user-if4gf6ys3c,404,https://www.youtube.com/@user-if4gf6ys3c,,HTTPError 404,0
+2026-11-25T11:43:14,215015,坂祝町,nyusatsu,ok,ok,18965,https://www.town.sakahogi.gifu.jp/enterpriser/enterpriser02.html,,https://www.town.sakahogi.gifu.jp/enterpriser/enterpriser02.html,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>,0
+2026-11-25T11:43:14,303836,由良町,toukei,ok,dead,19055,http://www.town.yura.wakayama.jp/zokusei/shiryo/,404,http://www.town.yura.wakayama.jp/zokusei/shiryo/,,HTTPError 404,1
+2026-11-25T11:43:14,313718,琴浦町,toukei,dead,dead,19060,https://www.town.kotoura.tottori.jp/bunya/toukei/,404,https://www.town.kotoura.tottori.jp/bunya/toukei/,,HTTPError 404,0
+2026-11-25T11:43:14,282022,尼崎市,sns_line,ok,ok,5286,https://page.line.me/amagasakicity,,https://page.line.me/amagasakicity,,国内から: timed out (Operation timed out after 15002 milliseconds with 0 bytes received),1
+2026-11-25T11:43:14,282057,洲本市,sns_line,ok,ok,5306,https://page.line.me/sumotocity,502,https://page.line.me/sumotocity,,HTTPError 502,1
+2026-11-25T11:43:14,282065,芦屋市,sns_line,ok,ok,5313,https://page.line.me/ashiyashi5401,502,https://page.line.me/ashiyashi5401,,HTTPError 502,1
+2026-11-25T11:43:14,282103,加古川市,sns_line,ok,ok,5338,https://page.line.me/kakogawacity,502,https://page.line.me/kakogawacity,,HTTPError 502,1
+2026-11-25T11:43:14,282120,赤穂市,sns_line,ok,ok,5344,https://page.line.me/akocity,,https://page.line.me/akocity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282138,西脇市,sns_line,ok,ok,5350,https://page.line.me/nishiwakicity,,https://page.line.me/nishiwakicity,,国内から: timed out (Operation timed out after 15002 milliseconds with 0 bytes received),1
+2026-11-25T11:43:14,282162,高砂市,sns_line,ok,ok,5369,https://page.line.me/takasagocity,,https://page.line.me/takasagocity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282171,川西市,sns_line,ok,ok,5376,https://page.line.me/city.kawanishi,,https://page.line.me/city.kawanishi,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282189,小野市,sns_line,ok,ok,5382,https://page.line.me/onocity,,https://page.line.me/onocity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282197,三田市,sns_line,ok,ok,5388,https://page.line.me/sanda_city,,https://page.line.me/sanda_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282201,加西市,sns_line,ok,ok,5393,https://page.line.me/kasaicity,,https://page.line.me/kasaicity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282219,丹波篠山市,sns_line,ok,ok,5398,https://page.line.me/tambasasayama,,https://page.line.me/tambasasayama,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282227,養父市,sns_line,ok,ok,5404,https://page.line.me/yabucity,,https://page.line.me/yabucity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282235,丹波市,sns_line,ok,ok,5410,https://page.line.me/tambacity,,https://page.line.me/tambacity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282243,南あわじ市,sns_line,ok,ok,5417,https://page.line.me/minamiawajicity,,https://page.line.me/minamiawajicity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282251,朝来市,sns_line,ok,ok,5422,https://page.line.me/asagocity,,https://page.line.me/asagocity,,国内から: timed out (Operation timed out after 15002 milliseconds with 0 bytes received),1
+2026-11-25T11:43:14,282260,淡路市,sns_line,ok,ok,5429,https://page.line.me/awajicity,502,https://page.line.me/awajicity,,HTTPError 502,1
+2026-11-25T11:43:14,282278,宍粟市,sns_line,ok,ok,5436,https://page.line.me/shisocity,,https://page.line.me/shisocity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282286,加東市,sns_line,ok,ok,5442,https://page.line.me/640ucxcn,,https://page.line.me/640ucxcn,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282294,たつの市,sns_line,ok,ok,5448,https://page.line.me/tatsuno.city,,https://page.line.me/tatsuno.city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,282294,たつの市,kouhou,dead,dead,5449,https://www.city.tatsuno.lg.jp/shisei/kouhou/kouhoutatsuno/,404,https://www.city.tatsuno.lg.jp/shisei/kouhou/kouhoutatsuno/,,HTTPError 404,0
+2026-11-25T11:43:14,283011,猪名川町,sns_line,ok,ok,5454,https://page.line.me/inagawa_town,,https://page.line.me/inagawa_town,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,283011,猪名川町,kouhou,dead,dead,5455,https://www.town.inagawa.lg.jp/soshiki/kikakusomu/kouhou/chousei/kouhou/kouhouinagawa/,404,https://www.town.inagawa.lg.jp/soshiki/kikakusomu/kouhou/chousei/kouhou/kouhouinagawa/,,HTTPError 404,0
+2026-11-25T11:43:14,283657,多可町,official,unchecked,unchecked,5456,https://www.town.taka.lg.jp/,,https://www.town.taka.lg.jp/,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>,1
+2026-11-25T11:43:14,283657,多可町,sns_line,ok,ok,5461,https://page.line.me/takacho,,https://page.line.me/takacho,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,283657,多可町,kouhou,unchecked,unchecked,5462,https://www.town.taka.lg.jp/kouho/,,https://www.town.taka.lg.jp/kouho/,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>,1
+2026-11-25T11:43:14,283819,稲美町,sns_line,ok,ok,5467,https://page.line.me/inami-town,,https://page.line.me/inami-town,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,283827,播磨町,sns_line,ok,ok,5473,https://page.line.me/harimatown,,https://page.line.me/harimatown,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,284424,市川町,sns_line,ok,ok,5480,https://page.line.me/ichikawa_town,,https://page.line.me/ichikawa_town,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,284467,神河町,sns_line,ok,ok,5490,https://page.line.me/kamikawa_hyogo,,https://page.line.me/kamikawa_hyogo,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,284645,太子町,sns_line,ok,ok,5496,https://page.line.me/hyogo-taishi,,https://page.line.me/hyogo-taishi,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,284815,上郡町,sns_line,ok,ok,5502,https://page.line.me/kamigori_town,,https://page.line.me/kamigori_town,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,285013,佐用町,sns_line,ok,ok,5508,https://page.line.me/sayotown,,https://page.line.me/sayotown,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,285854,香美町,kouhou,dead,dead,5513,https://www.town.mikata-kami.lg.jp/www/genre/1000000000090/,404,https://www.town.mikata-kami.lg.jp/www/genre/1000000000090/,,HTTPError 404,0
+2026-11-25T11:43:14,285862,新温泉町,sns_line,ok,ok,5518,https://page.line.me/shinonsentown,,https://page.line.me/shinonsentown,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,080004,茨城県,sns_line,ok,ok,5525,https://page.line.me/ibarakiken,,https://page.line.me/ibarakiken,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082015,水戸市,sns_line,ok,ok,5532,https://page.line.me/mitocity,,https://page.line.me/mitocity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082023,日立市,sns_line,ok,ok,5539,https://page.line.me/hitachi-city,,https://page.line.me/hitachi-city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082031,土浦市,sns_line,ok,ok,5546,https://page.line.me/tsuchiuracity,,https://page.line.me/tsuchiuracity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082040,古河市,sns_line,ok,ok,5553,https://page.line.me/koga_city,,https://page.line.me/koga_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082058,石岡市,sns_line,ok,ok,5560,https://page.line.me/ishioka_city,,https://page.line.me/ishioka_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082074,結城市,sns_line,ok,ok,5567,https://page.line.me/yuki-city,,https://page.line.me/yuki-city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082112,常総市,sns_line,ok,ok,5588,https://page.line.me/joso_city,502,https://page.line.me/joso_city,,HTTPError 502,1
+2026-11-25T11:43:14,082171,取手市,sns_line,ok,ok,5620,https://page.line.me/toridecity,,https://page.line.me/toridecity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082198,牛久市,sns_line,ok,ok,5627,https://page.line.me/ushikucity,,https://page.line.me/ushikucity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082201,つくば市,sns_line,ok,ok,5634,https://page.line.me/tsukubacity,,https://page.line.me/tsukubacity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082210,ひたちなか市,sns_line,ok,ok,5641,https://page.line.me/hitachinakacity,,https://page.line.me/hitachinakacity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082228,鹿嶋市,sns_line,ok,ok,5648,https://page.line.me/kashima_city,,https://page.line.me/kashima_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082236,潮来市,sns_line,ok,ok,5654,https://page.line.me/itako082236,,https://page.line.me/itako082236,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082261,那珂市,sns_line,ok,ok,5673,https://page.line.me/naka-city,,https://page.line.me/naka-city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082279,筑西市,sns_line,ok,ok,5680,https://page.line.me/chikusei-city,,https://page.line.me/chikusei-city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082287,坂東市,sns_line,ok,ok,5686,https://page.line.me/bando-city,,https://page.line.me/bando-city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082295,稲敷市,sns_line,ok,ok,5693,https://page.line.me/inashiki_city,,https://page.line.me/inashiki_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082309,かすみがうら市,sns_line,ok,ok,5699,https://page.line.me/kasumigaura_city,,https://page.line.me/kasumigaura_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082317,桜川市,sns_line,ok,ok,5706,https://page.line.me/sakuragawa_city,,https://page.line.me/sakuragawa_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082325,神栖市,sns_line,ok,ok,5712,https://page.line.me/kamisu_city,,https://page.line.me/kamisu_city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082333,行方市,sns_line,ok,ok,5717,https://page.line.me/namegatacity,,https://page.line.me/namegatacity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082341,鉾田市,sns_line,ok,ok,5723,https://page.line.me/hokotacity,,https://page.line.me/hokotacity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,082350,つくばみらい市,sns_line,ok,ok,5729,https://page.line.me/tsukubamiraicity,,https://page.line.me/tsukubamiraicity,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,083020,茨城町,sns_line,ok,ok,5741,https://page.line.me/ibarakitown,,https://page.line.me/ibarakitown,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,083097,大洗町,sns_line,ok,ok,5746,https://page.line.me/469aifgg,,https://page.line.me/469aifgg,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,083411,東海村,sns_line,ok,ok,5757,https://page.line.me/tokai_vill,,https://page.line.me/tokai_vill,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,084476,河内町,official,unchecked,unchecked,5777,https://www.town.ibaraki-kawachi.lg.jp/,202,https://www.town.ibaraki-kawachi.lg.jp/,,,1
+2026-11-25T11:43:14,084476,河内町,kouhou,unchecked,unchecked,5780,https://www.town.ibaraki-kawachi.lg.jp/page/dir000109.html,202,https://www.town.ibaraki-kawachi.lg.jp/page/dir000109.html,,,1
+2026-11-25T11:43:14,085421,五霞町,sns_line,ok,ok,5793,https://page.line.me/goka.town08542,502,https://page.line.me/goka.town08542,,HTTPError 502,1
+2026-11-25T11:43:14,085464,境町,sns_line,ok,ok,5799,https://page.line.me/sakaitown,502,https://page.line.me/sakaitown,,HTTPError 502,1
+2026-11-25T11:43:14,170003,石川県,sns_line,ok,ok,5812,https://page.line.me/ishikawaken,,https://page.line.me/ishikawaken,,国内から: timed out (Operation timed out after 15002 milliseconds with 0 bytes received),1
+2026-11-25T11:43:14,172014,金沢市,sns_line,ok,ok,5819,https://page.line.me/cityofkanazawa,,https://page.line.me/cityofkanazawa,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,172022,七尾市,sns_line,ok,ok,5826,https://page.line.me/nanao.city,,https://page.line.me/nanao.city,,国内から: RemoteDisconnected (Empty reply from server),1
+2026-11-25T11:43:14,172022,七尾市,kouhou,ok,ok,5827,https://www.city.nanao.lg.jp/koho/shise/koho/kohonanao/,,https://www.city.nanao.lg.jp/koho/shise/koho/kohonanao/,,URLError: <urlopen error timed out>,1
+2026-11-25T11:43:14,172031,小松市,sns_line,ok,ok,5833,https://page.line.me/komatsu-city,,https://page.line.me/komatsu-city,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172031,小松市,kouhou,dead,dead,5834,https://www.city.komatsu.lg.jp/soshiki/kouhouhisho/kouhoukoucyoutantou/kouhoukomatsu/kohokomatsunew/13429.html,404,https://www.city.komatsu.lg.jp/soshiki/kouhouhisho/kouhoukoucyoutantou/kouhoukomatsu/kohokomatsunew/13429.html,,HTTPError 404,0
+2026-11-25T11:43:14,172049,輪島市,sns_line,ok,ok,5837,https://page.line.me/wajimashi,,https://page.line.me/wajimashi,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172057,珠洲市,sns_line,ok,ok,5841,https://page.line.me/suzucity,,https://page.line.me/suzucity,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172065,加賀市,sns_line,ok,ok,5847,https://page.line.me/kaga-city,,https://page.line.me/kaga-city,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172065,加賀市,kouhou,ok,ok,5848,https://www.city.kaga.ishikawa.jp/shisei_gikai/koho_kocho/kohokaga/,,https://www.city.kaga.ishikawa.jp/shisei_gikai/koho_kocho/kohokaga/,,URLError: <urlopen error timed out>,1
+2026-11-25T11:43:14,172073,羽咋市,sns_line,ok,ok,5854,https://page.line.me/hakuishi,,https://page.line.me/hakuishi,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172090,かほく市,sns_line,ok,ok,5861,https://page.line.me/kahoku-city,,https://page.line.me/kahoku-city,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172103,白山市,sns_line,ok,ok,5866,https://page.line.me/city.hakusan,,https://page.line.me/city.hakusan,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172111,能美市,sns_line,ok,ok,5872,https://page.line.me/nomicity,,https://page.line.me/nomicity,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,172111,能美市,kouhou,dead,dead,5873,https://www.city.nomi.ishikawa.jp/www/genre/1553578652379/,404,https://www.city.nomi.ishikawa.jp/www/genre/1553578652379/,,HTTPError 404,0
+2026-11-25T11:43:14,172120,野々市市,sns_line,ok,ok,5878,https://page.line.me/nonoichicity,,https://page.line.me/nonoichicity,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173240,川北町,sns_line,ok,ok,5883,https://page.line.me/kawakita_town,,https://page.line.me/kawakita_town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173614,津幡町,sns_line,ok,ok,5889,https://page.line.me/tsubata-town,,https://page.line.me/tsubata-town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173614,津幡町,kouhou,dead,dead,5890,https://www.town.tsubata.lg.jp/division/kikaku/kouhou_tsubata.html,404,https://www.town.tsubata.lg.jp/division/kikaku/kouhou_tsubata.html,,HTTPError 404,0
+2026-11-25T11:43:14,173657,内灘町,sns_line,ok,ok,5894,https://page.line.me/uchinada-town,,https://page.line.me/uchinada-town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173843,志賀町,sns_line,ok,ok,5900,https://page.line.me/shikatown,,https://page.line.me/shikatown,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173843,志賀町,kouhou,dead,dead,5901,https://www.town.shika.lg.jp/jouhou/kouhou_shika/kouhou_backnumber.html,404,https://www.town.shika.lg.jp/jouhou/kouhou_shika/kouhou_backnumber.html,,HTTPError 404,0
+2026-11-25T11:43:14,173860,宝達志水町,sns_line,ok,ok,5905,https://page.line.me/hodatsushimizu,,https://page.line.me/hodatsushimizu,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,173860,宝達志水町,kouhou,ok,ok,5906,https://www.hodatsushimizu.jp/soshiki/johosuishinka/3/2/,,https://www.hodatsushimizu.jp/soshiki/johosuishinka/3/2/,,URLError: <urlopen error timed out>,1
+2026-11-25T11:43:14,174076,中能登町,sns_line,ok,ok,5909,https://page.line.me/nakanoto,,https://page.line.me/nakanoto,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,174637,能登町,sns_line,ok,ok,5921,https://page.line.me/noto.town,,https://page.line.me/noto.town,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,174637,能登町,kouhou,dead,dead,5922,https://www.town.noto.lg.jp/www/free/index.jsp,404,https://www.town.noto.lg.jp/www/free/index.jsp,,HTTPError 404,0
+2026-11-25T11:43:14,030007,岩手県,sns_line,ok,ok,5928,https://page.line.me/iwate.pref,,https://page.line.me/iwate.pref,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,032018,盛岡市,sns_line,ok,ok,5935,https://page.line.me/moriokacity,,https://page.line.me/moriokacity,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,032018,盛岡市,kouhou,dead,dead,5936,https://www.city.morioka.iwate.jp/shisei/1021559/1021610/kohomorioka/,404,https://www.city.morioka.iwate.jp/shisei/1021559/1021610/kohomorioka/,,HTTPError 404,0
+2026-11-25T11:43:14,032026,宮古市,sns_line,ok,ok,5942,https://page.line.me/385miyako,,https://page.line.me/385miyako,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,032026,宮古市,kouhou,dead,dead,5943,https://www.city.miyako.iwate.jp/index/sosiki/kouhou_miyako.html,404,https://www.city.miyako.iwate.jp/index/sosiki/kouhou_miyako.html,,HTTPError 404,0
+2026-11-25T11:43:14,032034,大船渡市,kouhou,dead,dead,5950,https://www.city.ofunato.iwate.jp/site/koho/,404,https://www.city.ofunato.iwate.jp/site/koho/,,HTTPError 404,0
+2026-11-25T11:43:14,032077,久慈市,kouhou,dead,dead,5970,https://www.city.kuji.iwate.jp/shisei/koho/kohokuji/index.html,,https://www.city.kuji.iwate.jp/shisei/koho/kohokuji/index.html,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1011)>,0
+2026-11-25T11:43:14,032085,遠野市,sns_line,ok,ok,5973,https://page.line.me/tonocity,502,https://page.line.me/tonocity,,HTTPError 502,1
+2026-11-25T11:43:14,032115,釜石市,sns_line,ok,ok,5991,https://page.line.me/kamaishi03211,,https://page.line.me/kamaishi03211,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,032131,二戸市,sns_line,ok,ok,5997,https://page.line.me/ninohe_city,,https://page.line.me/ninohe_city,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,032140,八幡平市,sns_line,ok,ok,6004,https://page.line.me/hachimantaicity,,https://page.line.me/hachimantaicity,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,032158,奥州市,sns_line,ok,ok,6011,https://page.line.me/oshucity,,https://page.line.me/oshucity,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,032166,滝沢市,sns_line,ok,ok,6018,https://page.line.me/takizawa-line,,https://page.line.me/takizawa-line,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,032166,滝沢市,kouhou,dead,dead,6019,https://www.city.takizawa.iwate.jp/kouhou/,404,https://www.city.takizawa.iwate.jp/kouhou/,,HTTPError 404,0
+2026-11-25T11:43:14,033219,紫波町,sns_line,ok,ok,6039,https://page.line.me/shiwatown,,https://page.line.me/shiwatown,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,033227,矢巾町,sns_line,ok,ok,6046,https://page.line.me/yahaba-town,,https://page.line.me/yahaba-town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,033669,西和賀町,sns_line,ok,ok,6049,https://page.line.me/nishiwaga_town,,https://page.line.me/nishiwaga_town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,033812,金ケ崎町,sns_line,ok,ok,6056,https://page.line.me/kanegasakitown,,https://page.line.me/kanegasakitown,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,034029,平泉町,sns_line,ok,ok,6061,https://page.line.me/hiraizumitown,,https://page.line.me/hiraizumitown,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,034614,大槌町,sns_line,ok,ok,6071,https://page.line.me/otsuchi,,https://page.line.me/otsuchi,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,034835,岩泉町,sns_line,ok,ok,6082,https://page.line.me/iwaizumi_town,,https://page.line.me/iwaizumi_town,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,034843,田野畑村,sns_line,ok,ok,6088,https://page.line.me/tanohata,,https://page.line.me/tanohata,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,035017,軽米町,sns_line,ok,ok,6097,https://page.line.me/karumai,,https://page.line.me/karumai,,RemoteDisconnected: Remote end closed connection without response,1
+2026-11-25T11:43:14,035033,野田村,sns_line,ok,ok,6103,https://page.line.me/noda_vill,,https://page.line.me/noda_vill,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,035076,洋野町,sns_line,ok,ok,6111,https://page.line.me/iwate-hirono-town,,https://page.line.me/iwate-hirono-town,,TimeoutError: The read operation timed out,1
+2026-11-25T11:43:14,372064,さぬき市,kouhou,dead,dead,6160,https://www.city.sanuki.kagawa.jp/life/prmagazine/prmagazine,,https://www.city.sanuki.kagawa.jp/life/prmagazine/prmagazine,,URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1011)>,0
+2026-11-25T11:43:14,373869,宇多津町,kouhou,dead,dead,6195,https://www.town.utazu.lg.jp/chosei/sonota/koho/,404,https://www.town.utazu.lg.jp/chosei/sonota/koho/,,HTTPError 404,0
+2026-11-25T11:43:14,374067,まんのう町,kouhou,dead,dead,6214,https://www.town.manno.lg.jp/chosei/koho_manno/,404,https://www.town.manno.lg.jp/chosei/koho_manno/,,HTTPError 404,0
+2026-11-25T11:43:14,462063,阿久根市,kouhou,dead,dead,6242,https://www.city.akune.lg.jp/shiseijoho/koho/kohoakune/,404,https://www.city.akune.lg.jp/shiseijoho/koho/kohoakune/,,HTTPError 404,0
+2026-11-25T11:43:14,465020,南種子町,sns_youtube,ok,ok,6384,https://www.youtube.com/user/minamitanetown,,http://www.town.minamitane.kagoshima.jp/,,公式サイトのトップページから、このアカウントへのリンクがなくなった,1
+2026-11-25T11:43:14,465054,屋久島町,kouhou,dead,dead,6391,http://www.town.yakushima.kagoshima.jp/info-magazine/,404,http://www.town.yakushima.kagoshima.jp/info-magazine/,,HTTPError 404,0
+2026-11-25T11:43:14,465348,知名町,kouhou,dead,dead,6446,https://www.town.china.lg.jp/kikakushinkou/kurasu/chosejoho/koho-kocho/kohochina/,404,https://www.town.china.lg.jp/kikakushinkou/kurasu/chosejoho/koho-kocho/kohochina/,,HTTPError 404,0
+2026-11-25T11:43:14,142115,秦野市,kouhou,dead,dead,6535,https://www.city.hadano.kanagawa.jp/www/genre/1000000000680/,404,https://www.city.hadano.kanagawa.jp/www/genre/1000000000680/,,HTTPError 404,0
+2026-11-25T11:43:14,143839,真鶴町,sns_youtube,dead,dead,6644,https://www.youtube.com/@user-de9pp7ez3j,404,https://www.youtube.com/@user-de9pp7ez3j,,HTTPError 404,0
+2026-11-25T11:43:14,143839,真鶴町,kouhou,dead,dead,6646,https://www.town.manazuru.kanagawa.jp/soshiki/kikaku/senryakusuishin/publicrelations/,404,https://www.town.manazuru.kanagawa.jp/soshiki/kikaku/senryakusuishin/publicrelations/,,HTTPError 404,0
+2026-11-25T11:43:14,392103,四万十市,kouhou,dead,dead,6714,http://www.city.shimanto.lg.jp/gyosei/kouhou.html,404,http://www.city.shimanto.lg.jp/gyosei/kouhou.html,,HTTPError 404,0
+2026-11-25T11:43:14,393011,東洋町,official,dead,dead,6725,http://www.town.toyo.kochi.jp/,,http://www.town.toyo.kochi.jp/,,URLError: <urlopen error timed out>,0
+2026-11-25T11:43:14,393011,東洋町,kouhou,dead,dead,6727,http://www.town.toyo.kochi.jp/contents/a02b07.php,,http://www.town.toyo.kochi.jp/contents/a02b07.php,,URLError: <urlopen error timed out>,0
+2026-11-25T11:43:14,393037,田野町,kouhou,dead,dead,6733,https://tanocho.jp/magazine/,404,https://tanocho.jp/magazine/,,HTTPError 404,0
+2026-11-25T11:43:14,393631,土佐町,kouhou,dead,dead,6761,http://www.town.tosa.kochi.jp/publics/index/16/,404,http://www.town.tosa.kochi.jp/publics/index/16/,,HTTPError 404,0
+2026-11-25T11:43:14,394050,梼原町,kouhou,dead,dead,6787,http://www.town.yusuhara.kochi.jp/town/kouhou/,404,http://www.town.yusuhara.kochi.jp/town/kouhou/,,HTTPError 404,0
+2026-11-25T11:43:14,394271,三原村,kouhou,dead,dead,6811,http://www.vill.mihara.kochi.jp/kurasi/kouhou/,404,http://www.vill.mihara.kochi.jp/kurasi/kouhou/,,HTTPError 404,0
+2026-11-25T11:43:14,431001,熊本市,kouhou,dead,dead,6831,https://www.city.kumamoto.jp/hpkiji/pub/List.aspx?c_id=5&class_set_id=2&class_id=253,404,https://www.city.kumamoto.jp/hpkiji/pub/List.aspx?c_id=5&class_set_id=2&class_id=253,,HTTPError 404,0
+2026-11-25T11:43:14,433683,長洲町,kouhou,dead,dead,6923,https://www.town.nagasu.lg.jp/list00145.html,404,https://www.town.nagasu.lg.jp/list00145.html,,HTTPError 404,0
+2026-11-25T11:43:14,433691,和水町,kouhou,dead,dead,6930,https://www.town.nagomi.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=669,404,https://www.town.nagomi.lg.jp/hpkiji/pub/List.aspx?c_id=3&class_set_id=1&class_id=669,,HTTPError 404,0
